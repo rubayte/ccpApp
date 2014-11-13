@@ -6,10 +6,60 @@ class User
     return con
   end
   
+  ## get user data
+  def self.getUserData(user)
+
+    if user =~ /@/
+      ccU = User.new.self
+      qryUsers = "select * from users where email = '" + user + "'"
+      refUsers = ccU.query(qryUsers)
+      ccU.close
+      return refUsers,refUsers.num_rows
+    else
+      ccU = User.new.self
+      qryUsers = "select * from users where username = '" + user + "'"
+      refUsers = ccU.query(qryUsers)
+      ccU.close
+      return refUsers,refUsers.num_rows 
+    end
+    
+  end
+  
+  ## update user data
+  def self.updateUser(user,params)
+  
+    msg = ""
+    ccU = User.new.self    
+    
+    if user =~ /@/
+        qryUsers = "update users set `firstname` = '" + params[:edit_firstname] + "'," + " `lastname` = '" + params[:edit_lastname] + "'," + " `institute` = '" + 
+        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "'," + " `working_group` = '" + params[:edit_workinggroup] + "' where email = '" + user + "'"
+        refUsers = ccU.query(qryUsers)
+        msg = "updated"
+    else
+        qryUsers = "update users set `firstname` = '" + params[:edit_firstname] + "'," + " `lastname` = '" + params[:edit_lastname] + "'," + " `institute` = '" + 
+        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "', " + " `working_group` = '" + params[:edit_workinggroup] + "' where username = '" + user + "'"
+        refUsers = ccU.query(qryUsers)
+        msg = "updated"
+    end
+    ccU.close
+    
+    ## save pic to target dir
+    targetImageFile = user + ".jpg"
+    imgmsg = Datafile.updateProfileImage(params[:pictureFile],targetImageFile)
+    if imgmsg != "uploaded"
+      msg = "failed_image_uplaod"
+    end
+    
+    return msg
+    
+  end
+  
+  
   ## get all users for the project
   def self.getUsers()
     ccU = User.new.self
-    qryUsers = "select `firstname`,`lastname`,`email`,`institute`,`group`,`working_group`,`picture` from users"
+    qryUsers = "select `username`,`firstname`,`lastname`,`email`,`institute`,`group`,`working_group` from users"
     refUsers = ccU.query(qryUsers)
     ccU.close
     
@@ -108,6 +158,7 @@ class User
         " values('"+ params[:login_username] +"','"+ params[:login_email] +"','"+ pass +"','"+ salt+"',NOW());"
         ccU.query(qryInsert)
         msg = "success"
+        #msg = qryInsert
       end  
     end
     ccU.close

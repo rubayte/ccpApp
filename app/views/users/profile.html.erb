@@ -1,0 +1,21 @@
+<div class="row-fluid">
+	<div class="container">
+
+		<div span="12">
+
+			<%= form_tag({:controller => 'users',:action => 'updateUserData'}, :multipart => true) do %>
+				Username: <%= @profile['username'] %></br>				
+				First name:<%= text_field_tag :edit_firstname , @profile['firstname'] %></br>
+				Last name: <%= text_field_tag :edit_lastname , @profile['lastname'] %></br>
+				Email: <%= @profile['email'] %></br>				
+				Institute: <%= text_field_tag :edit_institute , @profile['institute'] %></br>
+				Group: <%= text_field_tag :edit_group , @profile['group'] %></br>
+				Working group: <%= text_field_tag :edit_workinggroup , @profile['workinggroup'] %></br>
+				Upload new picture: <%= file_field_tag 'pictureFile'%> </br></br>				
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>		
+			<% end -%>	
+
+		</div>
+
+	</div>
+</div>

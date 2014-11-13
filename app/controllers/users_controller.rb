@@ -7,6 +7,44 @@ class UsersController < ApplicationController
   end
 
 
+  def profile
+    @profile = {}
+    (res,rows) = User.getUserData(session[:user])
+    if rows > 0
+      res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12|
+        @profile['username'] = r1
+        @profile['firstname'] = r2
+        @profile['lastname'] = r3
+        @profile['email'] = r4
+        @profile['institute'] = r5
+        @profile['group'] = r6
+        @profile['workinggroup'] = r7
+        @profile['picture'] = r8
+      end
+    end  
+  end
+  
+  def updateUserData
+    valmsg = ""
+    valmsg = User.updateUser(session[:user],params)
+    if valmsg == "updated"
+      redirect_to :profile
+      flash[:notice] = "Profile saved !!"
+      flash[:color]= "valid"
+      return            
+    elsif valmsg == "failed_image_uplaod"
+      redirect_to :profile
+      flash[:notice] = "Profile image could not be upladed. Try again !!"
+      flash[:color]= "invalid"
+      return
+    else
+      redirect_to :profile
+      flash[:notice] = "Something went wrong !!"
+      flash[:color]= "invalid"
+      return                  
+    end
+  end
+  
   def autheticateUser
     valmsg = ""
     if (params[:login_id] == "" or params[:login_password] == "")

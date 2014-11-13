@@ -4,6 +4,15 @@ class Datafile
     
   end
   
+  def self.updateProfileImage(infile,targetFileName)
+    msg = ""
+    File.open(Rails.root.join('app','assets','images',targetFileName), 'wb') do |iostream|
+      iostream.write(infile.read)
+    end
+    msg = "uploaded"
+    return msg
+  end
+  
   def self.uploadDataFiles(params)   
       valMsg = nil
       ## check work group type
