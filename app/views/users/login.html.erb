@@ -1,0 +1,31 @@
+<div class="row-fluid">
+		
+	<div class="container">
+		
+		<div align="center">
+		<p>Log in to combat-cancer webportal.</p>
+		<%= form_tag(:controller => 'users', :action => 'autheticateUser') do %>				
+			<%= text_field_tag :login_id , nil, :placeholder => "username/email" %></br>
+			<%= password_field_tag :login_password, nil,:placeholder => "password" %></br>
+			<%= submit_tag "Login", :class => 'btn btn-primary btn-large' %>		
+		<% end -%>	
+
+		</div>
+		
+		<div align="center">
+		<p>If you dont have an account yet, please register below.</p> 
+		<%= form_tag(:controller => 'users', :action => 'createUser') do %>				
+			<%= text_field_tag :login_username , nil, :placeholder => "username" %></br>
+			<%= text_field_tag :login_email , nil, :placeholder => "email" %></br>
+			<%= password_field_tag :login_password, nil,:placeholder => "password" %></br>
+			<%= password_field_tag :login_password_confirm, nil,:placeholder => "password again" %></br>
+			<%= submit_tag "Register", :class => 'btn btn-primary btn-large' %>		
+		<% end -%>	
+
+		</div>
+
+
+	</div>
+	
+		
+</div>

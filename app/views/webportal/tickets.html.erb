@@ -1,0 +1,21 @@
+<div class="row-fluid">
+
+	<div class="container">
+		
+		<div span="12">
+      	
+      		   <div align="left">
+      				<h4>Create tickets/issues</h4>
+      					<%= form_tag(:controller => 'webportal',:action => 'createIssues') do %>
+							Subject: <%= text_field_tag "issueSub" %><br><br>
+							Details: <%= text_area_tag 'issueDesc', nil, size: "10x10" %><br><br>
+							Priority: <%= select_tag "issuePriority", options_for_select(@ptypes) %><br><br>
+							<%= check_box_tag(:createNew) %> Create another ticket</br></br>
+	          				<%= submit_tag 	"Create",  :class => 'btn btn-primary btn-medium' %>
+				       	<% end %>
+				</div>
+
+      							
+		</div>
+	</div>
+</div>

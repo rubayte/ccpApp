@@ -1,0 +1,40 @@
+<div class="row-fluid">
+	<div class="container">
+
+		<div span="12">
+			<table class="table table-hover">			
+				<thead>
+					<tr>
+						<th>Firstname</th><th>Lastname</th><th>Email</th><th>Institute</th><th>Group</th><th>Working groups</th><th>Picture</th>
+					</tr>
+				</thead>	
+				<tbody>
+					<%File.open("memberlist/" + "listofpeople.txt" ,"r") do |infile| -%>
+						<% while (line = infile.gets) -%>
+						<% col = 1%>
+					<tr>
+							<% items = line.split("|") -%>
+							<% items.each do |item| -%>
+						<td>
+								<% if col == 1 -%>
+									<%= link_to "#{item}", "#" %>
+									<% col = col + 1%>
+								<% elsif col == 7 -%>
+									<%= image_tag('member_image.png')%>
+									<% col = col + 1%>
+								<% else -%>	
+									<%= item %>
+									<% col = col + 1%>
+								<% end -%> 
+        				</td>
+        					<% end -%>
+        			</tr>
+        				<% end -%>		
+					<% end -%>
+				</tbody>		
+			</table>
+		
+		</div>
+
+	</div>
+</div>

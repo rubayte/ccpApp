@@ -1,0 +1,48 @@
+David|Adams|da1@sanger.ac.uk|WTSI|Adams|Chemical|-
+Daniele|Perna|dp8@sanger.ac.uk|WTSI|Adams|Melanoma, Genetic, Chemical|-
+Clara|Alsinet Armengol|ca6@sanger.ac.uk|WTSI|Adams|Chemical|-
+Marco|Ranzani|mr10@sanger.ac.uk|WTSI|Adams|Melanoma, Genetic, Chemical|-
+Josep|Forment|jvf21@cam.ac.uk|WTSI|Adams|-|-
+Alistair|Rust|ar12@sanger.ac.uk|WTSI|Adams|-|-
+Mathew|Garnet|mg12@sanger.ac.uk|WTSI|Garnet|Chemical|-
+Ultan|McDermott|um1@sanger.ac.uk|WTSI|McDermott|Colorectal|-
+Constantine|Alifrangis|ca4@sanger.ac.uk|WTSI|McDermott|Lung, Chemical|-
+Francesco|Lorio|iorio@ebi.ac.uk|WTSI|McDermott|Lung|-
+Anton|Berns|a.berns@nki.nl|NKI|Berns|Lung, Genetic, Chemical|-
+Jitendra|Badhai|j.badhai@nki.nl|NKI|Berns|Lung, Genetic, Chemical|-
+Lorenzo|Bombardelli|l.bombardelli@nki.nl|NKI|Berns|Lung, Genetic, Chemical|-
+Giustina|Ferone|g.ferone@nki.nl|NKI|Berns|Lung|-
+Ivo|Huijbers|i.huijbers@nki.nl|NKI|Berns|Lung|-
+Paul|Krimpenfort|p.krimpenfort@nki.nl|NKI|Berns|Lung|-
+Min Chul|Kwon|m.c.kwon@nki.nl|NKI|Berns|Lung, Genetic, Chemical|-
+Remco|Nagel|r.nagel@nki.nl|NKI|Berns|Lung, Genetic|-
+Hilda|de Vries|h.d.vries@nki.nl|NKI|Berns|Lung, Genetic, Chemical|-
+Jos|Jonkers|j.jonkers@nki.nl|NKI|Jonkers|Chemical|-
+Stefano|Annunziato|s.annunziato@nki.nl|NKI|Jonkers|Breast, Genetic|-
+Sjors|Kas|s.kas@nki.nl|NKI|Jonkers|Breast, Genetic, Chemical|-
+Julian|de Ruiter|j.d.ruiter@nki.nl|NKI|Jonkers/Wessels|Genetic|-
+Daniel|Peeper|d.peeper@nki.nl|NKI|Peeper|Melanoma|-
+Xinyao|Huang|x.huang@nki.nl|NKI|Peeper|Melanoma|-
+Joanna|Kaplon|j.kaplon@nki.nl|NKI|Peeper|Melanoma, Genetic, Chemical|-
+Kristel|Kemper|k.kemper@nki.nl|NKI|Peeper|Melanoma, Genetic|-
+Xiangjun|Kong|x.kong@nki.nl|NKI|Peeper|Melanoma|-
+Oscar|Krijgsman|o.krijgsman@nki.nl|NKI|Peeper|Melanoma, Chemical|-
+Patricia|Possik|p.possik@nki.nl|NKI|Peeper|Melanoma, Genetic, Chemical|-
+Judith|Mueller|j.mueller@nki.nl|NKI|Peeper|Melanoma, Genetic, Chemical|-
+Aida|Shahrabi|a.shahrabi@nki.nl|NKI|Peeper|Melanoma|-
+Thomas|Kuilman|t.kuilman@nki.nl|NKI|Peeper|Melanoma|-
+Lodewyk|Wessels|l.wessels@nki.nl|NKI|Wessels|Colorectal, Chemical|-
+Nanne|Aben|n.aben@nki.nl|NKI|Wessels|Lung|-
+Magali|Michaut|m.michaut@nki.nl|NKI|Wessels|Colorectal, Chemical|-
+Daniel|Vis|d.vis@nki.nl|NKI|Wessels|Colorectal, Melanoma, Lung, Chemical|-
+Tom|de Knegt|t.d.knegt@nki.nl|NKI|Peeper|Administration|-
+Marij|Degen|m.degen@nki.nl|NKI|Berns|Administration|-
+Mirna|Ekelschot-van Diermen|m.v.diermen@nki.nl|NKI|Jonkers|Administration|-
+Patty|Lagerweij|p.lagerweij@nki.nl|NKI|Wessels|Administration|-
+Wendy|McLaughlin|wch@sanger.ac.uk|WTSI|McDermott|Administration|-
+Angela|Macharia|am18@sanger.ac.uk|WTSI|Adams|Administration|-
+Rubayte|Rahman|r.rahman@nki.nl|NKI|Wessels|Data Manager|-
+Jonathan|Brammeld|jb34@sanger.ac.uk|WTSI|McDermott|Colorectal, Genetic, Chemical|-
+Stacey|Price|sp7@sanger.ac.uk|WTSI|-|Colorectal|-
+Steven|Williams|sw17@sanger.ac.uk|WTSI|McDermott|Colorectal, Genetic|-
+Ekaterina|Semenova|e.semenova@nki.nl|NKI|Berns|Lung, Chemical|-

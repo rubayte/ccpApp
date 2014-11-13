@@ -1,0 +1,23 @@
+<div class="row-fluid">
+	<div class="container">
+		
+		<div span="12">
+			
+			<div align="left">
+			<h4> Overview of data</h4>
+				<%= form_tag({:controller => 'webportal',:action => 'filterOverview'}, :multipart => true) do %>
+							cancer type: <%= select_tag "fileType", options_for_select(@ctypes) %>
+							sample type: <%= select_tag "wgType", options_for_select(@stypes) %></br>
+							<%= submit_tag 	"Filter",  :class => 'btn btn-primary btn-small' %>
+				<% end %>
+
+			</div>	
+			
+			<div align="center">
+				<%= image_tag('overview.png', size: "1000x1000")%>
+			</div>
+			
+		</div>
+		
+	</div>
+</div>
