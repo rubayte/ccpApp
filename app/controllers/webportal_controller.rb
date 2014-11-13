@@ -158,7 +158,10 @@ class WebportalController < ApplicationController
   end
   
   def members
-    
+    (@res,rows) = User.getUsers()
+    if rows == 0
+      @res = "empty"
+    end
   end
   
   def admin

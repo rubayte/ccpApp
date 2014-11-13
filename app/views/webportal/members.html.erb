@@ -2,35 +2,35 @@
 	<div class="container">
 
 		<div span="12">
-			<table class="table table-hover">			
+			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Firstname</th><th>Lastname</th><th>Email</th><th>Institute</th><th>Group</th><th>Working groups</th><th>Picture</th>
-					</tr>
-				</thead>	
+						<th>First name</th>
+						<th>Last name</th>
+						<th>Email</th>
+						<th>Institute</th>
+						<th>Group</th>
+						<th>Working groups</th>
+						<th>Picture</th>
+				</thead>				
 				<tbody>
-					<%File.open("memberlist/" + "listofpeople.txt" ,"r") do |infile| -%>
-						<% while (line = infile.gets) -%>
-						<% col = 1%>
+					<% if @res == "empty" -%>
 					<tr>
-							<% items = line.split("|") -%>
-							<% items.each do |item| -%>
-						<td>
-								<% if col == 1 -%>
-									<%= link_to "#{item}", "#" %>
-									<% col = col + 1%>
-								<% elsif col == 7 -%>
-									<%= image_tag('member_image.png')%>
-									<% col = col + 1%>
-								<% else -%>	
-									<%= item %>
-									<% col = col + 1%>
-								<% end -%> 
-        				</td>
-        					<% end -%>
-        			</tr>
-        				<% end -%>		
-					<% end -%>
+						<td> empty </td>
+					</tr>
+					<% else -%>
+						<% @res.each do |r1,r2,r3,r4,r5,r6,r7| -%>
+						<tr>
+							<td><%= r1 %></td>
+							<td><%= r2 %></td>
+							<td><%= r3 %></td>
+							<td><%= r4 %></td>
+							<td><%= r5 %></td>
+							<td><%= r6 %></td>
+							<td><%= r7 %></td>
+						</tr>
+						<% end -%>
+					<% end -%>	
 				</tbody>		
 			</table>
 		

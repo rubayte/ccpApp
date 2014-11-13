@@ -6,6 +6,17 @@ class User
     return con
   end
   
+  ## get all users for the project
+  def self.getUsers()
+    ccU = User.new.self
+    qryUsers = "select `firstname`,`lastname`,`email`,`institute`,`group`,`working_group`,`picture` from users"
+    refUsers = ccU.query(qryUsers)
+    ccU.close
+    
+    return refUsers,refUsers.num_rows
+     
+  end
+  
   ## validate saved user for login
   def self.validateUser(login_id,login_password)
     
@@ -104,7 +115,7 @@ class User
     
   end
 
-  ## encrypt_password
+  ## encrypt password
   def self.encrypt_password(password)
     salt = ""
     encrypted_password = ""
