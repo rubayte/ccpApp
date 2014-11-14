@@ -126,7 +126,7 @@ class User
   end
   
   ## create new user
-  def self.newUser(params)
+  def self.newUser(user,params)
     
     msg = ""
     pass = ""
@@ -158,7 +158,14 @@ class User
         " values('"+ params[:login_username] +"','"+ params[:login_email] +"','"+ pass +"','"+ salt+"',NOW());"
         ccU.query(qryInsert)
         msg = "success"
-        #msg = qryInsert
+        
+        ## save pic to target dir
+        targetImageFile = user + ".jpg"
+        imgmsg = Datafile.updateProfileImage(params[:pictureFile],targetImageFile)
+        if imgmsg != "uploaded"
+          msg = "failed_image_uplaod"
+        end
+
       end  
     end
     ccU.close

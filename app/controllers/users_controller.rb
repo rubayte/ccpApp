@@ -89,7 +89,7 @@ class UsersController < ApplicationController
       flash[:color]= "invalid"
       return
     else
-      valmsg = User.newUser(params)          
+      valmsg = User.newUser(session[:user],params)          
     end
     if valmsg == "invalid_email"
       redirect_to :login
