@@ -3,30 +3,11 @@
 	<div class="container">
 		
 		<div span="12">
-			    <div class="tabbable">
-				    <ul class="nav nav-tabs">
-    					<li class="active"><a href="#tab1" data-toggle="tab">Upload</a></li>
-    					<li><a href="#tab2" data-toggle="tab">View</a></li>
-    				</ul>
-    			<div class="tab-content">
-    				<div class="tab-pane active" id="tab1">
-    					<div align="left">
-      					<h4>Upload data and resources files</h4>
-      					<%= form_tag({:controller => 'webportal',:action => 'uploadFiles'}, :multipart => true) do %>
-							File: <%= file_field_tag 'file'%><br><br>
-							Type: <%= select_tag "fileType", options_for_select(@ftypes) %><br><br>
-							Cancer type: <%= select_tag "wgType", options_for_select(@wgtypes) %><br><br>
-							Sub type: <%= select_tag "sType", options_for_select(@stypes) %><br><br>
-							<input type="checkbox" id="newSubTypeCheckbox" name="newSubTypeCheckbox" value="yes" onclick="javascript:toggletextBox();"/> 
-							Cretae new sub type: <%= text_field_tag "newSubType", '', disabled: true %> <br><br>
-							Comments: <%= text_area_tag 'comments', nil, size: "5x5" %><br><br>
-	          				<%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-medium' %>
-				       	<% end %>
-						</div>
-    				</div>
-    
-    				<div class="tab-pane" id="tab2">
-	    					<% @dirItems.each do |key,value| -%>
+				<p>
+      					<b>Data and resources files</b> &nbsp;
+      					<%=  link_to_modal "Upload new file", "#uploadFile", :class=>"btn btn-primary btn-medium" %>
+	    		</p>			
+	    				<% @dirItems.each do |key,value| -%>
 					    		<div class="container">
 					    			<div class="header"><span><i class="icon-folder-open"></i><%= key %> /</span>
 	    							</div>
@@ -48,14 +29,33 @@
 										</table>	
 									</div>
 								</div>
-							<% end -%>
-					</div>
-			</div>
-		   </div>
+						<% end -%>
       					
 		</div>
 	</div>
 </div>
+
+<div id="uploadFile" class="modal" style="display: none; ">
+
+	<div class="modal-header">
+		<h3>Upload data and resources files</h3>
+	</div>
+	<div class="modal-body">
+	<%= form_tag({:controller => 'webportal',:action => 'uploadFiles'}, :multipart => true) do %>
+		File: <%= file_field_tag 'file'%><br><br>
+		Type: <%= select_tag "fileType", options_for_select(@ftypes) %><br><br>
+		Cancer type: <%= select_tag "wgType", options_for_select(@wgtypes) %><br><br>
+		Sub type: <%= select_tag "sType", options_for_select(@stypes) %><br><br>
+		<input type="checkbox" id="newSubTypeCheckbox" name="newSubTypeCheckbox" value="yes" onclick="javascript:toggletextBox();"/> 
+		Cretae new sub type: <%= text_field_tag "newSubType", '', disabled: true %> <br><br>
+		Comments: <%= text_area_tag 'comments', nil, size: "5x5" %><br><br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+</div>
+
 
 <script type="text/javascript">
 function toggletextBox()

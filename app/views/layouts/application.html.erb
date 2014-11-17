@@ -27,14 +27,14 @@
                   <li><a href="members">Members</a></li>
                   <li><a href="wiki">Wiki</a></li>
                   <li><a href="data">Data</a></li>
-                  <li><a href="resources">Data overview</a></li>
+                  <li><a href="overview">Data overview</a></li>
                   <li><a href="tickets">Tickets</a></li>
                   <li class="divider"></li>
                   <li><a href="admin">Admin</a></li> 
                 </ul>
               </li>
-              <li><a>logged in as <%= session[:user] %></a></li> 
-              <li><a href="logout">logout</a></li>
+              <li><%=  link_to session[:user], :controller => "users", :action => "profile" %></li>
+              <li><%=  link_to "logout", :controller => "users", :action => "logout" %></li> 
             </ul>
           </div><!--/.nav-collapse -->
          <% else -%>

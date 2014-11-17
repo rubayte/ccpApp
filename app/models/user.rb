@@ -6,6 +6,25 @@ class User
     return con
   end
   
+  ## get user profile section data
+  def self.getUserSectionData(user)
+
+    if user =~ /@/
+      ccU = User.new.self
+      qryUsers = "select section,section_details from user_profile_sections where email = '" + user + "' order by id"
+      refUsers = ccU.query(qryUsers)
+      ccU.close
+      return refUsers,refUsers.num_rows
+    else
+      ccU = User.new.self
+      qryUsers = "select section,section_details from user_profile_sections where username = '" + user + "' order by id"
+      refUsers = ccU.query(qryUsers)
+      ccU.close
+      return refUsers,refUsers.num_rows 
+    end
+    
+  end
+
   ## get user data
   def self.getUserData(user)
 
@@ -25,6 +44,21 @@ class User
     
   end
   
+  ## update user section data
+  def self.updateUserSection(user,params)
+    
+    msg = ""
+    ccU = User.new.self
+    qryinsert = "insert into user_profile_sections(`username`,`email`,`section`,`section_details`,`created_on`,`last_updated`) values('" + 
+    params[:username] + "','" + params[:email] + "','" + params[:sectionName] + "','" + params[:sectionDesc] + "',NOW(),NOW());"
+    ccU.query(qryinsert)
+    msg = "added"
+    ccU.close
+
+    return msg
+    
+  end
+
   ## update user data
   def self.updateUser(user,params)
   
@@ -33,22 +67,24 @@ class User
     
     if user =~ /@/
         qryUsers = "update users set `firstname` = '" + params[:edit_firstname] + "'," + " `lastname` = '" + params[:edit_lastname] + "'," + " `institute` = '" + 
-        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "'," + " `working_group` = '" + params[:edit_workinggroup] + "' where email = '" + user + "'"
+        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "'," + " `working_group` = '" + params[:edit_workinggroup] + "', `last_edit_on` = NOW() where email = '" + user + "'"
         refUsers = ccU.query(qryUsers)
         msg = "updated"
     else
         qryUsers = "update users set `firstname` = '" + params[:edit_firstname] + "'," + " `lastname` = '" + params[:edit_lastname] + "'," + " `institute` = '" + 
-        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "', " + " `working_group` = '" + params[:edit_workinggroup] + "' where username = '" + user + "'"
+        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "', " + " `working_group` = '" + params[:edit_workinggroup] + "', `last_edit_on` = NOW()  where username = '" + user + "'"
         refUsers = ccU.query(qryUsers)
         msg = "updated"
     end
     ccU.close
     
     ## save pic to target dir
-    targetImageFile = user + ".jpg"
-    imgmsg = Datafile.updateProfileImage(params[:pictureFile],targetImageFile)
-    if imgmsg != "uploaded"
-      msg = "failed_image_uplaod"
+    if (params[:pictureFile])
+      targetImageFile = user + ".jpg"
+      imgmsg = Datafile.updateProfileImage(params[:pictureFile],targetImageFile)
+      if imgmsg != "uploaded"
+        msg = "failed_image_uplaod"
+      end
     end
     
     return msg
@@ -126,7 +162,7 @@ class User
   end
   
   ## create new user
-  def self.newUser(user,params)
+  def self.newUser(params)
     
     msg = ""
     pass = ""
@@ -160,8 +196,8 @@ class User
         msg = "success"
         
         ## save pic to target dir
-        targetImageFile = user + ".jpg"
-        imgmsg = Datafile.updateProfileImage(params[:pictureFile],targetImageFile)
+        targetImageFile = params[:login_username] + ".jpg"
+        imgmsg = Datafile.setNewProfileImage(targetImageFile)
         if imgmsg != "uploaded"
           msg = "failed_image_uplaod"
         end

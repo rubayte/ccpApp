@@ -6,10 +6,10 @@ class UsersController < ApplicationController
     
   end
 
-
   def profile
     @profile = {}
     (res,rows) = User.getUserData(session[:user])
+    (@resS,rowsS) = User.getUserSectionData(session[:user])
     if rows > 0
       res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12|
         @profile['username'] = r1
@@ -19,9 +19,30 @@ class UsersController < ApplicationController
         @profile['institute'] = r5
         @profile['group'] = r6
         @profile['workinggroup'] = r7
-        @profile['picture'] = r8
+        @profile['picture'] = r1 + '.jpg'
       end
+    end
+    if rowsS == 0
+      @resS = "empty"
     end  
+  end
+  
+  def updateUserSectionData
+    
+    valmsg = ""
+    valmsg = User.updateUserSection(session[:user],params)
+    if valmsg == "added"
+      redirect_to :profile
+      flash[:notice] = "A new section has been added to your profile !!"
+      flash[:color]= "valid"
+      return                  
+    else
+      redirect_to :profile
+      flash[:notice] = "Something went wrong !!"
+      flash[:color]= "invalid"
+      return                  
+    end
+    
   end
   
   def updateUserData
@@ -69,42 +90,28 @@ class UsersController < ApplicationController
   def createUser
     valmsg = ""
     if (params[:login_username] == "" or params[:login_email] == "" or params[:login_password] == "" or params[:login_password_confirm] == "")
-      redirect_to :login
-      flash[:notice] = "All fields must entered correctly !!"
-      flash[:color]= "invalid"
+      redirect_to :login, flash: { newAccount: true, :notice => "All fields must entered correctly !!", :color => "invalid" }
       return
     elsif (params[:login_username] =~ /@/)
-      redirect_to :login
-      flash[:notice] = "Invalid character '@' in username !!"
-      flash[:color]= "invalid"
+      redirect_to :login, flash: { newAccount: true, :notice => "Invalid character '@' in username !!", :color => "invalid" }
       return  
     elsif(params[:login_password] != params[:login_password_confirm])
-      redirect_to :login
-      flash[:notice] = "Please enter you password carefully in both fields !!"
-      flash[:color]= "invalid"
+      redirect_to :login, flash: { newAccount: true, :notice => "Please enter you password carefully in both fields !!", :color => "invalid" }
       return      
     elsif(params[:login_password].length < 6)
-      redirect_to :login
-      flash[:notice] = "Please enter a proper password. Your password is too short !!"
-      flash[:color]= "invalid"
+      redirect_to :login, flash: { newAccount: true, :notice => "Please enter a proper password. Your password is too short !!", :color => "invalid" }
       return
     else
-      valmsg = User.newUser(session[:user],params)          
+      valmsg = User.newUser(params)          
     end
     if valmsg == "invalid_email"
-      redirect_to :login
-      flash[:notice] = "This is not a valid email. Please contact administrator !!"
-      flash[:color]= "invalid"
+      redirect_to :login, flash: { newAccount: true, :notice => "This is not a valid email. Please contact administrator !!", :color => "invalid" }
       return            
     elsif valmsg == "invalid_username"
-      redirect_to :login
-      flash[:notice] = "Username already taken. Please try a different username !!"
-      flash[:color]= "invalid"
+      redirect_to :login, flash: { newAccount: true, :notice => "Username already taken. Please try a different username !!", :color => "invalid" }
       return
     elsif valmsg == "present_email"
-      redirect_to :login
-      flash[:notice] = "Email already present. If you forgot your password, then contact administrator !!"
-      flash[:color]= "invalid"
+      redirect_to :login, flash: { newAccount: true, :notice => "Email already present. If you forgot your password, then contact administrator !! !!", :color => "invalid" }
       return
     elsif valmsg == "success"
       redirect_to :login
@@ -113,7 +120,7 @@ class UsersController < ApplicationController
       return            
     else
       redirect_to :login
-      flash[:notice] = "Something went wrong !!"
+      flash[:notice] = "Something went wrong. Try again !!"
       flash[:color]= "invalid"
       return            
     end

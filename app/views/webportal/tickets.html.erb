@@ -3,19 +3,85 @@
 	<div class="container">
 		
 		<div span="12">
-      	
-      		   <div align="left">
-      				<h4>Create tickets/issues</h4>
-      					<%= form_tag(:controller => 'webportal',:action => 'createIssues') do %>
-							Subject: <%= text_field_tag "issueSub" %><br><br>
-							Details: <%= text_area_tag 'issueDesc', nil, size: "10x10" %><br><br>
-							Priority: <%= select_tag "issuePriority", options_for_select(@ptypes) %><br><br>
-							<%= check_box_tag(:createNew) %> Create another ticket</br></br>
-	          				<%= submit_tag 	"Create",  :class => 'btn btn-primary btn-medium' %>
-				       	<% end %>
-				</div>
-
-      							
+		
+			<p> 
+				<b>Showing all tickets</b> &nbsp;
+				<%=  link_to_modal "Create new ticket", "#newTicket", :class=>"btn btn-primary btn-medium" %>
+			</p>	      	
+			
+      		<table id="tableTickets" class="table table-hover">
+				<thead>
+					<tr>
+						<th>Subject</th>
+						<th>Description</th>
+						<th>Priority</th>
+						<th>Created by</th>
+						<th>Created on</th>
+						<th>Status</th>
+						<th>Last update</th>
+					</tr>
+				</thead>				
+				<tbody>
+					<% if @res == "empty" -%>
+					<tr>
+						<td> empty </td>
+					</tr>
+					<% else -%>
+						<% @res.each do |r1,r2,r3,r4,r5,r6,r7| -%>
+						<tr>
+							<td><%= r1 %></td>
+							<td><%= r2 %></td>
+							<td><%= r3 %></td>
+							<td><%= r4 %></td>
+							<td><%= r5 %></td>
+							<td><%= r6 %></td>	
+							<td><%= r7 %></td>													
+						</tr>
+						<% end -%>
+					<% end -%>	
+				</tbody>		
+			</table>
+					
 		</div>
 	</div>
 </div>
+
+
+<div id="newTicket" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+
+	</p>
+	
+	<div class="modal-header">
+		<h3>Create new ticket</h3>
+	</div>
+	<div class="modal-body">	 
+	<%= form_tag(:controller => 'webportal',:action => 'createIssues') do %>
+		Subject: <%= text_field_tag "issueSub" %><br><br>
+		Details: <%= text_area_tag 'issueDesc', nil, size: "10x10" %><br><br>
+		Priority: <%= select_tag "issuePriority", options_for_select(@ptypes) %><br><br>
+		<%= check_box_tag(:createNew) %> Create another ticket</br></br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Create",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+</div>
+
+
+<% if flash[:newTicket] %>
+	<script type="text/javascript">
+		$('#newTicket').modal('show');
+	</script>
+<% end %>

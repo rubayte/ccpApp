@@ -2,9 +2,17 @@
 	<div class="container">
 
 		<div span="12">
-			<table class="table table-hover">
+			
+			<p> 
+				<b>Showing all members</b> &nbsp;
+				<%=  link_to "Export members list", :controller => "webportal", :action => "getMembersList" %>
+			</p>	      	
+
+			
+			<table id="tableMembers" class="table table-hover">
 				<thead>
 					<tr>
+						<th>Username</th>
 						<th>First name</th>
 						<th>Last name</th>
 						<th>Email</th>
@@ -21,6 +29,7 @@
 					<% else -%>
 						<% @res.each do |r1,r2,r3,r4,r5,r6,r7| -%>
 						<tr>
+							<td><%= link_to r1, {:controller => "webportal", :action => "getProfile",:useridvalue => r1 } %></td>
 							<td><%= r2 %></td>
 							<td><%= r3 %></td>
 							<td><%= r4 %></td>

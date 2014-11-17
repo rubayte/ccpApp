@@ -1,7 +1,50 @@
 <div class="row-fluid">
 	<div class="container">
 
-		<div span="12">
+		<div spna="12">
+			<p>
+				<b>Project description</b> &nbsp; <%=  link_to_modal "Edit", "#editFile", :class=>"btn btn-primary btn-medium" %>
+			</p>
+			<% File.open(Rails.root.join('wiki','project.wiki'), 'rb') do |infile| -%>
+				<% while (line = infile.gets)%>
+					<% if line.match(/^para#/)%>
+						<p>
+					<% elsif line.match(/^paraend#/)%>
+						</p>
+					<% else -%>
+						<%= line %>
+					<% end -%>
+				<% end -%>	
+			<% end -%>			
+		</div>
+		
+	</div>
+<div>	
+	
+<div id="editFile" class="modal" style="display: none; ">
+
+	<div class="modal-header">
+		<h5>project</h5>
+		 (edit mode)
+	</div>	
+	<% contents = File.read(Rails.root.join('wiki','project.wiki')) -%>
+	<%= form_tag({:controller => 'webportal',:action => 'editWikiFiles'}, :multipart => true) do %>
+	<div class="modal-body">
+		<%= hidden_field_tag 'editFileName', "project.wiki"%>
+		<%= text_area_tag 'editData', contents, size: "30x30" %></br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Save",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+	
+</div>
+
+
+
+<!--
+	
+	<div span="12">
 			<h3>Project description</h3>
 	
 			<p>
@@ -11,6 +54,6 @@
 				It is the ambition of the team formed by members of the Netherlands Cancer Institute (NKI) and the Cancer Genome Project at the Wellcome Trust Sanger Institute (WTSI) to unravel the genomic and phenotypic complexity of human cancers in order to identify optimal drug combinations for personalized cancer therapy. Our integrated approach will entail (i) deep sequencing of human tumours and cognate mouse tumours; (ii) drug screens in a 1000+ fully characterized tumour cell line panel; (iii) high-throughput in vitro and in vivo shRNA and cDNA drug resistance and enhancement screens; (iv) computational analysis of the acquired data, leading to significant response predictions; (v) rigorous validation of these predictions in genetically engineered mouse models and patient-derived xenografts. This integrated effort is expected to yield a number of combination therapies and companion-diagnostics biomarkers that will be further explored in our existing clinical trial networks.
 			</p>
 		</div>
-
-	</div>
-<div>	
+		
+		
+		>

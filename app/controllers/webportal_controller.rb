@@ -6,6 +6,37 @@ class WebportalController < ApplicationController
       
   end
 
+  def  getProfile
+    @profile = {}
+    (res,rows) = User.getUserData(params[:useridvalue])
+    (@resS,rowsS) = User.getUserSectionData(params[:useridvalue])
+    if rows > 0
+      res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13|
+        @profile['username'] = r1
+        @profile['firstname'] = r2
+        @profile['lastname'] = r3
+        @profile['email'] = r4
+        @profile['institute'] = r5
+        @profile['group'] = r6
+        @profile['workinggroup'] = r7
+        @profile['picture'] = r1 + '.jpg'
+      end
+    end
+    if rowsS == 0
+      @resS = "empty"
+    end  
+  end
+
+  def getMembersList
+    (res,rows) = User.getUsers()
+    if rows > 0
+      msg = Datafile.createMemberListFile(res)
+      if (msg == "file_created")
+        send_file Rails.root.join("memberlist", 'listofpeople.csv'), :disposition => 'attachment'
+      end
+    end
+  end
+
   def data
     @dirItems = Hash.new()
     @lungSubDirItems = Hash.new()
@@ -157,6 +188,22 @@ class WebportalController < ApplicationController
     
   end
   
+  def editWikiFiles
+    valmsg = ""
+    valmsg = Datafile.updateWikiFile(params)
+    if valmsg == "updated"
+      redirect_to :project
+      flash[:notice] = "Page has been updated!"
+      flash[:color]= "valid"
+      return
+    else
+      redirect_to :project
+      flash[:notice] = "Something went wrong. Page has not been updated!"
+      flash[:color]= "invalid"
+      return        
+    end
+  end
+  
   def members
     (@res,rows) = User.getUsers()
     if rows == 0
@@ -193,20 +240,30 @@ class WebportalController < ApplicationController
   
   def tickets
     @ptypes = ['low','medium','high']
+    (@res,rows) = Tickets.getTickets()
+    if rows == 0
+      @res = "empty"
+    end
   end
   
   def createIssues
     @msg = nil
+    @msg = Tickets.validate(params)
+    if @msg == "missingFields"
+      redirect_to :tickets, flash: { newTicket: true, :notice => "All fields are mandatry", :color => "invalid" }
+      return
+    end
     @msg = Tickets.create(params,session[:user])
     if @msg == "created"
       if params[:createNew] == "1"
-        redirect_to :tickets
+        redirect_to :tickets, flash: { newTicket: true, :notice => "Your ticket has been created", :color => "valid" }
+        return
       else
-        redirect_to :index
+        redirect_to :tickets
+        flash[:notice] = "Your ticket has been created"
+        flash[:color]= "valid"
+        return
       end 
-      flash[:notice] = "Your ticket has been created"
-      flash[:color]= "valid"
-      return
     else
       redirect_to :tickets
       flash[:notice] = "Something went wrong"

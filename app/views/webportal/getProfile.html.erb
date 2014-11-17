@@ -3,15 +3,18 @@
 	<div class="container">
 		<div span="12">
 			<%= image_tag(@profile['picture'], :size => '80x80')  %>
-			<h3>
-			<%= @profile['username'] %> [ <%= @profile['email'] %> ] 
-			</h3>
+			<h4>
+			<%= @profile['username'] %> [ <%= @profile['email'] %> ]
+			</h4>
 		</div>		
 	</div>
 	
 	<div class="container">
 		<div span="12">
-			<h4>Basic information <%=  link_to_modal "Update", "#updateProfile", :class=>"btn btn-primary btn-medium" %>
+			<h4>Basic information 
+			<% if @profile['username'] == session[:user] -%>
+				<%=  link_to_modal "Update", "#updateProfile", :class=>"btn btn-primary btn-medium" %>
+			<% end -%>
 			</h4>
 			<p>
 				First name: <b> <%= @profile['firstname'] %> </b></br>
@@ -20,7 +23,10 @@
 				Group: <b><%= @profile['group'] %></b></br>
 				Working group: <b><%=  @profile['workinggroup'] %></b></br>
 			</p>
-			<h4>Profile Sections <%=  link_to_modal "Add sections", "#updateProfileSections", :class=>"btn btn-primary btn-medium" %>
+			<h4>Profile Sections
+			<% if @profile['username'] == session[:user] -%>	
+				<%=  link_to_modal "Add sections", "#updateProfileSections", :class=>"btn btn-primary btn-medium" %>
+			<% end -%>
 			</h4>
 			<p>
 				<% if @resS == "empty" %>

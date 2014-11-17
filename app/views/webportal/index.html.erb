@@ -5,12 +5,12 @@
       <div class="span4">
           <h2>Project</h2>
           <p>All cancers arise due to alterations in their genomes. Although insight into the genetic lesions in tumours by genome sequencing does already assist in selecting some drug regimens, it rarely results in disease ... </p>
-          <p><a class="btn" href="project">Read more &raquo;</a></p>
+          <p><a class="btn" href="project">View project &raquo;</a></p>
       </div>
 
       <div class="span4">
           <h2>Members</h2>
-          <p>This project is a collaboration between researchers from the Netherlands Cancer Institute (NKI) and from the Welcome Trust Sanger Institute (WTSI). A detailed list of members can be found ... </p>
+          <p>This project is a collaboration between researchers from the Netherlands Cancer Institute (NKI) and from the Welcome Trust Sanger Institute (WTSI). A detailed list of members can be found. </p>
           <p><a class="btn" href="members">View members &raquo;</a></p>
       </div>
 
@@ -27,7 +27,7 @@
 
       <div class="span4">
           <h2>Files</h2>
-          <p>In this section, you can upload your data and resource (e.g. doc,pdf,images,codes,presentations) files along with browsing files from other members in the project.</p>
+          <p>In this section, you can browse the resource (e.g. presentations, notes, plans) and data (e.g. sequencing, expression, drug response) files and also upload yours.</p> 
           </br>
           <p><a class="btn" href="data">View details &raquo;</a></p>
       </div>
@@ -50,8 +50,17 @@
       <div class="container">
 
       <div class="span4">
+          <h2>Hey, <%= session[:user] %></h2>
+          <p>Section for managing your basic profile information, adding necessary details to it, so that other members of this web-portal can gain insight on you and your research work.</p>
+          <p><a class="btn" href="profile">View profile &raquo;</a></p>
+      </div>
+
+
+      <div class="span4">
           <h2>Admin</h2>
           <p>Section only for admins to manage data and resource files in the project and the webportal itself.</p>
+          </br>
+          </br>
           <p><a class="btn" href="admin">View details &raquo;</a></p>
       </div>
 
