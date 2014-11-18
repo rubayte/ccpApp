@@ -2,7 +2,7 @@
 
 	<div class="container">
 		<div span="12">
-			<%= image_tag(@profile['picture'], :size => '80x80')  %>
+			<%= image_tag(@profile['picture'], :size => '150x150')  %>
 			<h3>
 			<%= @profile['username'] %> [ <%= @profile['email'] %> ] 
 			</h3>
@@ -48,9 +48,44 @@
 			<%= form_tag({:controller => 'users',:action => 'updateUserData'}, :multipart => true) do %>
 				First name:<%= text_field_tag :edit_firstname , @profile['firstname'] %></br>
 				Last name: <%= text_field_tag :edit_lastname , @profile['lastname'] %></br>
-				Institute: <%= text_field_tag :edit_institute , @profile['institute'] %></br>
-				Group: <%= text_field_tag :edit_group , @profile['group'] %></br>
-				Working group: <%= text_field_tag :edit_workinggroup , @profile['workinggroup'] %></br>
+				Institute: <%= select_tag :edit_institute , options_for_select(@institutes) %></br>
+				Group: <%= select_tag :edit_group , options_for_select(@groups) %></br>
+				Working group: (you can select multiple working groups)</br>
+					<% if @workinggroups.include? "Chemical Screens" -%> 
+						<%= check_box_tag 'chkchemicalScreen' , 'Chemical Screens', :checked => true %>Chemical Screens</br>
+					<% else -%>
+						<%= check_box_tag 'chkchemicalScreen' , 'Chemical Screens' %>Chemical Screens</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Genetic Screens" -%> 
+						<%= check_box_tag 'chkgeneticScreen', 'Genetic Screens', :checked => true %>Genetic Screens</br>
+					<% else -%>
+						<%= check_box_tag 'chkgeneticScreen' , 'Genetic Screens' %>Genetic Screens</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Lung" -%> 
+						<%= check_box_tag 'chklung', 'Lung' , :checked => true %>Lung</br>
+					<% else -%>
+						<%= check_box_tag 'chklung' , 'Lung' %>Lung</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Breast" -%> 
+						<%= check_box_tag 'chkbreast', 'Breast', :checked => true %>Breast</br>
+					<% else -%>
+						<%= check_box_tag 'chkbreast' , 'Breast' %>Breast</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Colorectal" -%> 
+						<%= check_box_tag 'chkcolorectal', 'Colorectal' , :checked => true %>Colorectal</br>
+					<% else -%>
+						<%= check_box_tag 'chkcolorectal' , 'Colorectal' %>Colorectal</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Melanoma" -%> 
+						<%= check_box_tag 'chkmelanoma', 'Melanoma' , :checked => true %>Melanoma</br>
+					<% else -%>
+						<%= check_box_tag 'chkmelanoma' , 'Melanoma' %>Melanoma</br>
+					<% end -%>
+					<% if @workinggroups.include? "Others" -%> 
+						<%= check_box_tag 'chkothers', 'Others' , :checked => true %>Others</br>
+					<% else -%>
+						<%= check_box_tag 'chkothers' , 'Others' %>Others</br>
+					<% end -%>	
 				Upload new picture: <%= file_field_tag 'pictureFile'%> </br></br>				
 	</div>
 	<div class="modal-footer">

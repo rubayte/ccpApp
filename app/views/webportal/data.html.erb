@@ -3,6 +3,7 @@
 	<div class="container">
 		
 		<div span="12">
+			      <h3> add the new subtypes to existing sub types </h3>	
 				<p>
       					<b>Data and resources files</b> &nbsp;
       					<%=  link_to_modal "Upload new file", "#uploadFile", :class=>"btn btn-primary btn-medium" %>
@@ -13,17 +14,27 @@
 	    							</div>
     								<div class="content">
     									<table class="table table-condensed">
-										<% files = value.split(",") -%>
-										<% files.each do |f| -%>
+										<% files = value.split("#") -%>
+										<% files.each do |fs| -%>
 										    <tr>
-										    <td><i class="icon-file"></i> <%= f %></td>
-											<td>created by: <%= session[:user] %></td>
-											<td><td>created on: <%= Time.now() %></td>
-											<td>
+										    <% f = fs.split(";") -%>
+										    <% fdetails = f[1].split(",") -%>
+										    <% if fdetails[2] == "data" -%>	
+										    	<td><i class="icon-file"></i><span style="color:blue" title="data file"><%= f[0] %></span></td>
+										    <% else -%>
+										    	<td><i class="icon-file"></i><span style="color:green" title="resource file"><%= f[0] %></span></td>
+										    <% end -%>	
+											<td>created by: <%= link_to fdetails[0], {:controller => "webportal", :action => "getProfile",:useridvalue => fdetails[0] } %></td>
+											<td><td>created on: <%= fdetails[4] %></td>
+											<td>actions:
 											<i class="icon-eye-open"></i> View |
-											<i class="icon-download"></i> <%= link_to :"Download", {:controller => "webportal", :action => "download",:file => key + "/"+ f} %>
+											<i class="icon-download"></i> <%= link_to :"Download", {:controller => "webportal", :action => "download",:file => key + "/"+ f[0]} %>
 											</td>
-											<td>no comment(s)</td>
+											<% if fdetails[3].length > 10 -%>
+												<td><span title="<%= fdetails[3]%>">comments: <%= fdetails[3][0, 9] + " .." %></span></td>
+											<% else -%>	
+												<td>comments: <%= fdetails[3] %></td>
+											<% end -%>	
 											</tr>							
 										<% end -%>
 										</table>	

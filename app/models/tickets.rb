@@ -1,7 +1,7 @@
 class Tickets
   
   def self
-    con = Mysql.connect('127.0.0.1', 'root', '', 'ccp')
+    con = Mysql.connect('127.0.0.1', 'wwwUser', 'wwwpublic', 'ccp')
     return con
   end
   

@@ -3,10 +3,11 @@ class WebportalController < ApplicationController
   before_filter :authenticate_user, :only => [:index,:data,:project, :members]
   
   def index
-      
+    @firstname = User.getUserFirstName(session[:user])    
   end
 
   def  getProfile
+    (@groups,@workinggroups,@institutes) = User.getValidValues()
     @profile = {}
     (res,rows) = User.getUserData(params[:useridvalue])
     (@resS,rowsS) = User.getUserSectionData(params[:useridvalue])
@@ -24,7 +25,8 @@ class WebportalController < ApplicationController
     end
     if rowsS == 0
       @resS = "empty"
-    end  
+    end
+    @workinggroups = @profile['workinggroup'].split(",")  
   end
 
   def getMembersList
@@ -38,6 +40,13 @@ class WebportalController < ApplicationController
   end
 
   def data
+    @ftypes = ['data','resource']
+    @wgtypes = ['Lung','Melanoma','Colorectal','Breast','Others']
+    @stypes = ['chemicalScreening','geneticScreening']
+    @dirItems = User.getUserFiles()
+  end
+
+  def data_bak
     @dirItems = Hash.new()
     @lungSubDirItems = Hash.new()
     @uploadFromSubTypes = Hash.new()
@@ -287,11 +296,7 @@ class WebportalController < ApplicationController
       return            
     else
     end
-    #if (params[:fileType] == "data")
-    #  @msg = Datafile.uploadDataFiles(params)
-    #else
-    @msg = Datafile.uploadResourceFiles(params)  
-    #end
+    @msg = Datafile.uploadResourceFiles(session[:user],params)  
     if @msg == "uploaded"
       redirect_to :data
       flash[:notice] = "Your file has been uploaded"
@@ -312,6 +317,11 @@ class WebportalController < ApplicationController
   
   def download
     send_file Rails.root.join("fileloc", params[:file]), :disposition => 'attachment'      
+  end
+
+  def profile
+    redirect_to :controller => "users", :action => "profile"
+    return
   end
 
 end

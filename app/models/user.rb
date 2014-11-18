@@ -2,10 +2,104 @@ class User
   
 
   def self
-    con = Mysql.connect('127.0.0.1', 'root', '', 'ccp')
+    con = Mysql.connect('127.0.0.1', 'wwwUser', 'wwwpublic', 'ccp')
     return con
   end
   
+  ## get user first name
+  def self.getUserFirstName(user)
+    
+    firstname = []
+    ccU = User.new.self
+    ## get user first name
+    qryName = "select `firstname` from users where username ='" + user + "';"
+    refName = ccU.query(qryName)
+    refName.each do |r1|
+      firstname= r1
+    end
+    firstnamestr = firstname.join(",")
+    
+    return firstnamestr    
+    
+  end
+
+  ## get files
+  def self.getUserFiles()
+    
+    fileHash = Hash.new()
+    ccU = User.new.self
+    qryFiles = "select * from `user_uploaded_files`"
+    refFiles = ccU.query(qryFiles)
+    refFiles.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
+      key = r4
+      file = r5 + "/" + r6
+      details = r1 + "," + r2 + "," + r3 + "," + r7 + "," + r8
+      if fileHash.has_key?(key)
+        fileHash [key] = fileHash [key] + "#" + file + ";" + details
+      else
+        fileHash [key] = file + ";" + details
+      end
+    end
+    
+    return fileHash  
+    
+  end
+
+  ## create new file upload
+  def self.createUploadFile(user,type,ctype,subtype,filename,comments)
+    
+    msg  = ""
+    useremail = []
+    ccU = User.new.self
+    ## get user email
+    qryEmail = "select email from users where username ='" + user + "';"
+    refEmails = ccU.query(qryEmail)
+    refEmails.each do |r1|
+      useremail= r1
+    end
+    useremailstr = useremail.join(",")
+    qryInsert = "insert into `user_uploaded_files`(`username`,`email`,`type`,`cancer_type`,`subtype`,`filename`,`comments`,`created_on`) values('" + 
+    user + "','" + useremailstr + "','" + type + "','" + ctype + "','" + subtype + "','" + filename + "','" + comments + "',NOW());"
+    ccU.query(qryInsert)
+    ccU.close
+    msg = "inserted"
+    
+    return msg
+    
+  end
+
+  ## get valid values from database
+  def self.getValidValues()
+    
+    groups = []
+    workinggroups = []
+    institutes = []
+
+    ccU = User.new.self
+    ## get groups
+    qryValid = "select `group` from `valid_groups`;"
+    refValid = ccU.query(qryValid)
+    refValid.each do |r1|
+      groups.push(r1)
+    end
+    ## get working groups
+    qryValid = "select `group` from `valid_working_groups`;"
+    refValid = ccU.query(qryValid)
+    refValid.each do |r1|
+      workinggroups.push(r1)
+    end    
+    ## get institutes
+    qryValid = "select `institute` from `valid_institutes`;"
+    refValid = ccU.query(qryValid)
+    refValid.each do |r1|
+      institutes.push(r1)
+    end    
+    ccU.close
+    
+    return groups,workinggroups,institutes
+    
+  end
+
   ## get user profile section data
   def self.getUserSectionData(user)
 
@@ -63,16 +157,23 @@ class User
   def self.updateUser(user,params)
   
     msg = ""
-    ccU = User.new.self    
+    ccU = User.new.self
+    workinggroup = []
+    params.each do |key,value|
+      if key =~ /chk/
+        workinggroup.push(value)
+      end
+    end      
+    workinggroupstr = workinggroup.join(',')
     
     if user =~ /@/
         qryUsers = "update users set `firstname` = '" + params[:edit_firstname] + "'," + " `lastname` = '" + params[:edit_lastname] + "'," + " `institute` = '" + 
-        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "'," + " `working_group` = '" + params[:edit_workinggroup] + "', `last_edit_on` = NOW() where email = '" + user + "'"
+        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "'," + " `working_group` = '" + workinggroupstr + "', `last_edit_on` = NOW() where email = '" + user + "'"
         refUsers = ccU.query(qryUsers)
         msg = "updated"
     else
         qryUsers = "update users set `firstname` = '" + params[:edit_firstname] + "'," + " `lastname` = '" + params[:edit_lastname] + "'," + " `institute` = '" + 
-        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "', " + " `working_group` = '" + params[:edit_workinggroup] + "', `last_edit_on` = NOW()  where username = '" + user + "'"
+        params[:edit_institute] + "'," + " `group` = '" + params[:edit_group] + "', " + " `working_group` = '" + workinggroupstr + "', `last_edit_on` = NOW()  where username = '" + user + "'"
         refUsers = ccU.query(qryUsers)
         msg = "updated"
     end

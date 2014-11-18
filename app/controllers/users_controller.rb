@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def profile
+    (@groups,@workinggroups,@institutes) = User.getValidValues()
     @profile = {}
     (res,rows) = User.getUserData(session[:user])
     (@resS,rowsS) = User.getUserSectionData(session[:user])
@@ -24,7 +25,8 @@ class UsersController < ApplicationController
     end
     if rowsS == 0
       @resS = "empty"
-    end  
+    end
+    @workinggroups = @profile['workinggroup'].split(",")  
   end
   
   def updateUserSectionData

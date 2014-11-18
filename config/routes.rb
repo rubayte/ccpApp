@@ -15,6 +15,7 @@ Ccp::Application.routes.draw do
   match "profile", :to => 'users#profile'
   match "logout", :to => 'users#logout'
   
+  
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
