@@ -6,6 +6,69 @@ class User
     return con
   end
   
+  ## get file details by id
+  def self.getFileDetails(fileid)
+    
+    fileDetails = Hash.new()
+    ccU = User.new.self
+    qryFile = "select * from `user_uploaded_files` where id = " + fileid + ""
+    refFile = ccU.query(qryFile)
+    if refFile.num_rows > 0
+      refFile.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
+        fileDetails['username'] = r1
+        fileDetails['email'] = r2
+        fileDetails['type'] = r3
+        fileDetails['ctype'] = r4
+        fileDetails['subtype'] = r5
+        fileDetails['filename'] = r6
+        fileDetails['comments'] = r7
+        fileDetails['createdon'] = r8
+        fileDetails['fileid'] = r9
+      end
+     end
+     ccU.close
+        
+     return fileDetails   
+     
+  end
+  
+  ## edit file in db
+  def self.commitFileChanges(params)
+
+    msg = ""    
+    ccU = User.new.self
+    qryFile = "update `user_uploaded_files` set comments = '"+ params[:edit_comments]+"' where id = " + params[:id] + ""
+    ccU.query(qryFile)
+    ccU.close
+    msg = "updated"
+    
+    return msg
+    
+  end
+  
+  ## map username to session user
+  def self.mapSessionUser(login_id)
+    
+    user = ""
+    if (login_id =~ /@/)
+      temp = []
+      ccU = User.new.self
+      ## get user name
+      qryUsername = "select username from users where email ='" + login_id + "'"
+      refUsername = ccU.query(qryUsername)
+      refUsername.each do |r1|
+        temp.push(r1)
+      end
+      user = temp.join(",")
+      ccU.close  
+    else
+      user = login_id  
+    end
+    
+    return user
+    
+  end
+  
   ## get user first name
   def self.getUserFirstName(user)
     
@@ -27,13 +90,18 @@ class User
   def self.getUserFiles()
     
     fileHash = Hash.new()
+    subTypeHash = Hash.new()
     ccU = User.new.self
     qryFiles = "select * from `user_uploaded_files`"
     refFiles = ccU.query(qryFiles)
     refFiles.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
       key = r4
       file = r5 + "/" + r6
-      details = r1 + "," + r2 + "," + r3 + "," + r7 + "," + r8
+      if r5 == "chemicalScreening" or r5 == "geneticScreening"
+      else  
+        subTypeHash[r5] = "1"
+      end
+      details = r1 + "," + r2 + "," + r3 + "," + r7 + "," + r8 + "," + r9
       if fileHash.has_key?(key)
         fileHash [key] = fileHash [key] + "#" + file + ";" + details
       else
@@ -41,7 +109,7 @@ class User
       end
     end
     
-    return fileHash  
+    return fileHash,subTypeHash  
     
   end
 

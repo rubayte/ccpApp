@@ -43,7 +43,10 @@ class WebportalController < ApplicationController
     @ftypes = ['data','resource']
     @wgtypes = ['Lung','Melanoma','Colorectal','Breast','Others']
     @stypes = ['chemicalScreening','geneticScreening']
-    @dirItems = User.getUserFiles()
+    (@dirItems,subDirItems) = User.getUserFiles()
+    if subDirItems.length > 0
+      @stypes = @stypes + subDirItems.keys 
+    end  
   end
 
   def data_bak
@@ -285,15 +288,11 @@ class WebportalController < ApplicationController
     @msg = nil
     @msg = Datafile.validate(params)
     if @msg == "invalid"
-      redirect_to :data
-      flash[:notice] = "Invalid sub type name. Try agian."
-      flash[:color]= "invalid"        
-      return      
+      redirect_to :data, flash: { uploadFile: true, :notice => "Invalid sub type name. Try agian.", :color => "invalid" }
+      return
     elsif @msg == "missingFile"
-      redirect_to :data
-      flash[:notice] = "Please select a file first."
-      flash[:color]= "invalid"        
-      return            
+      redirect_to :data, flash: { uploadFile: true, :notice => "Please select a file first.", :color => "invalid" }
+      return
     else
     end
     @msg = Datafile.uploadResourceFiles(session[:user],params)  
@@ -317,6 +316,26 @@ class WebportalController < ApplicationController
   
   def download
     send_file Rails.root.join("fileloc", params[:file]), :disposition => 'attachment'      
+  end
+  
+  def updateFileDetails
+    @fileDetails = Hash.new()
+    @fileDetails = User.getFileDetails(params[:fileid])    
+  end
+  
+  def commitUpdateFileDetails
+    msg = User.commitFileChanges(params)
+    if msg == "updated"
+      redirect_to :data
+      flash[:notice] = "Your file details have been updated !!"
+      flash[:color]= "valid"
+      return              
+    else
+      redirect_to :commitUpdateFileDetails
+      flash[:notice] = "Something went wrong"
+      flash[:color]= "invalid"
+      return                      
+    end
   end
 
   def profile

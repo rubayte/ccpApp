@@ -5,7 +5,3 @@ paraend#
 para#
 It is the ambition of the team formed by members of the Netherlands Cancer Institute (NKI) and the Cancer Genome Project at the Wellcome Trust Sanger Institute (WTSI) to unravel the genomic and phenotypic complexity of human cancers in order to identify optimal drug combinations for personalized cancer therapy. Our integrated approach will entail (i) deep sequencing of human tumours and cognate mouse tumours; (ii) drug screens in a 1000+ fully characterized tumour cell line panel; (iii) high-throughput in vitro and in vivo shRNA and cDNA drug resistance and enhancement screens; (iv) computational analysis of the acquired data, leading to significant response predictions; (v) rigorous validation of these predictions in genetically engineered mouse models and patient-derived xenografts. This integrated effort is expected to yield a number of combination therapies and companion-diagnostics biomarkers that will be further explored in our existing clinical trial networks. 
 paraend#
-
-para#
-test paragraph.
-paraend#

@@ -3,7 +3,6 @@
 	<div class="container">
 		
 		<div span="12">
-			      <h3> add the new subtypes to existing sub types </h3>	
 				<p>
       					<b>Data and resources files</b> &nbsp;
       					<%=  link_to_modal "Upload new file", "#uploadFile", :class=>"btn btn-primary btn-medium" %>
@@ -24,16 +23,19 @@
 										    <% else -%>
 										    	<td><i class="icon-file"></i><span style="color:green" title="resource file"><%= f[0] %></span></td>
 										    <% end -%>	
-											<td>created by: <%= link_to fdetails[0], {:controller => "webportal", :action => "getProfile",:useridvalue => fdetails[0] } %></td>
-											<td><td>created on: <%= fdetails[4] %></td>
-											<td>actions:
-											<i class="icon-eye-open"></i> View |
-											<i class="icon-download"></i> <%= link_to :"Download", {:controller => "webportal", :action => "download",:file => key + "/"+ f[0]} %>
-											</td>
+											<td><i class="icon-user"></i> <%= link_to fdetails[0], {:controller => "webportal", :action => "getProfile",:useridvalue => fdetails[0] } %></td>
+											<td><td><i class="icon-time"></i> <%= fdetails[4] %></td>
+											<td><i class="icon-tasks">:
+											<span title="Edit file"><%= link_to '<i class="icon-edit"></i>'.html_safe, {:controller => "webportal", :action => "updateFileDetails",:fileid => fdetails[5]} %></span> |
+											<i class="icon-eye-open"></i> |
+											<span title="Download file"><%= link_to '<i class="icon-download"></i>'.html_safe, {:controller => "webportal", :action => "download",:file => key + "/"+ f[0]} %></span>
+											</td><td><i class="icon-comment"></i>
 											<% if fdetails[3].length > 10 -%>
-												<td><span title="<%= fdetails[3]%>">comments: <%= fdetails[3][0, 9] + " .." %></span></td>
+												<td><span title="<%= fdetails[3]%>"><%= fdetails[3][0, 9] + " .." %></span></td>
+											<% elsif fdetails[3].length == 0 -%>
+												<td>empty</td>
 											<% else -%>	
-												<td>comments: <%= fdetails[3] %></td>
+												<td> <%= fdetails[3] %></td>
 											<% end -%>	
 											</tr>							
 										<% end -%>
@@ -47,6 +49,19 @@
 </div>
 
 <div id="uploadFile" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+	</p>
 
 	<div class="modal-header">
 		<h3>Upload data and resources files</h3>
@@ -67,6 +82,12 @@
 	</div>
 </div>
 
+
+<% if flash[:uploadFile] %>
+	<script type="text/javascript">
+		$('#uploadFile').modal('show');
+	</script>
+<% end %>
 
 <script type="text/javascript">
 function toggletextBox()

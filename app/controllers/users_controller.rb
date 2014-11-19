@@ -79,8 +79,9 @@ class UsersController < ApplicationController
       valmsg = User.validateUser(params[:login_id],params[:login_password])
     end
     if (valmsg == 'validuser')
-      session[:user] = params[:login_id]
+      session[:user] = User.mapSessionUser(params[:login_id])
       redirect_to :controller => 'webportal', :action => 'index'
+      return
     else
       redirect_to :login
       flash[:notice] = "Login credentials mismatch ! Please try again !!"
@@ -93,6 +94,12 @@ class UsersController < ApplicationController
     valmsg = ""
     if (params[:login_username] == "" or params[:login_email] == "" or params[:login_password] == "" or params[:login_password_confirm] == "")
       redirect_to :login, flash: { newAccount: true, :notice => "All fields must entered correctly !!", :color => "invalid" }
+      return
+    elsif (params[:login_username] =~ /(\s)+/)
+      redirect_to :login, flash: { newAccount: true, :notice => "username can't contain spaces !!", :color => "invalid" }
+      return
+    elsif (params[:login_username] =~ /\//)
+      redirect_to :login, flash: { newAccount: true, :notice => "Invalid character '/' in username !!", :color => "invalid" }
       return
     elsif (params[:login_username] =~ /@/)
       redirect_to :login, flash: { newAccount: true, :notice => "Invalid character '@' in username !!", :color => "invalid" }
@@ -131,6 +138,7 @@ class UsersController < ApplicationController
   def logout     
     session[:user] = nil
     redirect_to :login
+    return
   end
   
 end
