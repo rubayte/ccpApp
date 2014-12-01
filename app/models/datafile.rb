@@ -4,14 +4,50 @@ class Datafile
     
   end
   
-  def self.updateWikiFile(params)
+  def self.updateWikiFile(user,params)
     
     msg = ""
-    filetoedit = params[:editFileName]
+    filetoedit = params[:pageName] + ".wiki"
     File.open(Rails.root.join('wiki',filetoedit),'wb') do |file|
-      file.write(params[:editData])
+      file.write(params[:pageDesc])
     end
-    msg = "updated"    
+    ## log to db
+    msg = User.updateWikibyPage(user,params)
+    ## save attachment and log to db
+    if (params[:afile] != nil)
+      if(not(File.exists?(Rails.root.join('wikiattachments',params[:pageName]))))
+        Dir.mkdir(Rails.root.join('wikiattachments',params[:pageName]))
+          if (not(File.exists?(Rails.root.join('wikiattachments',params[:pageName],params[:afile].original_filename))))
+            ## log to db
+            msg,attname = User.createWikiAttachment(params)
+            if msg == "inserted"
+              File.open(Rails.root.join("wikiattachments", params[:pageName], attname),'wb') do |iostream|
+                iostream.write(params[:afile].read)
+              end
+              msg = "updated"
+            else
+              msg = nil
+            end    
+          else
+            msg = "att_exists"
+          end
+      else
+        if (not(File.exists?(Rails.root.join('wikiattachments',params[:pageName],params[:afile].original_filename))))
+          ## log to db
+          msg,attname = User.createWikiAttachment(params)
+          if msg == "inserted"
+            File.open(Rails.root.join("wikiattachments", params[:pageName], attname),'wb') do |iostream|
+              iostream.write(params[:afile].read)
+            end
+            msg = "updated"
+          else
+            msg = nil
+          end    
+        else
+          msg = "att_exists"
+        end                
+      end  
+     end
     
     return msg
     
@@ -179,9 +215,64 @@ class Datafile
   end
 
 
+  def self.createWikiPage(user,params)
+    
+    valMsg = nil
+    filename = params[:pageName] + ".wiki"
+    
+    if (not(File.exists?(Rails.root.join('wiki',filename))))
+      ## log to db
+      valMsg,filename = User.createWikiDB(user,params)
+      filename = filename + ".wiki"
+      if valMsg == "inserted"
+        ## create page file
+        File.open(Rails.root.join('wiki',filename),'wb') do |file|
+          file.write(params[:pageDesc])
+        end
+        ## save attachment
+        if (params[:afile] != nil)
+          if(not(File.exists?(Rails.root.join('wikiattachments',params[:pageName]))))
+            Dir.mkdir(Rails.root.join('wikiattachments',params[:pageName]))
+            if (not(File.exists?(Rails.root.join('wikiattachments',params[:pageName],params[:afile].original_filename))))
+              ## log to db
+              valMsg,attname = User.createWikiAttachment(params)
+              if valMsg == "inserted"
+                File.open(Rails.root.join("wikiattachments", params[:pageName], attname),'wb') do |iostream|
+                  iostream.write(params[:afile].read)
+                end
+              else
+                valMsg = nil
+              end    
+            else
+              valMsg = "att_exists"
+            end
+          else
+            if (not(File.exists?(Rails.root.join('wikiattachments',params[:pageName],params[:afile].original_filename))))
+              ## log to db
+              valMsg,attname = User.createWikiAttachment(params)
+              if valMsg == "inserted"
+                File.open(Rails.root.join("wikiattachments", params[:pageName], attname),'wb') do |iostream|
+                  iostream.write(params[:afile].read)
+                end
+              else
+                valMsg = nil
+              end    
+            else
+              valMsg = "att_exists"
+            end                
+          end  
+        end
+        valMsg = "created"
+      else
+        valMsg = nil
+      end    
+    else
+      valMsg = "exists"
+    end        
+    
+    return valMsg
 
-
-
+  end
 
 
 end

@@ -200,17 +200,28 @@ class WebportalController < ApplicationController
     
   end
   
+  def editWikiPage
+    file = params[:pageid]
+    @file = params[:pageid][0..-6]
+    @contents = File.read(Rails.root.join('wiki',file))
+  end
+
   def editWikiFiles
     valmsg = ""
-    valmsg = Datafile.updateWikiFile(params)
+    valmsg = Datafile.updateWikiFile(session[:user],params)
     if valmsg == "updated"
-      redirect_to :project
+      redirect_to :wiki
       flash[:notice] = "Page has been updated!"
       flash[:color]= "valid"
       return
+    elsif valmsg == "att_exists"
+      redirect_to :wiki
+      flash[:notice] = "Page has been updated but attachment exists. Please try another attachment !!"
+      flash[:color]= "invalid"
+      return
     else
-      redirect_to :project
-      flash[:notice] = "Something went wrong. Page has not been updated!"
+      redirect_to :wiki
+      flash[:notice] = "Something went wrong. Try again !"
       flash[:color]= "invalid"
       return        
     end
@@ -318,6 +329,10 @@ class WebportalController < ApplicationController
     send_file Rails.root.join("fileloc", params[:file]), :disposition => 'attachment'      
   end
   
+  def downloadWikiAtatchment
+    send_file Rails.root.join("wikiattachments", params[:page][0..-6], params[:file]), :disposition => 'attachment'
+  end
+  
   def updateFileDetails
     @fileDetails = Hash.new()
     @fileDetails = User.getFileDetails(params[:fileid])    
@@ -341,6 +356,51 @@ class WebportalController < ApplicationController
   def profile
     redirect_to :controller => "users", :action => "profile"
     return
+  end
+  
+  def wiki
+    @filetoshow = nil
+    @pages = Dir.glob(Rails.root.join("wiki","*.*"))
+    if params[:pageid] == nil
+      @filetoshow = "project.wiki"
+      @cby,@cat,@leby,@leat = User.getWikiInfoByPage("project")
+      @atts = User.getWikiAttachmentByPage("project") 
+    else
+      @filetoshow = params[:pageid] + ".wiki"
+      @cby,@cat,@leby,@leat = User.getWikiInfoByPage(params[:pageid])
+      @atts = User.getWikiAttachmentByPage(params[:pageid])
+    end  
+  end
+
+  def createWikiPage
+    @pagename = nil
+    @pagedesc = nil
+  end
+  
+  def newPage
+    msg = ""
+    msg = Datafile.createWikiPage(session[:user], params)
+    if msg == "created"
+      redirect_to :wiki
+      flash[:notice] = "Your page has been created !!"
+      flash[:color]= "valid"
+      return              
+    elsif msg == "exists"
+      redirect_to :createWikiPage
+      flash[:notice] = "this page already exists. Try a new name !!"
+      flash[:color]= "invalid"
+      return                    
+    elsif msg == "att_exists"
+      redirect_to :wiki
+      flash[:notice] = "Page has been created but attachment already exists. Try a new file to attach !!"
+      flash[:color]= "invalid"
+      return                    
+    else
+      redirect_to :wiki
+      flash[:notice] = "Something went wrong. Try again."
+      flash[:color]= "invalid"
+      return                      
+    end
   end
 
 end

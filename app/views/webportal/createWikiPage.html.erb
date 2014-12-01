@@ -1,0 +1,16 @@
+<div class="row-fluid">
+	<div class="container">
+    	<div class="span12">
+
+			<%= form_tag({:controller => 'webportal',:action => 'newPage'}, :multipart => true) do %>
+				Page name: &nbsp; <%= text_field_tag :pageName , @pagename %></br>
+				Page body: &nbsp; <%=  link_to_modal "Wiki Syntax", "#wikiSyntax", :class=>"btn btn-primary btn-medium" %>
+				</br></br>
+				<%= text_area_tag :pageDesc , @pagedesc , size: "10x10" %></br>
+				Attach file: <%= file_field_tag 'afile' %><br>
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>
+			<% end -%>	
+						
+			</div>
+		</div>
+</div>

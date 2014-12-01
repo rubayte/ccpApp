@@ -7,6 +7,8 @@ Ccp::Application.routes.draw do
   match "index", :to => 'webportal#index'
   match "data", :to => 'webportal#data'
   match "project", :to => 'webportal#project'
+  match "wiki", :to => 'webportal#wiki'
+  match "createWikiPage", :to => 'webportal#createWikiPage'  
   match "members", :to => 'webportal#members'
   match "overview", :to => 'webportal#overview'    
   match "tickets", :to => 'webportal#tickets'

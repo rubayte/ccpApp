@@ -6,6 +6,112 @@ class User
     return con
   end
   
+  ## get wiki attachments by page
+  def self.getWikiAttachmentByPage(page)
+    
+    atts = []
+    
+    ccU = User.new.self
+    ## get wiki attachments
+    qryWiki = "select page,attachment from `wiki_attachments` where page ='" + page + "';"
+    refWikis = ccU.query(qryWiki)
+    refWikis.each do |r1,r2|
+      atts.push(r2)
+    end
+    ccU.close
+
+    return atts
+    
+  end
+  
+  
+  ## create wiki attachment
+  def self.createWikiAttachment(params)
+    
+    msg  = ""
+    att = params[:afile].original_filename
+    ccU = User.new.self
+    ## validate for mysql
+    att = validateStr(att)
+    ## validate for colon(;) and hash
+    att = validateStr2(att)
+    qryInsert = "insert into `wiki_attachments`(`page`,`attachment`,`created_on`,`edited_on`) values('" + 
+    params[:pageName] + "','" + att + "',NOW(),NULL);"
+    ccU.query(qryInsert)
+    ccU.close
+    msg = "inserted"
+    
+    return msg,att
+
+  end
+  
+  
+  ## update wiki by page
+  def self.updateWikibyPage(user,params)
+    
+    msg = nil
+    ccU = User.new.self
+    ## get wiki details
+    qryWiki = "update `user_created_wikis` set `last_edit_by` = '"+ user+"' , `last_edit_on` = NOW() where page = '" + params[:pageName] + "'"
+    ccU.query(qryWiki)
+    ccU.close
+    msg = "updated"
+    
+    return msg
+    
+  end
+
+  ## get wiki info by page
+  def self.getWikiInfoByPage(page)
+    
+    user = nil
+    created_at = nil
+    last_edit_by = nil
+    last_edit_at = nil
+    ccU = User.new.self
+    ## get wiki details
+    qryWiki = "select username,`created_on`,`last_edit_by`,`last_edit_on` from `user_created_wikis` where page ='" + page + "';"
+    refWikis = ccU.query(qryWiki)
+    refWikis.each do |r1,r2,r3,r4|
+      user= r1
+      created_at = r2
+      last_edit_by = r3
+      last_edit_at = r4
+    end
+    ccU.close
+    
+    return user,created_at,last_edit_by,last_edit_at
+    
+  end  
+  
+  ## create wiki page
+  def self.createWikiDB(user,params)
+
+    msg  = ""
+    useremail = []
+    ccU = User.new.self
+    ## get user email
+    qryEmail = "select email from users where username ='" + user + "';"
+    refEmails = ccU.query(qryEmail)
+    refEmails.each do |r1|
+      useremail= r1
+    end
+    useremailstr = useremail.join(",")
+    ## validate for mysql
+    params[:pageName] = validateStr(params[:pageName])
+    ## validate for colon(;) and hash
+    params[:pageName] = validateStr2(params[:pageName])
+    qryInsert = "insert into `user_created_wikis`(`username`,`email`,`page`,`created_on`,`last_edit_by`,`last_edit_on`) values('" + 
+    user + "','" + useremailstr + "','" + params[:pageName] + "',NOW(),NULL,NULL);"
+    ccU.query(qryInsert)
+    ccU.close
+    msg = "inserted"
+    
+    return msg,params[:pageName]
+    
+  end
+
+
   ## get file details by id
   def self.getFileDetails(fileid)
     
