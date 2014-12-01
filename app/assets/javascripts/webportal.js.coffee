@@ -6,12 +6,13 @@ jQuery ->
   $('#tableTickets').dataTable( {
     "sScrollX": "100%",
     "sScrollY": "500",
-    "iDisplayLength": 50,
+    "iDisplayLength": 25,
     "bScrollCollapse": true
-  })
+  });
+jQuery ->
   $('#tableMembers').dataTable( {
     "sScrollX": "100%",
     "sScrollY": "500",
-    "iDisplayLength": 50,
+    "iDisplayLength": 10,
     "bScrollCollapse": true
   }) ;

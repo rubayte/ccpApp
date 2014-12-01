@@ -37,6 +37,8 @@ class User
 
     msg = ""    
     ccU = User.new.self
+    ## validate for mysql
+    params[:edit_comments] = validateStr(params[:edit_comments])
     qryFile = "update `user_uploaded_files` set comments = '"+ params[:edit_comments]+"' where id = " + params[:id] + ""
     ccU.query(qryFile)
     ccU.close
@@ -126,6 +128,9 @@ class User
       useremail= r1
     end
     useremailstr = useremail.join(",")
+    ## validate for mysql
+    subtype = validateStr(subtype)
+    comments = validateStr(comments)
     qryInsert = "insert into `user_uploaded_files`(`username`,`email`,`type`,`cancer_type`,`subtype`,`filename`,`comments`,`created_on`) values('" + 
     user + "','" + useremailstr + "','" + type + "','" + ctype + "','" + subtype + "','" + filename + "','" + comments + "',NOW());"
     ccU.query(qryInsert)
@@ -210,6 +215,9 @@ class User
   def self.updateUserSection(user,params)
     
     msg = ""
+    ## validate section name and description
+    params[:sectionName] = validateStr(params[:sectionName])
+    params[:sectionDesc] = validateStr(params[:sectionDesc]) 
     ccU = User.new.self
     qryinsert = "insert into user_profile_sections(`username`,`email`,`section`,`section_details`,`created_on`,`last_updated`) values('" + 
     params[:username] + "','" + params[:email] + "','" + params[:sectionName] + "','" + params[:sectionDesc] + "',NOW(),NOW());"
@@ -387,6 +395,23 @@ class User
       encrypted_password = BCrypt::Engine.hash_secret(password, salt)
     end
     return encrypted_password,salt
+  end
+
+  ## validate strings with single qoute and \r\n for mysql 
+  def self.validateStr(str)
+    retStr = ""
+    
+    ## single qoute
+    if (str =~ /\'/)
+      retStr = str.gsub(/\'/,"\"")
+    else
+      retStr = str
+    end
+    ## \r\n
+    retStr.gsub!(/\r/,"")
+    retStr.gsub!(/\n/,"")
+      
+    return retStr   
   end
 
 

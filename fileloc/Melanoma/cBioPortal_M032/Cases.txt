@@ -1,0 +1,5 @@
+cancer_study_identifier: M032_Peeper
+stable_id: M032_Peeper_all
+case_list_name: All Tumors
+case_list_description: All tumor samples (6 samples)
+case_list_ids: M032_Pre	M032_R1	M032_R2	M032_R3	M032_R5	M032_R6

@@ -1,0 +1,4 @@
+type_of_cancer: SKCM
+cancer_study_identifier: M032_Peeper
+name: BRAF resistance in M032
+description: BRAFi resistant tumors from a single patient (Blood, Pre- and Post-treatment)

@@ -1,0 +1,1 @@
+SKCM	Malignant Melanoma	BRAFV600E, Resistance	Blue	melanoma
