@@ -17,7 +17,7 @@
 										<% files.each do |fs| -%>
 										    <tr>
 										    <% f = fs.split(";") -%>
-										    <% fdetails = f[1].split(",") -%>
+										    <% fdetails = f[1..(f.length - 1)] -%>
 										    <% if fdetails[2] == "data" -%>	
 										    	<td><i class="icon-file"></i><span style="color:blue" title="data file"><%= f[0] %></span></td>
 										    <% else -%>

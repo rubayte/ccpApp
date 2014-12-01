@@ -1,7 +1,0 @@
-cancer_study_identifier: M032_Peeper
-genetic_alteration_type: MRNA_EXPRESSION
-datatype: CONTINUOUS
-stable_id: M032_Peeper_mrna
-profile_description: Expression levels (RNAseq).
-show_profile_in_analysis_tab: false
-profile_name: mRNA expression (RNAseq)

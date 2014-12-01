@@ -39,6 +39,8 @@ class User
     ccU = User.new.self
     ## validate for mysql
     params[:edit_comments] = validateStr(params[:edit_comments])
+    ## validate for colon(;) and hash
+    params[:edit_comments] = validateStr2(params[:edit_comments])
     qryFile = "update `user_uploaded_files` set comments = '"+ params[:edit_comments]+"' where id = " + params[:id] + ""
     ccU.query(qryFile)
     ccU.close
@@ -94,7 +96,7 @@ class User
     fileHash = Hash.new()
     subTypeHash = Hash.new()
     ccU = User.new.self
-    qryFiles = "select * from `user_uploaded_files`"
+    qryFiles = "select username,email,type,`cancer_type`,subtype,filename,comments,`created_on`,id from `user_uploaded_files`"
     refFiles = ccU.query(qryFiles)
     refFiles.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
       key = r4
@@ -103,7 +105,7 @@ class User
       else  
         subTypeHash[r5] = "1"
       end
-      details = r1 + "," + r2 + "," + r3 + "," + r7 + "," + r8 + "," + r9
+      details = r1 + ";" + r2 + ";" + r3 + ";" + r7 + ";" + r8 + ";" + r9
       if fileHash.has_key?(key)
         fileHash [key] = fileHash [key] + "#" + file + ";" + details
       else
@@ -131,6 +133,10 @@ class User
     ## validate for mysql
     subtype = validateStr(subtype)
     comments = validateStr(comments)
+    ## validate for colon(;) and hash
+    subtype = validateStr2(subtype)
+    filenmae = validateStr2(filename)
+    comments = validateStr2(comments)
     qryInsert = "insert into `user_uploaded_files`(`username`,`email`,`type`,`cancer_type`,`subtype`,`filename`,`comments`,`created_on`) values('" + 
     user + "','" + useremailstr + "','" + type + "','" + ctype + "','" + subtype + "','" + filename + "','" + comments + "',NOW());"
     ccU.query(qryInsert)
@@ -397,7 +403,7 @@ class User
     return encrypted_password,salt
   end
 
-  ## validate strings with single qoute and \r\n for mysql 
+  ## validate strings with single qoutes and \r\n for mysql 
   def self.validateStr(str)
     retStr = ""
     
@@ -414,5 +420,12 @@ class User
     return retStr   
   end
 
+  ## validate for colon and hash in string
+  def self.validateStr2(str)
+    retStr = ""
+    retStr = str.gsub(/\;/,",")
+    retStr = str.gsub(/\#/," ")
+    return retStr    
+  end
 
 end
