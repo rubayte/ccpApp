@@ -16,3 +16,10 @@ jQuery ->
     "iDisplayLength": 10,
     "bScrollCollapse": true
   }) ;
+  jQuery ->
+  $('#tableOverview').dataTable( {
+    "sScrollX": "100%",
+    "sScrollY": "500",
+    "iDisplayLength": 25,
+    "bScrollCollapse": true
+  }) ;

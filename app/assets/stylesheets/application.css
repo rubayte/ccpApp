@@ -17,31 +17,49 @@
  */
 
 body{
-		padding-top:75px;
+	padding-top:75px;
 }
 .notice, .valid_notice, .invalid_notice{
-		height: auto; 
-		width: auto ;
-		margin-top:5px;
+	height: auto; 
+	width: auto ;
+	margin-top:5px;
 }
 .notice, .invalid_notice p, .valid_notice p{
-		text-align:center;
-		margin-top:6px;
+	text-align:center;
+	margin-top:6px;
 }
 
 .notice{
-		background-color: transparent;
+	background-color: transparent;
 }
 
 .invalid_notice{
-		background-color: #FFCCCC;
-		border:1px solid red;
+	background-color: #FFCCCC;
+	border:1px solid red;
 }
 .valid_notice{
-		background-color: #CCFFCC;
-		border:1px solid green;
+	background-color: #CCFFCC;
+	border:1px solid green;
 }
 .container .content {
     display: none;
     padding : 5px;
+}
+.present{
+	background-color: #CCFFCC;
+}
+.absent{
+	background-color: #FFCCCC;
+}
+.sample{
+	background-color: #0B9238;
+}
+.analysis{
+	background-color: #91BA08;
+}
+.data{
+	background-color: #06A18C;
+}
+.screening{
+	background-color: #A10682;
 }

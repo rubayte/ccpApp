@@ -1,22 +1,20 @@
 <div class="row-fluid">
-	<div class="container">	
+	<div class="container">
 		
 		<div class="span12">
-			
-			<%= form_tag({:controller => 'webportal',:action => 'overviewFilter'}, :multipart => true) do %>
-					Cancer type: <%= select_tag "cType", options_for_select(@ctypes) %>
-					&nbsp; Sample type: <%= select_tag "sType", options_for_select(@stypes) %>
-					&nbsp; Organism type: <%= select_tag "oType", options_for_select(@otypes) %>					
+				<%= form_tag({:controller => 'webportal',:action => 'overviewFilter'}, :multipart => true) do %>
+					Cancer type: <%= select_tag "cType", options_for_select(@ctypes,@ctypeschosen) %>
+					&nbsp; Sample type: <%= select_tag "sType", options_for_select(@stypes,@stypeschosen) %>
+					&nbsp; Organism type: <%= select_tag "oType", options_for_select(@otypes,@otypeschosen) %>					
 					</br> <%= submit_tag "Filter",  :class => 'btn btn-primary btn-medium' %>
-			<% end %>
-		</div>	
-		
+				<% end %>
+		</div>
 			
 		<div class="span12">
 			<div align="center">
-				<h3> Overview of data</h3>
+				<h3>Overview of data from <%= @ctypeschosen %> cancer for <%= @otypeschosen%> <%= @stypeschosen %> items</h3>
 			</div>
-			<table id="tableOverview" class="cell-border" cellspacing="0" >
+			<table id="tableOverview" class="cell-border" cellspacing="0">
 				<thead>
 					<tr>
 						<th rowspan="1" colspan="4" class="sample">Sample Annotation</th>
@@ -177,9 +175,9 @@
 			
 		</div>
 			
-	</div>	
+		
+	</div>
 </div>
-
 <script type="text/javascript">
 
 $(function () {
