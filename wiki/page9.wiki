@@ -1,5 +1,0 @@
- this is new page in att db logging created 
-
-<p>
- this is new page in att db logging created and attachment adding to existing page
-</p>
