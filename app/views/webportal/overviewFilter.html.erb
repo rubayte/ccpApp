@@ -12,7 +12,11 @@
 			
 		<div class="span12">
 			<div align="center">
-				<h3>Overview of data from <%= @ctypeschosen %> cancer for <%= @otypeschosen%> <%= @stypeschosen %> items</h3>
+				<h3> Overview of data from <%= @ctypeschosen %> cancer for <%= @otypeschosen%> <%= @stypeschosen %> items</br>
+				<a class="btn" href="" style="background-color:#CCFFCC" disabled>Present</a>
+				<a class="btn" href="" style="background-color:#B6B0B0" disabled>Soon will be available</a>
+				<a class="btn" href="" style="background-color:#FFCCCC" disabled>Absent</a>
+				</h3>
 			</div>
 			<table id="tableOverview" class="cell-border" cellspacing="0">
 				<thead>
@@ -66,90 +70,120 @@
 							
 							<% if r11 == nil or r11 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r11 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 							
 							<% if r12 == nil or r12 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r12 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 							
 							<% if r13 == nil or r13 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r13 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r22 == nil or r22 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r22 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r23 == nil or r23 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r23 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r24 == nil or r24 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r24 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r25 == nil or r25 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r25 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r26 == nil or r26 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r26 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r27 == nil or r27 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r27 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r28 == nil or r28 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r28 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r29 == nil or r29 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r29 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r30 == nil or r30 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r30 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r31 == nil or r31 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r31 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r32 == nil or r32 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r32 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r33 == nil or r33 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r33 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
@@ -157,12 +191,16 @@
 
 							<% if r16 == nil or r16 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r16 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>
 
 							<% if r17 == nil or r17 == "0" -%>
 							<td class="absent"></td>
+							<% elsif r17 == "2" -%>
+							<td class="future"></td>							
 							<% else -%>
 							<td class="present"></td>
 							<% end -%>

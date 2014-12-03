@@ -51,6 +51,9 @@ body{
 .absent{
 	background-color: #FFCCCC;
 }
+.future{
+	background-color: #B6B0B0;
+}
 .sample{
 	background-color: #0B9238;
 }
