@@ -239,9 +239,9 @@ class WebportalController < ApplicationController
   end
   
   def overview
-    @otypes = ['mouse','human']
-    @ctypes = ['Lung','Melanoma','Colorectal','Breast','Others']
-    @stypes = ['tumor sample','normal sample','cell line','gemm','pdx']
+    @otypes = ['All','mouse','human']
+    @ctypes = ['All','Lung','Melanoma','Colorectal','Breast','Others']
+    @stypes = ['All','tumor sample','normal sample','cell line','gemm','pdx']
     @res = []
     @res,rows = Overview.getDataOverview()
     if rows == 0
@@ -250,9 +250,9 @@ class WebportalController < ApplicationController
   end
   
   def overviewFilter
-    @otypes = ['mouse','human']
-    @ctypes = ['Lung','Melanoma','Colorectal','Breast','Others']
-    @stypes = ['tumor sample','normal sample','cell line','gemm','pdx']
+    @otypes = ['All','mouse','human']
+    @ctypes = ['All','Lung','Melanoma','Colorectal','Breast','Others']
+    @stypes = ['All','tumor sample','normal sample','cell line','gemm','pdx']
     @res = []
     @ctypeschosen = params[:cType]
     @stypeschosen = params[:sType]

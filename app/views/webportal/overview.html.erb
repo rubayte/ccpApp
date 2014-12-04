@@ -1,26 +1,24 @@
-<div class="row-fluid">
-	<div class="container">	
+
 		
-		<div class="span12">
+<div align="center">
 			
-			<%= form_tag({:controller => 'webportal',:action => 'overviewFilter'}, :multipart => true) do %>
+			<%= form_tag({:controller => 'webportal',:action => 'overviewFilter'}, :multipart => true,:class => "well form-inline") do %>
 					Cancer type: <%= select_tag "cType", options_for_select(@ctypes) %>
 					&nbsp; Sample type: <%= select_tag "sType", options_for_select(@stypes) %>
 					&nbsp; Organism type: <%= select_tag "oType", options_for_select(@otypes) %>					
-					</br> <%= submit_tag "Filter",  :class => 'btn btn-primary btn-medium' %>
+					&nbsp; <%= submit_tag "Filter",  :class => 'btn btn-primary btn-medium' %>
 			<% end %>
-		</div>	
-		
-			
-		<div class="span12">
-			<div align="center">
+</div>	
+
+	<div align="center">
 				<h3> Overview of data
-				<a class="btn" href="" style="background-color:#CCFFCC" disabled>Present</a>
-				<a class="btn" href="" style="background-color:#B6B0B0" disabled>Soon will be available</a>
-				<a class="btn" href="" style="background-color:#FFCCCC" disabled>Absent</a>
+				<a class="btn" href="#" style="background-color:#CCFFCC" disabled>Present</a>
+				<a class="btn" href="#" style="background-color:#B6B0B0" disabled>Soon will be available</a>
+				<a class="btn" href="#" style="background-color:#FFCCCC" disabled>Absent</a>
 				</h3>
-			</div>
-			<table id="tableOverview" class="cell-border" cellspacing="0" >
+	</div>
+	<div align="center">
+			<table id="tableOverview" class="cell-border">
 				<thead>
 					<tr>
 						<th rowspan="1" colspan="4" class="sample">Sample Annotation</th>
@@ -29,27 +27,27 @@
 						<th rowspan="1" colspan="2" class="screening">Screening Annotation</th>
 					</tr>
 					<tr>
-						<th>Sample name</th>
-						<th>Sample type</th>
-						<th>Organism</th>
-						<th>Cancer type</th>
-						<th>Varinat calls</th>
-						<th>CNV calls</th>
-						<th>Expression</th>
-						<th>WGS</th>
-						<th>WES</th>
-						<th>Sanger 360 Seq</th>
-						<th>Low coverage</th>
-						<th>RNA seq</th>
-						<th>GE Arrays</th>
-						<th>Methylation</th>
-						<th>siRNA</th>
-						<th>shRNA</th>
-						<th>CRISPR</th>
-						<th>ENU</th>
-						<th>IM</th>
-						<th>Single screen</th>
-						<th>Combi screen</th>
+						<th class="smallt">Sample name</th>
+						<th class="smallt">Sample type</th>
+						<th class="smallt">Organism</th>
+						<th class="smallt">Cancer type</th>
+						<th class="smallt">Variant calls</th>
+						<th class="smallt">CNV calls</th>
+						<th class="smallt">Expression</th>
+						<th class="smallt">WGS</th>
+						<th class="smallt">WES</th>
+						<th class="smallt">Sanger 360 Seq</th>
+						<th class="smallt">Low coverage</th>
+						<th class="smallt">RNA seq</th>
+						<th class="smallt">GE Arrays</th>
+						<th class="smallt">Methylation</th>
+						<th class="smallt">siRNA</th>
+						<th class="smallt">shRNA</th>
+						<th class="smallt">CRISPR</th>
+						<th class="smallt">ENU</th>
+						<th class="smallt">IM</th>
+						<th class="smallt">Single screen</th>
+						<th class="smallt">Combi screen</th>
 					</tr>	
 				</thead>				
 				<tbody>
@@ -60,15 +58,15 @@
 					<% else -%>
 						<% @res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20,r21,r22,r23,r24,r25,r26,r27,r28,r29,r30,r31,r32,r33,r34| -%>
 						<tr>
-							<td>
+							<td class="smallt">
 								<a href="#" data-toggle="tooltip" title="<%= r8 %>"><%= r4 %></a>
 							</td>		
 
-							<td><a href="#" data-toggle="tooltip" title="<%= r2 %>"><%= r1 %></a></td>
+							<td class="smallt"><a href="#" data-toggle="tooltip" title="<%= r2 %>"><%= r1 %></a></td>
 							
-							<td><%= r5 %></td>
+							<td class="smallt"><%= r5 %></td>
 							
-							<td><%= r7 %></td>							
+							<td class="smallt"><%= r7 %></td>							
 							
 							<% if r11 == nil or r11 == "0" -%>
 							<td class="absent"></td>
@@ -213,10 +211,8 @@
 				</tbody>		
 			</table>
 			
-		</div>
-			
-	</div>	
 </div>
+			
 
 <script type="text/javascript">
 
