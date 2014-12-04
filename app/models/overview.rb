@@ -43,7 +43,7 @@ class Overview
     
     ccU = Overview.new.self
     qryOverview = ""
-    if filterString == ""
+    if filters.length == 0
       qryOverview = "select * from model as M inner join sample as S inner join sampleToAnalysis as A inner join sampleToScreening as SCR inner join sampleToDataAnnotation as D " +
       "on M.id = S.model and S.sampleName = A.sample and S.sampleName = SCR.sample and S.sampleName = D.sample "
     else  
