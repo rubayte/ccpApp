@@ -192,15 +192,30 @@
 							<% elsif r16 == "2" -%>
 							<td class="future"></td>							
 							<% else -%>
-							<td class="present"></td>
+							<td class="present" align="center">
+								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
+								<div id="popover_content_wrapper" style="display: none">
+  								<div>
+  										<%= r17.html_safe %>
+  								</div>
+								</div>
+
+							</td>
 							<% end -%>
 
-							<% if r17 == nil or r17 == "0" -%>
+							<% if r18 == nil or r18 == "0" -%>
 							<td class="absent"></td>
-							<% elsif r17 == "2" -%>
+							<% elsif r18 == "2" -%>
 							<td class="future"></td>							
 							<% else -%>
-							<td class="present"></td>
+							<td class="present" align="center">
+								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
+								<div id="popover_content_wrapper" style="display: none">
+  								<div>
+  										<%= r19.html_safe %>
+  								</div>
+								</div>
+							</td>
 							<% end -%>
 
 						</tr>
@@ -210,6 +225,20 @@
 			</table>
 			
 </div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.csdesc').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
+});
+</script>			
+
+
 <script type="text/javascript">
 
 $(function () {
