@@ -317,9 +317,10 @@ class WebportalController < ApplicationController
   
   def uploadFiles
     @msg = nil
-    @msg = Datafile.validate(params)
+    @autocorrect = nil
+    @msg,@autocorrect = Datafile.validate(params)
     if @msg == "invalid"
-      redirect_to :data, flash: { uploadFile: true, :notice => "Invalid sub type name. Try agian.", :color => "invalid" }
+      redirect_to :data, flash: { uploadFile: true, :notice => "Invalid sub folder name. Try with this -> " + @autocorrect, :color => "invalid" }
       return
     elsif @msg == "missingFile"
       redirect_to :data, flash: { uploadFile: true, :notice => "Please select a file first.", :color => "invalid" }

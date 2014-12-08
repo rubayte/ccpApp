@@ -193,6 +193,7 @@ class Datafile
 
   def self.validate(params)
     valMsg = nil
+    suggestsfname = nil
     
     ## validate missing file name
     if (params[:file] == nil)
@@ -203,15 +204,24 @@ class Datafile
     ## valite new sub type
     if (params[:newSubType] =~ /\./)
       valMsg = "invalid"
-    elsif (params[:newSubType] =~ /^\//)
+      suggestsfname = params[:newSubType].gsub(/\./,"")
+    elsif (params[:newSubType] =~ /\'/)
       valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/\'/,"")
+    elsif (params[:newSubType] =~ /\"/)
+      valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/\"/,"")
+    elsif (params[:newSubType] =~ /\//)
+      valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/\//,"")
     elsif (params[:newSubType] =~ /\s/)
       valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/(\s)+/,"")
     else
       valMsg = "valid"
     end
   
-    return valMsg     
+    return valMsg,suggestsfname    
   end
 
 

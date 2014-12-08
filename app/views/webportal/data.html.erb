@@ -71,9 +71,26 @@
 		File: <%= file_field_tag 'file'%><br><br>
 		Type: <%= select_tag "fileType", options_for_select(@ftypes) %><br><br>
 		Cancer type: <%= select_tag "wgType", options_for_select(@wgtypes) %><br><br>
-		Sub type: <%= select_tag "sType", options_for_select(@stypes) %><br><br>
+		Sub folder: <%= select_tag "sType", options_for_select(@stypes) %><br><br>
 		<input type="checkbox" id="newSubTypeCheckbox" name="newSubTypeCheckbox" value="yes" onclick="javascript:toggletextBox();"/> 
-		Cretae new sub type: <%= text_field_tag "newSubType", '', disabled: true %> <br><br>
+		Cretae new sub folder: 
+		<a class='newfolder' data-placement='right' title="Sub folder Restrictions" href='#'><i class="icon-question-sign"></i></a>
+		<div id="popover_content_wrapper" style="display: none">
+  			<div>
+  				<p>
+  					You can create sub-folder(s) of your choice in a given Cancer type for uploading your data.
+  					Your sub-folder is automatically added to the "Sub folder" drop-down list for future use.
+  					There are few rules to follow (listed below) when creating a sub folder: 
+  				<p>	
+  				<ul>
+  					<li>Your sub folder name can't contain spaces</li>
+  					<li>Your sub folder name can't contain forward slash (/) character</li>
+  					<li>Your sub folder name can't contain dot (.)</li>
+  					<li>Your sub folder name can't contain single/double qoute characters (',"")</li>
+  				</ul>		
+  			</div>
+		</div>
+		<%= text_field_tag "newSubType", '', disabled: true %> <br><br>
 		Comments: <%= text_area_tag 'comments', nil, size: "5x5" %><br><br>
 	</div>
 	<div class="modal-footer">
@@ -118,5 +135,17 @@ $(".header").click(function () {
         });
     });
 
+});
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.newfolder').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
 });
 </script>
