@@ -223,6 +223,34 @@ class User
     
   end
 
+  ## get files by folder
+  def self.getUserFilesByFolder(cfolder,subfolder)
+    
+    files = []
+    ccU = User.new.self
+    qryFiles = ""
+    if subfolder == nil
+      qryFiles = "select username,email,type,`cancer_type`,subtype,filename,comments,`created_on`,id from `user_uploaded_files` where `cancer_type` = '" + cfolder + "'"
+      refFiles = ccU.query(qryFiles)
+      refFiles.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
+        temp = r1 + ";" + r2 + ";" + r3 + ";"+ r4 + ";" + r5+ ";" + r6 + ";" + r7 + ";" + r8 + ";" + r9
+        files.push(temp)
+      end  
+    else  
+      qryFiles = "select username,email,type,`cancer_type`,subtype,filename,comments,`created_on`,id from `user_uploaded_files` where `cancer_type` = '" + cfolder + "' and subtype = '" + subfolder + "'"
+      refFiles = ccU.query(qryFiles)
+      refFiles.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
+        temp = r1 + ";" + r2 + ";" + r3 + ";"+ r4 + ";" + r5+ ";" + r6 + ";" + r7 + ";" + r8 + ";" + r9
+        files.push(temp)
+      end
+    end
+       
+    return files  
+    
+  end
+
+
+
   ## create new file upload
   def self.createUploadFile(user,type,ctype,subtype,filename,comments)
     

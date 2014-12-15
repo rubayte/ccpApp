@@ -39,6 +39,7 @@ class WebportalController < ApplicationController
     end
   end
 
+
   def data
     @ftypes = ['data','resource']
     @wgtypes = ['Lung','Melanoma','Colorectal','Breast','Others']
@@ -49,152 +50,31 @@ class WebportalController < ApplicationController
     end  
   end
 
-  def data_bak
-    @dirItems = Hash.new()
-    @lungSubDirItems = Hash.new()
-    @uploadFromSubTypes = Hash.new()
-    ## add default sub types
-    @uploadFromSubTypes ['chemicalScreening'] = "1"
-    @uploadFromSubTypes ['geneticScreening'] = "1"
+  def folderLookInto
+    @level = "0"
+    @cfolderLebel = params[:cfolder]
+    @subfolderLebel = params[:subfolder]
     @ftypes = ['data','resource']
     @wgtypes = ['Lung','Melanoma','Colorectal','Breast','Others']
-    filelocitems = Dir.glob(Rails.root.join("fileloc").to_s + "/" + "**/*")
-    filelocitems.each do |item|
-
-      if (item =~ /Lung/)
-        fs = item.split("/")
-        if (fs.length == 8)
-          lungitem = fs[fs.length - 1]
-          if (lungitem =~ /\./)
-            if (@dirItems['Lung'])
-              @dirItems['Lung'] = @dirItems['Lung'] + ',' + lungitem 
-            else
-              @dirItems['Lung'] = lungitem
-            end
-           else
-             @uploadFromSubTypes[lungitem] = "1"
-           end 
-         elsif( fs.length == 9)
-           lsubitem = fs[fs.length - 1]
-           lsubfol = fs[fs.length - 2]
-           if (@dirItems['Lung'])
-             @dirItems['Lung'] = @dirItems['Lung'] + ',' + lsubfol + "/" + lsubitem 
-           else
-             @dirItems['Lung'] = lsubfol + "/" + lsubitem
-            end
-           #if (@lungSubDirItems[ lsubfol ])
-           #  @lungSubDirItems[ lsubfol ] =  @lungSubDirItems[ lsubfol ] + "," + lsubitem
-           #else  
-           #  @lungSubDirItems[ lsubfol ] = lsubitem
-           #end
-         else
-           ## nothing
-         end     
-        end
-      if (item =~ /Melanoma/)
-        fs = item.split("/")
-        if (fs.length == 8)
-          lungitem = fs[fs.length - 1]
-          if (lungitem =~ /\./)
-            if (@dirItems['Melanoma'])
-              @dirItems['Melanoma'] = @dirItems['Melanoma'] + ',' + lungitem 
-            else
-              @dirItems['Melanoma'] = lungitem
-            end
-           else
-             @uploadFromSubTypes[lungitem] = "1"
-           end 
-         elsif( fs.length == 9)
-           lsubitem = fs[fs.length - 1]
-           lsubfol = fs[fs.length - 2]
-           if (@dirItems['Melanoma'])
-             @dirItems['Melanoma'] = @dirItems['Melanoma'] + ',' + lsubfol + "/" + lsubitem 
-           else
-             @dirItems['Melanoma'] = lsubfol + "/" + lsubitem
-            end
-         else
-           ## nothing
-         end     
-        end
-      if (item =~ /Colorectal/)
-        fs = item.split("/")
-        if (fs.length == 8)
-          lungitem = fs[fs.length - 1]
-          if (lungitem =~ /\./)
-            if (@dirItems['Colorectal'])
-              @dirItems['Colorectal'] = @dirItems['Colorectal'] + ',' + lungitem 
-            else
-              @dirItems['Colorectal'] = lungitem
-            end
-           else
-             @uploadFromSubTypes[lungitem] = "1"
-           end 
-         elsif( fs.length == 9)
-           lsubitem = fs[fs.length - 1]
-           lsubfol = fs[fs.length - 2]
-           if (@dirItems['Colorectal'])
-             @dirItems['Colorectal'] = @dirItems['Colorectal'] + ',' + lsubfol + "/" + lsubitem 
-           else
-             @dirItems['Colorectal'] = lsubfol + "/" + lsubitem
-            end
-         else
-           ## nothing
-         end     
-        end
-      if (item =~ /Breast/)
-        fs = item.split("/")
-        if (fs.length == 8)
-          lungitem = fs[fs.length - 1]
-          if (lungitem =~ /\./)
-            if (@dirItems['Breast'])
-              @dirItems['Breast'] = @dirItems['Breast'] + ',' + lungitem 
-            else
-              @dirItems['Breast'] = lungitem
-            end
-           else
-             @uploadFromSubTypes[lungitem] = "1"
-           end 
-         elsif( fs.length == 9)
-           lsubitem = fs[fs.length - 1]
-           lsubfol = fs[fs.length - 2]
-           if (@dirItems['Breast'])
-             @dirItems['Breast'] = @dirItems['Breast'] + ',' + lsubfol + "/" + lsubitem 
-           else
-             @dirItems['Breast'] = lsubfol + "/" + lsubitem
-            end
-         else
-           ## nothing
-         end     
-        end
-      if (item =~ /Others/)
-        fs = item.split("/")
-        if (fs.length == 8)
-          lungitem = fs[fs.length - 1]
-          if (lungitem =~ /\./)
-            if (@dirItems['Others'])
-              @dirItems['Others'] = @dirItems['Others'] + ',' + lungitem 
-            else
-              @dirItems['Others'] = lungitem
-            end
-           else
-             @uploadFromSubTypes[lungitem] = "1"
-           end 
-         elsif( fs.length == 9)
-           lsubitem = fs[fs.length - 1]
-           lsubfol = fs[fs.length - 2]
-           if (@dirItems['Others'])
-             @dirItems['Others'] = @dirItems['Others'] + ',' + lsubfol + "/" + lsubitem 
-           else
-             @dirItems['Others'] = lsubfol + "/" + lsubitem
-            end
-         else
-           ## nothing
-         end     
-        end
-    
+    @stypes = ['chemicalScreening','geneticScreening']
+    @fitems = User.getUserFilesByFolder(params[:cfolder],params[:subfolder])
+    if params[:subfolder] == nil
+     @level = "1" 
+    else
+      @level = "2"
     end
-  @stypes = @uploadFromSubTypes.keys
   end
+
+  def data_bak
+    @ftypes = ['data','resource']
+    @wgtypes = ['Lung','Melanoma','Colorectal','Breast','Others']
+    @stypes = ['chemicalScreening','geneticScreening']
+    (@dirItems,subDirItems) = User.getUserFiles()
+    if subDirItems.length > 0
+      @stypes = @stypes + subDirItems.keys 
+    end  
+  end
+
   
   def project
     
@@ -348,6 +228,14 @@ class WebportalController < ApplicationController
   
   def download
     send_file Rails.root.join("fileloc", params[:file]), :disposition => 'attachment'      
+  end
+  
+  def downloadFolder
+    targetdiectory = "fileloc"+"/"+params[:folder]
+    temp = params[:folder].gsub(/\//,"_")
+    zipfolder = "download" + "/" + temp
+    status = `zip -r #{zipfolder} #{targetdiectory}`
+    send_file Rails.root.join(zipfolder + ".zip"), :disposition => 'attachment' 
   end
   
   def downloadWikiAtatchment
