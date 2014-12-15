@@ -230,10 +230,10 @@ class User
     ccU = User.new.self
     qryFiles = ""
     if subfolder == nil
-      qryFiles = "select username,email,type,`cancer_type`,subtype,filename,comments,`created_on`,id from `user_uploaded_files` where `cancer_type` = '" + cfolder + "'"
+      qryFiles = "select distinct `cancer_type`,subtype from `user_uploaded_files` where `cancer_type` = '" + cfolder + "'"
       refFiles = ccU.query(qryFiles)
-      refFiles.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
-        temp = r1 + ";" + r2 + ";" + r3 + ";"+ r4 + ";" + r5+ ";" + r6 + ";" + r7 + ";" + r8 + ";" + r9
+      refFiles.each do |r1,r2|
+        temp = r1 + ";" + r2
         files.push(temp)
       end  
     else  

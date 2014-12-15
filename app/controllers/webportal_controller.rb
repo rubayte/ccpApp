@@ -59,7 +59,7 @@ class WebportalController < ApplicationController
     @stypes = ['chemicalScreening','geneticScreening']
     @fitems = User.getUserFilesByFolder(params[:cfolder],params[:subfolder])
     if params[:subfolder] == nil
-     @level = "1" 
+     @level = "1"
     else
       @level = "2"
     end
