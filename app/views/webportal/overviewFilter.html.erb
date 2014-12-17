@@ -1,0 +1,251 @@
+
+<div align="center">
+				<%= form_tag({:controller => 'webportal',:action => 'overviewFilter'}, :multipart => true, :class => "well form-inline") do %>
+					Cancer type: <%= select_tag "cType", options_for_select(@ctypes,@ctypeschosen) %>
+					&nbsp; Sample type: <%= select_tag "sType", options_for_select(@stypes,@stypeschosen) %>
+					&nbsp; Organism type: <%= select_tag "oType", options_for_select(@otypes,@otypeschosen) %>					
+					&nbsp; <%= submit_tag "Filter",  :class => 'btn btn-primary btn-medium' %>
+				<% end %>
+</div>
+			
+<div align="center">
+				<h3> Overview of data ( Cancer: <%= @ctypeschosen %> ,Sample: <%= @stypeschosen%> ,Organism: <%= @otypeschosen %>)</br>
+				<a class="btn" href="#" style="background-color:#CCFFCC" disabled>Present</a>
+				<a class="btn" href="#" style="background-color:#B6B0B0" disabled>Soon will be available</a>
+				<a class="btn" href="#" style="background-color:#FFCCCC" disabled>Absent</a>
+				</h3>
+</div>
+<div align="center">
+			<% if @res == nil -%>
+			<table class="cell-border">
+			<tbody>
+			<tr>
+				<td> No record(s) found in database ! </td>
+			</tr>
+			</tbody>
+			</table>
+			<% else -%>
+			<table id="tableOverview" class="cell-border" cellspacing="0">
+				<thead>
+					<tr>
+						<th rowspan="1" colspan="4" class="sample">Sample Annotation</th>
+						<th rowspan="1" colspan="3" class="analysis">Analysis Annotation</th>			
+						<th rowspan="1" colspan="12" class="data">Data Annotation</th>
+						<th rowspan="1" colspan="2" class="screening">Screening Annotation</th>
+					</tr>
+					<tr>
+						<th class="smallt">Sample name</th>
+						<th class="smallt">Sample type</th>
+						<th class="smallt">Organism</th>
+						<th class="smallt">Cancer type</th>
+						<th class="smallt">Variant calls</th>
+						<th class="smallt">CNV calls</th>
+						<th class="smallt">Expression</th>
+						<th class="smallt">WGS</th>
+						<th class="smallt">WES</th>
+						<th class="smallt">Sanger 360 Seq</th>
+						<th class="smallt">Low coverage</th>
+						<th class="smallt">RNA seq</th>
+						<th class="smallt">GE Arrays</th>
+						<th class="smallt">Methylation</th>
+						<th class="smallt">siRNA</th>
+						<th class="smallt">shRNA</th>
+						<th class="smallt">CRISPR</th>
+						<th class="smallt">ENU</th>
+						<th class="smallt">IM</th>
+						<th class="smallt">Single screen</th>
+						<th class="smallt">Combi screen</th>
+					</tr>	
+				</thead>				
+				<tbody>
+						<% @res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20,r21,r22,r23,r24,r25,r26,r27,r28,r29,r30,r31,r32,r33,r34| -%>
+						<tr>
+							<td class="smallt">
+								<a href="#" data-toggle="tooltip" title="<%= r8 %>"><%= r4 %></a>
+							</td>		
+
+							<td class="smallt"><a href="#" data-toggle="tooltip" title="<%= r2 %>"><%= r1 %></a></td>
+							
+							<td class="smallt"><%= r5 %></td>
+							
+							<td class="smallt"><%= r7 %></td>							
+							
+							<% if r11 == nil or r11 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r11 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+							
+							<% if r12 == nil or r12 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r12 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+							
+							<% if r13 == nil or r13 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r13 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r22 == nil or r22 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r22 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r23 == nil or r23 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r23 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r24 == nil or r24 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r24 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r25 == nil or r25 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r25 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r26 == nil or r26 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r26 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r27 == nil or r27 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r27 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r28 == nil or r28 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r28 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r29 == nil or r29 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r29 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r30 == nil or r30 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r30 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r31 == nil or r31 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r31 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r32 == nil or r32 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r32 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+							<% if r33 == nil or r33 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r33 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present"></td>
+							<% end -%>
+
+
+							<% if r16 == nil or r16 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r16 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present" align="center">
+								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
+								<div id="popover_content_wrapper" style="display: none">
+  								<div>
+  										<%= r17.html_safe %>
+  								</div>
+								</div>
+
+							</td>
+							<% end -%>
+
+							<% if r18 == nil or r18 == "0" -%>
+							<td class="absent"></td>
+							<% elsif r18 == "2" -%>
+							<td class="future"></td>							
+							<% else -%>
+							<td class="present" align="center">
+								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
+								<div id="popover_content_wrapper" style="display: none">
+  								<div>
+  										<%= r19.html_safe %>
+  								</div>
+								</div>
+							</td>
+							<% end -%>
+
+						</tr>
+						<% end -%>
+				</tbody>		
+			</table>
+			<% end -%>	
+			
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.csdesc').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
+});
+</script>			
+
+
+<script type="text/javascript">
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+</script>

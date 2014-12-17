@@ -1,0 +1,49 @@
+<div class="row-fluid">
+	<div class="container">
+
+		<div span="12">
+			
+			<p> 
+				<b>Showing all members</b> &nbsp;
+				<%=  link_to "Export members list", :controller => "webportal", :action => "getMembersList" %>
+			</p>	      	
+
+			
+			<table id="tableMembers" class="display compact" cellspacing="0">
+				<thead>
+					<tr>
+						<th >Username</th>
+						<th>First name</th>
+						<th>Last name</th>
+						<th>Email</th>
+						<th>Institute</th>
+						<th>Group</th>
+						<th>Working groups</th>
+						<th>Picture</th>
+				</thead>				
+				<tbody>
+					<% if @res == "empty" -%>
+					<tr>
+						<td> empty </td>
+					</tr>
+					<% else -%>
+						<% @res.each do |r1,r2,r3,r4,r5,r6,r7| -%>
+						<tr>
+							<td><%= link_to r1, {:controller => "webportal", :action => "getProfile",:useridvalue => r1 } %></td>
+							<td><%= r2 %></td>
+							<td><%= r3 %></td>
+							<td><%= r4 %></td>
+							<td><%= r5 %></td>
+							<td><%= r6 %></td>
+							<td><%= r7 %></td>
+							<td><%= image_tag(r1 + ".jpg", :size => '50x50') %></td>
+						</tr>
+						<% end -%>
+					<% end -%>	
+				</tbody>		
+			</table>
+		
+		</div>
+
+	</div>
+</div>

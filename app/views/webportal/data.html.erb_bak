@@ -1,0 +1,151 @@
+<div class="row-fluid">
+
+	<div class="container">
+		
+		<div span="12">
+				<p>
+      					<b>Data and resources files</b> &nbsp;
+      					<%=  link_to_modal "Upload new file", "#uploadFile", :class=>"btn btn-primary btn-medium" %>
+	    		</p>			
+	    				<% @dirItems.each do |key,value| -%>
+					    		<div class="container">
+					    			<div class="header"><span><i class="icon-folder-open"></i><%= key %> /</span>
+	    							</div>
+    								<div class="content">
+    									<table class="table table-condensed">
+										<% files = value.split("#") -%>
+										<% files.each do |fs| -%>
+										    <tr>
+										    <% f = fs.split(";") -%>
+										    <% fdetails = f[1..(f.length - 1)] -%>
+										    <% if fdetails[2] == "data" -%>	
+										    	<td><i class="icon-file"></i><span style="color:blue" title="data file"><%= f[0] %></span></td>
+										    <% else -%>
+										    	<td><i class="icon-file"></i><span style="color:green" title="resource file"><%= f[0] %></span></td>
+										    <% end -%>	
+											<td><i class="icon-user"></i> <%= link_to fdetails[0], {:controller => "webportal", :action => "getProfile",:useridvalue => fdetails[0] } %></td>
+											<td><td><i class="icon-time"></i> <%= fdetails[4] %></td>
+											<td><i class="icon-tasks">:
+											<span title="Edit file"><%= link_to '<i class="icon-edit"></i>'.html_safe, {:controller => "webportal", :action => "updateFileDetails",:fileid => fdetails[5]} %></span> |
+											<i class="icon-eye-open"></i> |
+											<span title="Download file"><%= link_to '<i class="icon-download"></i>'.html_safe, {:controller => "webportal", :action => "download",:file => key + "/"+ f[0]} %></span>
+											</td><td><i class="icon-comment"></i>
+											<% if fdetails[3].length > 10 -%>
+												<td><span title="<%= fdetails[3]%>"><%= fdetails[3][0, 9] + " .." %></span></td>
+											<% elsif fdetails[3].length == 0 -%>
+												<td>empty</td>
+											<% else -%>	
+												<td> <%= fdetails[3] %></td>
+											<% end -%>	
+											</tr>							
+										<% end -%>
+										</table>	
+									</div>
+								</div>
+						<% end -%>
+      					
+		</div>
+	</div>
+</div>
+
+<div id="uploadFile" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+	</p>
+
+	<div class="modal-header">
+		<h3>Upload data and resources files</h3>
+	</div>
+	<div class="modal-body">
+	<%= form_tag({:controller => 'webportal',:action => 'uploadFiles'}, :multipart => true) do %>
+		File: <%= file_field_tag 'file'%><br><br>
+		Type: <%= select_tag "fileType", options_for_select(@ftypes) %><br><br>
+		Cancer type: <%= select_tag "wgType", options_for_select(@wgtypes) %><br><br>
+		Sub folder: <%= select_tag "sType", options_for_select(@stypes) %><br><br>
+		<input type="checkbox" id="newSubTypeCheckbox" name="newSubTypeCheckbox" value="yes" onclick="javascript:toggletextBox();"/> 
+		Cretae new sub folder: 
+		<a class='newfolder' data-placement='right' title="Sub folder Restrictions" href='#'><i class="icon-question-sign"></i></a>
+		<div id="popover_content_wrapper" style="display: none">
+  			<div>
+  				<p>
+  					You can create sub-folder(s) of your choice in a given Cancer type for uploading your data.
+  					Your sub-folder is automatically added to the "Sub folder" drop-down list for future use.
+  					There are few rules to follow (listed below) when creating a sub folder: 
+  				<p>	
+  				<ul>
+  					<li>Your sub folder name can't contain spaces</li>
+  					<li>Your sub folder name can't contain forward slash (/) character</li>
+  					<li>Your sub folder name can't contain dot (.)</li>
+  					<li>Your sub folder name can't contain single/double qoute characters (',"")</li>
+  				</ul>		
+  			</div>
+		</div>
+		<%= text_field_tag "newSubType", '', disabled: true %> <br><br>
+		Comments: <%= text_area_tag 'comments', nil, size: "5x5" %><br><br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+</div>
+
+
+<% if flash[:uploadFile] %>
+	<script type="text/javascript">
+		$('#uploadFile').modal('show');
+	</script>
+<% end %>
+
+<script type="text/javascript">
+function toggletextBox()
+    {
+    if (document.getElementById('newSubTypeCheckbox').checked == true)
+      {
+      document.getElementById('newSubType').removeAttribute('disabled');
+      }
+    else
+      {
+      document.getElementById('newSubType').setAttribute('disabled','disabled');
+      }
+    }
+</script>
+<script type="text/javascript">
+$(".header").click(function () {
+
+    $header = $(this);
+    //getting the next element
+    $content = $header.next();
+    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    $content.slideToggle(500, function () {
+        //execute this after slideToggle is done
+        //change text of header based on visibility of content div
+        $header.text(function () {
+            //change text based on condition	
+            return $content.is(":visible") ? $header["\u2215"] : $header["\u2215"] ;
+        });
+    });
+
+});
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.newfolder').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
+});
+</script>

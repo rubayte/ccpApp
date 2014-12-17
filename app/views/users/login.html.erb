@@ -1,0 +1,62 @@
+<div class="row-fluid">
+		
+	<div class="container">
+		
+		<div align="center">
+		<p><h3>Log in to combat-cancer webportal</h3> 
+		If you dont have an account yet, please register <%=  link_to_modal "here", "#newAccount", :class=>"button" %>
+		</p>
+		<%= form_tag(:controller => 'users', :action => 'autheticateUser') do %>				
+			<%= text_field_tag :login_id , nil, :placeholder => "username/email" %></br>
+			<%= password_field_tag :login_password, nil,:placeholder => "password" %></br>
+			<%= submit_tag "Login", :class => 'btn btn-primary btn-large' %>		
+		<% end -%>	
+
+		</div>
+		
+
+		</div>
+
+
+	</div>
+	
+		
+</div>
+
+<div id="newAccount" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+	</p>
+
+	<div class="modal-header">
+		<h3>Register for this web-portal</h3> 
+	</div>
+	<div class="modal-body">
+	<%= form_tag(:controller => 'users', :action => 'createUser') do %>				
+		<%= text_field_tag :login_username , nil, :placeholder => "username" %></br>
+		<%= text_field_tag :login_email , nil, :placeholder => "email" %></br>
+		<%= password_field_tag :login_password, nil,:placeholder => "password" %></br>
+		<%= password_field_tag :login_password_confirm, nil,:placeholder => "password again" %></br>
+	</div>
+	<div class="modal-footer">
+		<%= submit_tag "Register", :class => 'btn btn-primary btn-large' %>		
+	<% end -%>
+	</div>
+</div>
+
+
+<% if flash[:newAccount] %>
+	<script type="text/javascript">
+		$('#newAccount').modal('show');
+	</script>
+<% end %>

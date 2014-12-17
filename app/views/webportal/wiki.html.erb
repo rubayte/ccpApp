@@ -1,0 +1,171 @@
+<div class="row-fluid">
+	<div class="container">
+		<div class="span12">
+			<p>
+				<a class="btn btn-primary btn-medium" href="createWikiPage">Create new page</a>
+				&nbsp; <%=  link_to_modal "Wiki Syntax", "#wikiSyntax", :class=>"btn btn-primary btn-medium" %>
+			</p>
+		</div>
+	</div>
+</div>
+			
+<div class="row-fluid">
+	<div class="container">
+	
+		<div class="span3">
+			
+			<div class="well sidebar-nav">
+				<ul class="nav nav-list">
+              		<li class="nav-header">Pages</li>
+              		<% @pages.each do |file| -%>
+					<% fs = file.split("/") -%>
+					<% fss = fs[fs.length - 1].split(".") -%>
+					<li><%= link_to fss[0], {:controller => "webportal" , :action => "wiki", :pageid => fss[0] } %></li>	
+				<% end -%>
+				</ul>
+			</div>	
+
+		</div>
+	
+		<div class="span9">
+			<div>
+				<h2><%= @filetoshow[0..-6] %> &nbsp; 
+					<span title="Edit page">
+					<%= link_to '<i class="icon-edit"></i>'.html_safe, {:controller => "webportal", :action => "editWikiPage",:pageid => @filetoshow } %>
+					</span>
+				</h2>
+				<p style="color:#808080">page creation info: 
+					<span title="created by"><i class="icon-user"></i> <%= @cby %></span> &nbsp; 
+					<span title="created at"><i class="icon-time"></i> <%= @cat %></span>
+				<% if @leby != nil and @leat != nil -%>
+				</br>page update info:
+					<span title="last edited by"><i class="icon-user"></i> <%= @leby %></span> &nbsp; 
+					<span title="last edited at"><i class="icon-time"></i> <%= @leat %></span>
+				<% end -%>
+				</p>
+				<hr>
+			</div>
+			<div>
+			<% File.open(Rails.root.join('wiki',@filetoshow), 'rb') do |infile| -%>
+				<% while line = infile.gets() -%>
+					<% if line =~ /<(.*)>/%>
+						<%= line.html_safe %>
+					<% else -%>	
+						<%= line %>
+					<% end -%>	
+				<% end -%>
+			<% end -%>
+			</div>
+			<% if @atts.length > 0 -%>
+			<div>
+			<hr>
+					<h4>Page attachment(s)</h4>
+					<% @atts.each do |a1| -%>
+						<i class="icon-tags"></i> <%= a1 %>
+								<span title="Download attachment"><%= link_to '<i class="icon-download"></i>'.html_safe, 
+								{:controller => "webportal", :action => "downloadWikiAtatchment",:page => @filetoshow,:file => a1} %></span>
+						</br>	
+					<% end -%>
+			</div>
+			<% end -%>			
+		</div>
+	</div>
+</div>
+
+
+<div id="wikiSyntax" class="modal" style="display: none; ">
+
+
+	<div class="modal-header">
+		<h3>Wiki Syntax</h3>
+	</div>
+	<div class="modal-body">
+		
+			<div class="present">
+				<h3>Headings</h3>
+				<p>
+					&lt; h3 &gt; My Header &lt; h3 /&gt;  <h3>My Header</h3>
+				</p>	
+			</div>
+			<div class="present">
+				<h3>Paragraph</h3>
+				<p>
+					&lt; p &gt; Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.&lt; p /&gt;  
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh. </p>
+				</p>
+			</div>
+			<div class="present">
+				<h3>Text Styling</h3>
+				<ul>
+					<li>Bold <p>&lt; b &gt; something bold &lt; b /&gt;</p>  <p><b>something bold</b></p></li>
+					<li>Italic <p>&lt; i &gt; something italic &lt; i /&gt;</p>  <p><i>something italic</i></p></li>
+					<li>strong <p>&lt; strong &gt; something strong &lt; strong /&gt;</p>  <p><strong>something strong</b></strong></li>
+					<li>strong <p>&lt; mark &gt; something marked &lt; mark /&gt;</p>  <p><mark>something marked</b></mark></li>
+
+				</ul>	
+			</div>
+			
+			<div class="present">
+				<h3>Ordered list</h3>
+				<p>&lt; ol &gt; My List </br>
+					&lt; li &gt; item1 &lt; li /&gt;</br>
+					&lt; li &gt; item2 &lt; li /&gt;</br>
+					&lt; ol /&gt;
+				</p>
+				<p> 
+					<ol> My List
+					<li> item1 </li>
+					<li> item2 </li>
+					</ol>
+				</p>	
+			</div>
+		
+			<div class="present">
+				<h3>Unordered list</h3>
+				<p>&lt; ul &gt; My List </br>
+					&lt; li &gt; item1 &lt; li /&gt;</br>
+					&lt; li &gt; item2 &lt; li /&gt;</br>
+					&lt; ul /&gt;
+				</p>
+				<p> 
+					<ul> My List
+					<li> item1 </li>
+					<li> item2 </li>
+					</ul>
+				</p>	
+			</div>
+
+
+			<div class="present">
+				<h3>Table</h3>
+				<p>&lt; table border="1" &gt;</br>
+					&lt; caption &gt; My Table &lt; caption /&gt;</br>
+					&lt; tr &gt; </br>
+					&lt; th &gt; A &lt; th /&gt;</br>
+					&lt; th &gt; B &lt; th /&gt;</br>
+					&lt; tr /&gt; </br>
+					&lt; tr &gt; </br>
+					&lt; td &gt; item1 &lt; td /&gt;</br>
+					&lt; td &gt; item2 &lt; td /&gt;</br>
+					&lt; tr /&gt; </br>
+					&lt; tr &gt; </br>
+					&lt; td &gt; item3 &lt; td /&gt;</br>
+					&lt; td &gt; item4 &lt; td /&gt;</br>
+					&lt; tr /&gt; </br>
+					&lt; table /&gt;
+				</p>
+				<p>
+					<table border="1">
+						<caption> My Table </caption>
+						<tr><th>A</th><th>B</th></tr>
+						<tr><td>item1</td><td>item2</td></tr>
+						<tr><td>item3</td><td>item4</td></tr>
+					</table>	 
+				</p>	
+			</div>
+
+
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>

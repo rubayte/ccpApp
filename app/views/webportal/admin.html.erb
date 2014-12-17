@@ -1,0 +1,17 @@
+<div class="row-fluid">
+		
+	<div class="container">
+		
+		<div align="center">
+
+		<%= form_tag(:controller => 'webportal', :action => 'authenticateAdmin') do %>				
+			<%= password_field_tag :admin_signature, nil,:placeholder => "admin signature" %></br>
+			<%= submit_tag "Authenticate", :class => 'btn btn-primary btn-large' %>		
+		<% end -%>	
+
+		</div>
+		
+	</div>
+	
+		
+</div>

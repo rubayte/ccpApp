@@ -1,0 +1,23 @@
+<div class="row-fluid">
+	<div class="container">
+
+		<div class="span12">
+			<p>
+				<h3>Project description</h3>
+			</p>
+			
+			<% File.open(Rails.root.join('wiki','project.wiki'), 'rb') do |infile| -%>
+				<% while line = infile.gets() -%>
+					<% if line =~ /<(.*)>/%>
+						<%= line.html_safe %>
+					<% else -%>	
+						<%= line %>
+					<% end -%>	
+				<% end -%>
+			<% end -%>
+
+			
+		</div>
+		
+	</div>
+<div>	

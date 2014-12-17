@@ -1,0 +1,117 @@
+<div class="row-fluid">
+
+	<div class="container">
+		<div span="12">
+			<%= image_tag(@profile['picture'], :size => '150x150')  %>
+			<h3>
+			<%= @profile['username'] %> [ <%= @profile['email'] %> ] 
+			</h3>
+		</div>		
+	</div>
+	
+	<div class="container">
+		<div span="12">
+			<h4>Basic information <%=  link_to_modal "Update", "#updateProfile", :class=>"btn btn-primary btn-medium" %>
+			</h4>
+			<p>
+				First name: <b> <%= @profile['firstname'] %> </b></br>
+				Last name: <b> <%= @profile['lastname'] %></b></br>
+				Institute: <b><%= @profile['institute'] %></b></br>
+				Group: <b><%= @profile['group'] %></b></br>
+				Working group: <b><%=  @profile['workinggroup'] %></b></br>
+			</p>
+			<h4>Profile Sections <%=  link_to_modal "Add sections", "#updateProfileSections", :class=>"btn btn-primary btn-medium" %>
+			</h4>
+			<p>
+				<% if @resS == "empty" %>
+					No section present. Please add section(s) to your profile.
+				<% else -%>
+					<% @resS.each do |r1,r2| -%>
+						<b><%= r1 %></b><br>
+						<%= r2 %><br>
+					<%end -%>
+				<% end -%>	
+			</p>
+		</div>
+	</div>
+	
+</div>
+
+<div id="updateProfile" class="modal" style="display: none; ">
+
+ 	<div class="modal-header">
+ 		<b><%= @profile['username'] %></br>
+ 		<%= @profile['email'] %></b>
+ 	</div>
+	
+	<div class="modal-body">
+			<%= form_tag({:controller => 'users',:action => 'updateUserData'}, :multipart => true) do %>
+				First name:<%= text_field_tag :edit_firstname , @profile['firstname'] %></br>
+				Last name: <%= text_field_tag :edit_lastname , @profile['lastname'] %></br>
+				Institute: <%= select_tag :edit_institute , options_for_select(@institutes) %></br>
+				Group: <%= select_tag :edit_group , options_for_select(@groups) %></br>
+				Working group: (you can select multiple working groups)</br>
+					<% if @workinggroups.include? "Chemical Screens" -%> 
+						<%= check_box_tag 'chkchemicalScreen' , 'Chemical Screens', :checked => true %>Chemical Screens</br>
+					<% else -%>
+						<%= check_box_tag 'chkchemicalScreen' , 'Chemical Screens' %>Chemical Screens</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Genetic Screens" -%> 
+						<%= check_box_tag 'chkgeneticScreen', 'Genetic Screens', :checked => true %>Genetic Screens</br>
+					<% else -%>
+						<%= check_box_tag 'chkgeneticScreen' , 'Genetic Screens' %>Genetic Screens</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Lung" -%> 
+						<%= check_box_tag 'chklung', 'Lung' , :checked => true %>Lung</br>
+					<% else -%>
+						<%= check_box_tag 'chklung' , 'Lung' %>Lung</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Breast" -%> 
+						<%= check_box_tag 'chkbreast', 'Breast', :checked => true %>Breast</br>
+					<% else -%>
+						<%= check_box_tag 'chkbreast' , 'Breast' %>Breast</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Colorectal" -%> 
+						<%= check_box_tag 'chkcolorectal', 'Colorectal' , :checked => true %>Colorectal</br>
+					<% else -%>
+						<%= check_box_tag 'chkcolorectal' , 'Colorectal' %>Colorectal</br>
+					<% end -%>	
+					<% if @workinggroups.include? "Melanoma" -%> 
+						<%= check_box_tag 'chkmelanoma', 'Melanoma' , :checked => true %>Melanoma</br>
+					<% else -%>
+						<%= check_box_tag 'chkmelanoma' , 'Melanoma' %>Melanoma</br>
+					<% end -%>
+					<% if @workinggroups.include? "Others" -%> 
+						<%= check_box_tag 'chkothers', 'Others' , :checked => true %>Others</br>
+					<% else -%>
+						<%= check_box_tag 'chkothers' , 'Others' %>Others</br>
+					<% end -%>	
+				Upload new picture: <%= file_field_tag 'pictureFile'%> </br></br>				
+	</div>
+	<div class="modal-footer">
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>		
+			<% end -%>
+	</div>			
+
+</div>
+
+<div id="updateProfileSections" class="modal" style="display: none; ">
+
+ 	<div class="modal-header">
+ 		<b><%= @profile['username'] %></br>
+ 		<%= @profile['email'] %></b>
+ 	</div>
+
+	<div class="modal-body">
+			<%= form_tag({:controller => 'users',:action => 'updateUserSectionData'}, :multipart => true) do %>
+				<%= hidden_field_tag 'username', @profile['username'] %>
+				<%= hidden_field_tag 'email', @profile['email'] %>
+				Section name:<%= text_field_tag :sectionName , nil %></br>
+				Section Description:</br> 
+				<%= text_area_tag :sectionDesc , nil, size: "10x10" %></br>
+	</div>
+	<div class="modal-footer">			
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>		
+			<% end -%>	
+	</div>
+</div>
