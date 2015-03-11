@@ -138,20 +138,81 @@ class User
      
   end
   
+  ## get all subtypes from user uploaded files
+  def self.getSubtypes()
+    
+    res = []
+    ccU = User.new.self
+    qrySubtype = "select distinct subtype from `user_uploaded_files`"
+    refSubtype = ccU.query(qrySubtype)
+    if refSubtype.num_rows > 0
+      refSubtype.each do |r|
+        res.push(r)
+      end
+    end
+    ccU.close
+    return res
+        
+  end
+  
   ## edit file in db
   def self.commitFileChanges(params)
 
     msg = ""    
+    fhash = Hash.new
     ccU = User.new.self
-    ## validate for mysql
-    params[:edit_comments] = validateStr(params[:edit_comments])
-    ## validate for colon(;) and hash
-    params[:edit_comments] = validateStr2(params[:edit_comments])
-    qryFile = "update `user_uploaded_files` set comments = '"+ params[:edit_comments]+"' where id = " + params[:id] + ""
-    ccU.query(qryFile)
-    ccU.close
-    msg = "updated"
     
+    ## decide for file location change
+    fhash = getFileDetails(params[:fid])
+    if fhash['ctype'] == params[:edit_ctype] and fhash['subtype'] == params[:edit_subtype] and fhash['type'] == params[:edit_type] and params[:newSubTypeCheckbox] != "yes"
+      ## no change detected
+      ## validate for mysql
+      params[:edit_comments] = validateStr(params[:edit_comments])
+      ## validate for colon(;) and hash
+      params[:edit_comments] = validateStr2(params[:edit_comments])
+      qryFile = "update `user_uploaded_files` set comments = '"+ params[:edit_comments]+"' where id = " + params[:fid] + ""
+      ccU.query(qryFile)
+      msg = "updated"
+    else
+      ## change detected
+      ## check on new subtype
+      if params[:newSubTypeCheckbox] == "yes"
+        
+        ## make physical file change first
+        msg = Datafile.changeFileLocation(params[:edit_ctype],params[:newSubType],fhash)
+        if msg == "changed"
+          ## go forward with the database update
+          ## validate for mysql
+          params[:edit_comments] = validateStr(params[:edit_comments])
+          ## validate for colon(;) and hash
+          params[:edit_comments] = validateStr2(params[:edit_comments])
+          qryFile = "update `user_uploaded_files` set comments = '"+ params[:edit_comments]+"' ,  type = '"+ params[:edit_type]+"' , `cancer_type` = '"+ params[:edit_ctype]+"' " +
+          ", `subtype` = '"+ params[:newSubType]+"' where id = " + params[:fid] + ""
+          ccU.query(qryFile)
+          msg = "updated"        
+        else
+          msg = "error"
+        end   
+      else
+        ## make physical file change first
+        msg = Datafile.changeFileLocation(params[:edit_ctype],params[:edit_subtype],fhash)
+        if msg == "changed"
+          ## go forward with the database update
+          ## validate for mysql
+          params[:edit_comments] = validateStr(params[:edit_comments])
+          ## validate for colon(;) and hash
+          params[:edit_comments] = validateStr2(params[:edit_comments])
+          qryFile = "update `user_uploaded_files` set comments = '"+ params[:edit_comments]+"' ,  type = '"+ params[:edit_type]+"' , `cancer_type` = '"+ params[:edit_ctype]+"' " +
+          ", `subtype` = '"+ params[:edit_subtype]+"' where id = " + params[:fid] + ""
+          ccU.query(qryFile)
+          msg = "updated"        
+        else
+          msg = "error"
+        end
+      end
+    end
+    
+    ccU.close
     return msg
     
   end

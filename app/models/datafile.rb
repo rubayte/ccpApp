@@ -4,6 +4,26 @@ class Datafile
     
   end
   
+  def self.changeFileLocation(ctype,subtype,details)
+    msg = nil
+    
+    if(File.exists?(Rails.root.join('fileloc', ctype, subtype)))
+      cpath = Rails.root.join('fileloc',details['ctype'],details['subtype'],details['filename'])
+      tpath = Rails.root.join('fileloc',ctype,subtype,details['filename'])
+      File.rename cpath, tpath
+      msg = "changed"
+    else
+      ## make new sub folder 
+      Dir.mkdir(Rails.root.join('fileloc',ctype,subtype))
+      cpath = Rails.root.join('fileloc',details['ctype'],details['subtype'],details['filename'])
+      tpath = Rails.root.join('fileloc',ctype,subtype,details['filename'])
+      File.rename cpath, tpath
+      msg = "changed"
+    end   
+    
+    return msg
+  end
+  
   def self.updateWikiFile(user,params)
     
     msg = ""
@@ -223,6 +243,34 @@ class Datafile
   
     return valMsg,suggestsfname    
   end
+
+  def self.validateSubType(params)
+    valMsg = nil
+    suggestsfname = nil
+    
+    ## valite new sub type
+    if (params[:newSubType] =~ /\./)
+      valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/\./,"")
+    elsif (params[:newSubType] =~ /\'/)
+      valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/\'/,"")
+    elsif (params[:newSubType] =~ /\"/)
+      valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/\"/,"")
+    elsif (params[:newSubType] =~ /\//)
+      valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/\//,"")
+    elsif (params[:newSubType] =~ /\s/)
+      valMsg = "invalid"
+      suggestsfname = params[:newSubType].gsub(/(\s)+/,"")
+    else
+      valMsg = "valid"
+    end
+  
+    return valMsg,suggestsfname    
+  end
+
 
 
   def self.createWikiPage(user,params)

@@ -5,15 +5,25 @@
 jQuery ->
   $('#tableTickets').dataTable( {
     "sScrollX": "100%",
-    "sScrollY": "500",
+    "sScrollY": "800",
     "iDisplayLength": 25,
-    "bScrollCollapse": true
+    "bScrollCollapse": true,
+    "columns": [{ "width": "10%"},{"width": "38%"},{"width": "5%"},{"width": "10%"},{"width": "10%"},{"width": "10%"},{"width": "10%"}]
+  });
+jQuery ->
+  $('#tablePages').dataTable( {
+    "sScrollX": "100%",
+    "sScrollY": "100%",
+    "iDisplayLength": -1,
+    "bScrollCollapse": true,
+    "paging": false,
+    "dom": '<"pull-left"f><"pull-right"l>tip'
   });
 jQuery ->
   $('#tableMembers').dataTable( {
     "sScrollX": "100%",
     "sScrollY": "500",
-    "iDisplayLength": 10,
+    "iDisplayLength": 25,
     "bScrollCollapse": true
   }) ;
 jQuery ->

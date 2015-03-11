@@ -11,8 +11,8 @@
 <div class="row-fluid">
 	<div align="center">		
 			<%= form_tag({:controller => 'webportal',:action => 'ticketsFilter'}, :multipart => true,:class => "well form-inline") do %>
-					Status: <%= select_tag "statusType", options_for_select(@statusTypes) %>
-					&nbsp; Priority: <%= select_tag "priorityType", options_for_select(@pTypes) %>
+					Status: <%= select_tag "statusType", options_for_select(@statusTypes,@statusTypesChosen) %>
+					&nbsp; Priority: <%= select_tag "priorityType", options_for_select(@pTypes,@pTypesChosen) %>
 					&nbsp; <%= submit_tag "Filter",  :class => 'btn btn-primary btn-medium' %>
 			<% end %>
 	</div>	

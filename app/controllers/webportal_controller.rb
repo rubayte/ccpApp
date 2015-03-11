@@ -163,10 +163,24 @@ class WebportalController < ApplicationController
   
   def tickets
     @ptypes = ['low','medium','high']
+    @pTypes = ['Any','low','medium','high']
+    @statusTypes = ['open','resolved','Any']
     (@res,rows) = Tickets.getTickets()
     if rows == 0
       @res = "empty"
     end
+  end
+  
+  def ticketsFilter
+    @ptypes = ['low','medium','high']
+    @pTypes = ['Any','low','medium','high']
+    @statusTypes = ['open','resolved','Any']
+    @pTypesChosen = params[:priorityType]
+    @statusTypesChosen = params[:statusType]
+    (@res,rows) = Tickets.getTicketsFilter(params)
+    if rows == 0
+      @res = "empty"
+    end    
   end
   
   def createIssues
@@ -243,23 +257,38 @@ class WebportalController < ApplicationController
   end
   
   def updateFileDetails
+    @ctypes = ['Lung','Melanoma','Colorectal','Breast','Others']
+    @subtypes = User.getSubtypes()
+    @types = ['data','resource']
     @fileDetails = Hash.new()
     @fileDetails = User.getFileDetails(params[:fileid])    
   end
   
   def commitUpdateFileDetails
-    msg = User.commitFileChanges(params)
-    if msg == "updated"
-      redirect_to :data
-      flash[:notice] = "Your file details have been updated !!"
-      flash[:color]= "valid"
-      return              
-    else
-      redirect_to :commitUpdateFileDetails
-      flash[:notice] = "Something went wrong"
+    msg = nil
+    autocorrect = nil
+    (msg,autocorrect) = Datafile.validateSubType(params)
+    if msg == "invalid" or msg == nil
+      redirect_to :controller => "webportal", :action => "updateFileDetails", :fileid => params[:fid]
+      flash[:notice] = "Invalid sub folder name. Try with this -> " + autocorrect
       flash[:color]= "invalid"
-      return                      
-    end
+      return
+    elsif msg == "valid"
+      msg = User.commitFileChanges(params)
+      if msg == "updated"
+        redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:edit_ctype] , :subfolder => params[:edit_subtype]
+        flash[:notice] = "Your file details have been updated !!"
+        flash[:color]= "valid"
+        return              
+       else
+        redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:edit_ctype] , :subfolder => params[:edit_subtype]
+        flash[:notice] = "Something went wrong"
+        flash[:color]= "invalid"
+        return                      
+      end 
+    else
+    end    
+    
   end
 
   def profile

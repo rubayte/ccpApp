@@ -18,6 +18,7 @@
 
 body{
 	padding-top:75px;
+	padding-bottom:50px;
 }
 .notice, .valid_notice, .invalid_notice{
 	height: auto; 
@@ -68,4 +69,13 @@ body{
 }
 .smallt{
 	font-size: 12px;
+}
+.ft{
+	text-align:center;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right:0px;
+	padding-top: 15px;
+	background-color: #f5f5f5f;
 }

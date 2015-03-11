@@ -1,18 +1,71 @@
 <div class="row-fluid">
 	<div class="container">
-		<div span="12">
-			<h4>
-			Updating <I> <%= @fileDetails['ctype'] %>/<%= @fileDetails['subtype'] %>/<%= @fileDetails['filename'] %></I> 
-			</h4>
+		<div class="span12">
+			<h3>
+			<%= @fileDetails['ctype'] %>&nbsp;/&nbsp;<%= @fileDetails['subtype'] %>&nbsp;/&nbsp;<%= @fileDetails['filename'] %> 
+			</h3>
+			<p style="color:#808080">File creation info: 
+				<span title="created by"><i class="icon-user"></i> <%= @fileDetails['username'] %></span> &nbsp; 
+				<span title="created at"><i class="icon-time"></i> <%= @fileDetails['createdon'] %></span>
+			</p>
 			<%= form_tag({:controller => 'webportal',:action => 'commitUpdateFileDetails'}, :multipart => true) do %>
-			<%= hidden_field_tag 'id', @fileDetails['fileid'] %>
-			Created by: <b><%= @fileDetails['username']%> [ <%= @fileDetails['email'] %> ] </b> at <b><%= @fileDetails['createdon'] %></b></br>
-			Cancer type: <b><%=  @fileDetails['ctype']%></b><br>
-			Sub type: <b><%= @fileDetails['subtype'] %></b><br>
-			File type: <b><%= @fileDetails['type'] %></b><br>
-			Comments: <%= text_area_tag 'edit_comments', @fileDetails['comments'], size: "5x5" %><br>
+			<%= hidden_field_tag "fid", @fileDetails['fileid'] %></br>
+			<h4>Change file location</h4>
+			Cancer type: <b><%= select_tag  :edit_ctype , options_for_select(@ctypes, @fileDetails['ctype']) %></b><br>
+			Sub folder: <%= select_tag :edit_subtype, options_for_select(@subtypes,@fileDetails['subtype']) %><br><br>
+			<input type="checkbox" id="newSubTypeCheckbox" name="newSubTypeCheckbox" value="yes" onclick="javascript:toggletextBox();"/> 
+			Cretae new sub folder:
+			<a class='newfolder' data-placement='right' title="Sub folder Restrictions" href='#'><i class="icon-question-sign"></i></a>
+			</br></br>
+			<div id="popover_content_wrapper" style="display: none">
+  				<div>
+  					<p>
+  						You can create sub-folder(s) of your choice in a given Cancer type for uploading your data.
+  						Your sub-folder is automatically added to the "Sub folder" drop-down list for future use.
+  						There are few rules to follow (listed below) when creating a sub folder: 
+  					<p>	
+  					<ul>
+  						<li>Your sub folder name can't contain spaces</li>
+  						<li>Your sub folder name can't contain forward slash (/) character</li>
+  						<li>Your sub folder name can't contain dot (.)</li>
+  						<li>Your sub folder name can't contain single/double qoute characters (',"")</li>
+  					</ul>		
+  				</div>
+			</div>
+			<%= text_field_tag "newSubType", nil, disabled: true %> <br><br>
+			<h4>Change file type</h4>
+			File type: <b><%= select_tag  :edit_type , options_for_select(@types, @fileDetails['type']) %></b><br>
+			<h4>Change file comment</h4>
+			Comments: <%= text_area_tag 'edit_comments', @fileDetails['comments'], size: "10x10" %><br>
 	    	<%= submit_tag 	"Update",  :class => 'btn btn-primary btn-medium' %>
 			<% end %>
 		</div>
 	</div>
 </div>			
+
+
+<script type="text/javascript">
+function toggletextBox()
+    {
+    if (document.getElementById('newSubTypeCheckbox').checked == true)
+      {
+      document.getElementById('newSubType').removeAttribute('disabled');
+      }
+    else
+      {
+      document.getElementById('newSubType').setAttribute('disabled','disabled');
+      }
+    }
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.newfolder').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
+});
+</script>

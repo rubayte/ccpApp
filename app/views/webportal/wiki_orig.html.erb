@@ -1,37 +1,26 @@
 <div class="row-fluid">
-		<div class="span10">
-			<h3>Project Wiki</h3>
-		</div>
-		<div class="span2">
-			<div align="right">
+		<div class="span12">
+			<p>
 				<a class="btn btn-primary btn-medium" href="createWikiPage">Create new page</a>
 				&nbsp; <%=  link_to_modal "Wiki Syntax", "#wikiSyntax", :class=>"btn btn-primary btn-medium" %>
-			</div>
-		</div>	
+			</p>
+		</div>
 </div>
-
 			
-
 <div class="row-fluid">
 	
 		<div class="span3">
 			
-			<table id="tablePages" class="table table-condensed table-hover">
-	    	    	<thead>
-	    	    		<tr>
-	    	    			<th>Pages</th>
-	    	    		</tr>
-	    	    	</thead>
-	    	    		<% @pages.each do |file| -%>
-						<% fs = file.split("/") -%>
-						<% fss = fs[fs.length - 1].split(".") -%>
-							<tr><td><%= link_to fss[0], {:controller => "webportal" , :action => "wiki", :pageid => fss[0] } %></td></tr>	
-						<% end -%>
-	    	    	<tbody>
-	    	    		
-	    	    	</tbody>
-	    	</table>	
-			
+			<div class="well sidebar-nav">
+				<ul class="nav nav-list">
+              		<li class="nav-header">Pages</li>
+              		<% @pages.each do |file| -%>
+					<% fs = file.split("/") -%>
+					<% fss = fs[fs.length - 1].split(".") -%>
+					<li><%= link_to fss[0], {:controller => "webportal" , :action => "wiki", :pageid => fss[0] } %></li>	
+				<% end -%>
+				</ul>
+			</div>	
 
 		</div>
 	
@@ -79,7 +68,6 @@
 		</div>
 	</div>
 </div>
-
 
 
 <div id="wikiSyntax" class="modal" style="display: none; ">

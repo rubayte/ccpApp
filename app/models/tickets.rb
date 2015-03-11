@@ -38,12 +38,44 @@ class Tickets
   def self.getTickets()
     
     ccU = Tickets.new.self
-    qryTickets = "select `subject`,`details`,`priority`,`user`,`created_on`,`status`,`last_update` from tickets order by `id` desc"
+    qryTickets = "SELECT `subject`,`details`,`priority`,`user`,`created_on`,`status`,`last_update` FROM tickets  WHERE `status` = 'open' ORDER BY `created_on` DESC"
     refTickets = ccU.query(qryTickets)
     ccU.close
     
     return refTickets,refTickets.num_rows
      
+  end
+  
+  ## get filtered tickets
+  def self.getTicketsFilter(params)
+
+    filters = []
+    filterString = ""
+    
+    if params[:statusType] != "Any"
+      fil = " T.`status` = '" + params[:statusType] + "' "
+      filters.push(fil)
+    end
+    if params[:priorityType] != "Any"
+      fil = " T.`priority` = '" + params[:priorityType] + "' "
+      filters.push(fil)
+    end
+
+    filterString = filters.join(" and ")  
+    filterString = " where " + filterString    
+
+    ccU = Tickets.new.self
+    qryTickets = ""
+    if filters.length == 0
+      qryTickets = "select T.`subject`,T.`details`,T.`priority`,T.`user`,T.`created_on`,T.`status`,T.`last_update` from tickets as T order by T.`created_on` desc"
+    else
+      qryTickets = "select T.`subject`,T.`details`,T.`priority`,T.`user`,T.`created_on`,T.`status`,T.`last_update` from tickets as T" + filterString + " order by T.`created_on` desc"    
+    end
+    refTickets = ccU.query(qryTickets)
+    ccU.close
+    
+    return refTickets,refTickets.num_rows
+    
   end
 
   ## validate strings with single qoute and \r\n for mysql 
