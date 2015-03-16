@@ -42,7 +42,7 @@ class WebportalController < ApplicationController
 
   def data
     @ftypes = ['data','resource']
-    @wgtypes = ['Lung','Melanoma','Colorectal','Breast','Others']
+    @wgtypes =  User.getCancerTypes()  ## ['Lung','Melanoma','Colorectal','Breast','Others']
     @stypes = ['chemicalScreening','geneticScreening']
     (@dirItems,subDirItems) = User.getUserFiles()
     if subDirItems.length > 0
@@ -55,14 +55,15 @@ class WebportalController < ApplicationController
     @cfolderLebel = params[:cfolder]
     @subfolderLebel = params[:subfolder]
     @ftypes = ['data','resource']
-    @wgtypes = ['Lung','Melanoma','Colorectal','Breast','Others']
+    @wgtypes = User.getCancerTypes() ## ['Lung','Melanoma','Colorectal','Breast','Others']
     @stypes = ['chemicalScreening','geneticScreening']
-    @fitems = User.getUserFilesByFolder(params[:cfolder],params[:subfolder])
+    (@fitems,subDirs) = User.getUserFilesByFolder(params[:cfolder],params[:subfolder])
     if params[:subfolder] == nil
      @level = "1"
     else
       @level = "2"
     end
+    @stypes = @stypes + subDirs.keys
   end
 
   def data_bak

@@ -257,6 +257,24 @@ class User
     
   end
 
+
+  ## get cancer types
+  def self.getCancerTypes()
+    
+    cancers = []
+    ccU = User.new.self
+    qryCs = "select distinct `cancer_type` from `user_uploaded_files`"
+    refCs = ccU.query(qryCs)
+    refCs.each do |r1|
+      cancers.push(r1[0])
+    end
+    
+    return cancers
+    
+  end
+  
+  
+  
   ## get files
   def self.getUserFiles()
     
@@ -288,6 +306,7 @@ class User
   def self.getUserFilesByFolder(cfolder,subfolder)
     
     files = []
+    subTypeHash = Hash.new()
     ccU = User.new.self
     qryFiles = ""
     if subfolder == nil
@@ -295,6 +314,7 @@ class User
       refFiles = ccU.query(qryFiles)
       refFiles.each do |r1,r2|
         temp = r1 + ";" + r2
+        subTypeHash[r2] = "1"
         files.push(temp)
       end  
     else  
@@ -302,11 +322,15 @@ class User
       refFiles = ccU.query(qryFiles)
       refFiles.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9|
         temp = r1 + ";" + r2 + ";" + r3 + ";"+ r4 + ";" + r5+ ";" + r6 + ";" + r7 + ";" + r8 + ";" + r9
+        if r5 == "chemicalScreening" or r5 == "geneticScreening"
+        else
+          subTypeHash[r5] = "1"
+        end  
         files.push(temp)
       end
     end
        
-    return files  
+    return files,subTypeHash  
     
   end
 

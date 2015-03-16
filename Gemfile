@@ -4,11 +4,7 @@ gem 'rails', '3.2.11'
 gem 'will_paginate', '~> 3.0'
 #gem 'capistrano'
 gem 'jquery-datatables-rails'
-# <<<<<<< HEAD
 gem 'therubyracer', '0.11.0beta1'
-# =======
-#gem 'therubyracer'
-#>>>>>>> 6d66ad5d58b3258fe3d66a2cbd5c17d497449195
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'ruby-mysql',  '~> 2.9.12'
@@ -18,10 +14,7 @@ gem 'jquery-modal-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-rails'
 gem 'jquery-datatables-rails'
-#<<<<<<< HEAD
 gem 'libv8', '3.16.14.1'
-#=======
-#>>>>>>> 6d66ad5d58b3258fe3d66a2cbd5c17d497449195
 
 # Gems used only for assets and not required
 # in production environments by default.
