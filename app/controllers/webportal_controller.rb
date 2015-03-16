@@ -258,7 +258,7 @@ class WebportalController < ApplicationController
   end
   
   def updateFileDetails
-    @ctypes = ['Lung','Melanoma','Colorectal','Breast','Others']
+    @ctypes = User.getCancerTypes() ## ['Lung','Melanoma','Colorectal','Breast','Others']
     @subtypes = User.getSubtypes()
     @types = ['data','resource']
     @fileDetails = Hash.new()
