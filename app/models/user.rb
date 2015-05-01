@@ -84,6 +84,22 @@ class User
     
   end  
   
+  ## get user email by username
+  def self.getUserMail (user)
+
+    useremail = []
+    ccU = User.new.self
+    ## get user email
+    qryEmail = "select email from users where username ='" + user + "';"
+    refEmails = ccU.query(qryEmail)
+    refEmails.each do |r1|
+      useremail= r1
+    end
+    useremailstr = useremail.join(",")
+    return useremailstr
+    
+  end
+  
   ## create wiki page
   def self.createWikiDB(user,params)
 
@@ -606,6 +622,70 @@ class User
 
       end  
     end
+    ccU.close
+    return msg
+    
+  end
+  
+  ## create new forum post
+  def self.createNewPostForum (user,params)
+    
+    msg = ""
+    ## validate post title and description
+    params[:newPostTitle] = validateStr(params[:newPostTitle])
+    params[:newPostDesc] = validateStr(params[:newPostDesc])
+    ## get user email
+    user_mail = getUserMail(user) 
+    ## create new post
+    ccU = User.new.self
+    qryinsert = "insert into user_forum_posts(`username`,`email`,`ttile`,`desc`,`created_on`,`last_updated`) values('" + 
+    user + "','" + user_mail + "','" + params[:newPostTitle] + "','" + params[:newPostDesc] + "',NOW(),NOW());"
+    ccU.query(qryinsert)
+    msg = "created"
+    ccU.close
+
+    return msg
+    
+  end
+  
+  ## get all recent posts
+  def self.getRecentPosts()
+
+    ccU = User.new.self
+    qryPosts = "SELECT * FROM user_forum_posts ORDER BY `created_on` DESC"
+    refPosts = ccU.query(qryPosts)
+    ccU.close
+    
+    return refPosts,refPosts.num_rows
+
+  end
+  
+  ## get post details by post id
+  def self.getPostDetailsById(params)
+    
+    ccU = User.new.self
+    qryPost = "SELECT * from user_forum_posts where id=" + params[:postid] + ""
+    refPost = ccU.query(qryPost)
+    qryPostDetail = "SELECT * from post_comments where post_id=" + params[:postid] + " ORDER BY `created_at` ASC"
+    refPostDetail = ccU.query(qryPostDetail)
+    ccU.close
+    
+    return refPost,refPostDetail
+    
+  end
+  
+  ## add comment to posts
+  def self.addPostComment(user, params)
+    
+    msg = ""
+    ## validate post comment
+    params[:newPostComment] = validateStr(params[:newPostComment])
+    ## add comment to post
+    ccU = User.new.self
+    qryinsert = "insert into post_comments(`post_id`,`username`,`comment`,`created_at`) values(" + 
+    params[:hpostid] + ",'" + user + "','" + params[:newPostComment] + "',NOW());"
+    ccU.query(qryinsert)
+    msg = "created"
     ccU.close
     return msg
     

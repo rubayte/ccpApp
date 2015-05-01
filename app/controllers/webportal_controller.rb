@@ -341,5 +341,57 @@ class WebportalController < ApplicationController
       return                      
     end
   end
+  
+  def forum
+    (@res,rows) = User.getRecentPosts()
+    if rows == 0
+      @res = "empty"
+    end
+  end
+  
+  def createPost
+    msg = ""
+    if params[:newPostTtile] == "" or params[:newPostDesc] == ""
+      redirect_to :forum, flash: { createPost: true, :notice => "New post title or description cant be empty!", :color => "invalid" }
+      return
+    else
+      msg = User.createNewPostForum(session[:user],params)
+      if msg == "created"
+        redirect_to :forum
+        flash[:notice] = "Your post has been created."
+        flash[:color]= "valid"
+      else
+        redirect_to :forum
+        flash[:notice] = "Something went wrong. Try again."
+        flash[:color]= "invalid"
+      end
+    end
+  end
+
+  def viewPostById
+    @postid = params[:postid]
+    (@post, @comments) = User.getPostDetailsById(params)
+  end 
+  
+  def createPostComment
+    msg = ""
+    if params[:newPostComment] == ""
+      redirect_to :controller => "webportal", :action => "viewPostById", :postid => params[:hpostid]
+      flash[:notice] = "Comment cant be empty!"
+      flash[:color]= "invalid" 
+      return
+    else
+      msg = User.addPostComment(session[:user], params)
+      if msg == "created"
+        redirect_to :controller => "webportal", :action => "viewPostById", :postid => params[:hpostid] 
+        flash[:notice] = "Your comment has been added."
+        flash[:color]= "valid"
+      else
+        redirect_to :controller => "webportal", :action => "viewPostById", :postid => params[:hpostid] 
+        flash[:notice] = "Something went wrong. Try again."
+        flash[:color]= "invalid"
+      end
+    end
+  end
 
 end

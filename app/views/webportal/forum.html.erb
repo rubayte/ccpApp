@@ -1,0 +1,86 @@
+<div class="row-fluid">
+		<div class="span10">
+			<h3>Project Forum</h3>
+		</div>
+		<div class="span2">
+			<div align="right">
+				<%=  link_to_modal "New Post", "#createPost", :class=>"btn btn-primary btn-medium" %>
+			</div>
+		</div>	
+</div>
+
+		
+
+
+<div class="row-fluid">
+	
+		<div class="span12">
+			<h3> Recent Post(s)</h3>
+			<hr>
+			<div>
+				<% if @res == "empty" -%>
+					<p> No post(s) found! Maybe create one!!</p>
+				<% else -%>
+					<% @res.each do |r1,r2,r3,r4,r5,r6,r7| -%>
+							<div>
+								<h4><%= r3 %>
+								<span title="View post"><%= link_to '<i class="icon-eye-open"></i>'.html_safe, 
+								{:controller => "webportal", :action => "viewPostById",:postid => r7} %></span>
+								</h4>
+								<p style="color:#808080">post creation info:
+								<span title="created by"><i class="icon-user"></i> <%= r1 %></span> &nbsp;
+								<span title="created at"><i class="icon-time"></i> <%= r5 %></span>
+								</p>
+								<div class="well">
+									<p>
+										<% if r4.length > 1000 -%>
+											<%= r4[0, 999] + " .." %>
+										<% else -%>	
+											<%= r4 %>
+										<% end -%>
+									</p>
+								</div>	
+							</div>	
+			 		<% end -%>
+			 	<%end -%>
+			</div>
+					
+		</div>
+</div>
+
+
+<div id="createPost" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+	</p>
+
+	<div class="modal-header">
+		<h3>Create new post</h3>
+	</div>
+	<div class="modal-body">
+	<%= form_tag({:controller => 'webportal',:action => 'createPost'}, :multipart => true) do %>
+		Title: <%= text_field_tag "newPostTitle", '' %> <br><br>
+		Description: <%= text_area_tag 'newPostDesc', nil, size: "10x10" %><br><br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Create",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+</div>
+
+
+<% if flash[:createPost] %>
+	<script type="text/javascript">
+		$('#createPost').modal('show');
+	</script>
+<% end %>
