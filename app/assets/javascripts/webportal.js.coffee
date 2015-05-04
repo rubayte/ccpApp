@@ -11,6 +11,15 @@ jQuery ->
     "columns": [{ "width": "10%"},{"width": "38%"},{"width": "5%"},{"width": "10%"},{"width": "10%"},{"width": "10%"},{"width": "10%"}]
   });
 jQuery ->
+  $('#tableAttendes').dataTable( {
+    "sScrollX": "100%",
+    "sScrollY": "100%",
+    "iDisplayLength": -1,
+    "bScrollCollapse": true,
+    "paging": false,
+    "searching": false
+  }); 
+jQuery ->
   $('#tablePages').dataTable( {
     "sScrollX": "100%",
     "sScrollY": "100%",

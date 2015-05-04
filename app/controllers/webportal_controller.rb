@@ -386,11 +386,34 @@ class WebportalController < ApplicationController
         redirect_to :controller => "webportal", :action => "viewPostById", :postid => params[:hpostid] 
         flash[:notice] = "Your comment has been added."
         flash[:color]= "valid"
+        return
       else
         redirect_to :controller => "webportal", :action => "viewPostById", :postid => params[:hpostid] 
         flash[:notice] = "Something went wrong. Try again."
         flash[:color]= "invalid"
+        return
       end
+    end
+  end
+
+  def meetings
+    (@res,@attres,@uatt,@uad,@udd) = User.getNextUpcomingEvent(session[:user])
+    @meetingId = @res.keys[0]
+  end
+
+  def createMeetingRsvp
+    msg = ""
+    msg = User.createUserRsvp(session[:user],params)
+    if msg == "created"
+        redirect_to :controller => "webportal", :action => "meetings"
+        flash[:notice] = "Your attendance details have been saved for this meeting."
+        flash[:color]= "valid"
+        return
+    else
+        redirect_to :controller => "webportal", :action => "meetings" 
+        flash[:notice] = "Something went wrong."
+        flash[:color]= "invalid"
+        return
     end
   end
 

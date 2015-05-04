@@ -691,6 +691,79 @@ class User
     
   end
 
+  ## get next upcoming event
+  def self.getNextUpcomingEvent(user)
+    
+    mid = nil
+    meeting = Hash.new
+    user_attending = ""
+    arrDate = ""
+    depDate = ""
+    
+    ## get next event
+    ccU = User.new.self
+    qryMeetings = "SELECT * from meetings" 
+    refMeetings = ccU.query(qryMeetings)
+    refMeetings.each do |r1,r2,r3,r4,r5|
+      meeting[r5] = r1 + ";" + r2 + ";" + r3 + ";" + r4
+      mid = r5
+    end
+    
+    ## get meeting attendees
+    if mid != nil
+      qryAtt = "SELECT username,email,attending,arrivalDate,departureDate from `meeting_attendance` where meetingid = " + mid + ""
+      refAtt = ccU.query(qryAtt)  
+    else
+      refAtt = []
+    end    
+
+    ## get user previous rsvp status
+    if mid != nil
+      qryUAtt = "SELECT attending,arrivalDate,departureDate from `meeting_attendance` where meetingid = " + mid + " and username = '" + user + "'"
+      refUAtt = ccU.query(qryUAtt)
+      refUAtt.each do |r1,r2,r3|
+        user_attending = r1
+        arrDate = r2
+        depDate = r3
+      end      
+    end
+    
+    ccU.close
+    return meeting,refAtt,user_attending,arrDate,depDate
+    
+  end
+
+  ## create user rsvp
+  def self.createUserRsvp(user, params)
+    
+    msg = ""
+    present = ""
+    ## get user email
+    user_mail = getUserMail(user) 
+    ## create new post
+    ccU = User.new.self
+    qryIni = "select * from meeting_attendance where meetingid = " + params[:mid] + " and username = '" + user + "'"
+    refIni = ccU.query(qryIni)
+    if refIni.num_rows == 0
+      ## make insert
+      qryinsert = "insert into meeting_attendance (`username`,`email`,`attending`,`arrivalDate`,`departureDate`,`meetingid`,`created_at`,`last_edit`) values('" + 
+      user + "','" + user_mail + "','" + params[:attending] + "','" + params[:arrivalDate] + "','" + params[:departureDate] + "'," + params[:mid] + ",NOW(),NOW());"
+      ccU.query(qryinsert)
+      msg = "created"
+    else
+      ## make update
+      qryupdate = "update meeting_attendance set `attending` = '" + params[:attending] + "', `arrivalDate` = '" + params[:arrivalDate] + "', `departureDate` = '" + 
+      params[:departureDate] + "', `last_edit` = NOW() where meetingid = " + params[:mid] + " and username = '" + user + "'"
+      ccU.query(qryupdate)
+      msg = "created"
+    end    
+    ccU.close
+
+    return msg
+
+    
+  end
+
   ## encrypt password
   def self.encrypt_password(password)
     salt = ""

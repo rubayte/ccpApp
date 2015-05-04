@@ -17,6 +17,7 @@ Ccp::Application.routes.draw do
   match "profile", :to => 'users#profile'
   match "logout", :to => 'users#logout'
   match "forum", :to => 'webportal#forum'
+  match "meetings", :to => 'webportal#meetings'
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
