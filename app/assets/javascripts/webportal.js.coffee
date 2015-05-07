@@ -31,21 +31,22 @@ jQuery ->
 jQuery ->
   $('#tableMembers').dataTable( {
     "sScrollX": "100%",
-    "sScrollY": "500",
-    "iDisplayLength": 25,
-    "bScrollCollapse": true
+    "sScrollY": "100%",
+    "paging": false,  
+    "bScrollCollapse": false
   }) ;
 jQuery ->
   $('#tableOverview').dataTable( {
     "sScrollX": "100%",
-    "sScrollY": "400",
+    "sScrollY": "100%",
     "iDisplayLength": 25,
+    "paging":true,
     "bScrollCollapse": true
   }) ;
 jQuery ->
   $('#tableFile').dataTable( {
     "sScrollX": "100%",
-    "sScrollY": "500",
-    "iDisplayLength": 25,
+    "sScrollY": "100%",
+    "paging":false,
     "bScrollCollapse": true
   }) ;  
