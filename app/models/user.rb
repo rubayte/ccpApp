@@ -711,7 +711,7 @@ class User
     
     ## get meeting attendees
     if mid != nil
-      qryAtt = "SELECT username,email,attending,arrivalDate,departureDate from `meeting_attendance` where meetingid = " + mid + ""
+      qryAtt = "SELECT CONCAT(U.`firstname`, ' ',U.lastname),M.`email`,M.`attending`,M.`arrivalDate`,M.`departureDate` FROM `meeting_attendance` as M inner join `users` as U on M.username = U.username where meetingid = " + mid + ""
       refAtt = ccU.query(qryAtt)  
     else
       refAtt = []
