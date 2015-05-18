@@ -172,6 +172,31 @@ class WebportalController < ApplicationController
     end
   end
   
+  def viewTicket
+    @pTypes = ['low','medium','high']
+    @statusTypes = ['open','resolved']
+    (@res,rows) = Tickets.getTicketById(params)
+    if rows == 0
+      @res = "empty"
+    end
+  end
+  
+  def updateticket
+    @msg = nil
+    @msg = Tickets.updateTicketById(params)
+    if @msg == "updated"
+      redirect_to :tickets
+      flash[:notice] = "Ticket details have been updated!"
+      flash[:color]= "valid"
+      return
+    else
+      redirect_to :tickets
+      flash[:notice] = "Something went wrong. Try again!"
+      flash[:color]= "invalid"
+      return
+    end 
+  end
+  
   def ticketsFilter
     @ptypes = ['low','medium','high']
     @pTypes = ['Any','low','medium','high']

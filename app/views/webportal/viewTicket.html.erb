@@ -1,0 +1,36 @@
+<div class="row-fluid">		
+		<div class="span12">
+ 			<%=  link_to "Click here to go back to Tickets page!", :controller => "webportal", :action => "tickets" %>
+ 		</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		<% @res.each do |r1,r2,r3,r4,r5,r6,r7,r8| -%>
+			<h3> Ticket: <%= r1 %></h3>
+			<p style="color:#808080">Ticket creation info: </br>
+					<span title="created by"><i class="icon-user"></i> <%= r4 %></span> </br> 
+					<span title="created at"><i class="icon-time"></i> <%= r5 %></span> </br>
+					<span title="last edited at"><i class="icon-time"></i> <%= r7 %></span>
+			</p>		
+		 	<% if r4 == session[:user] -%>
+				<%= form_tag({:controller => 'webportal',:action => 'updateticket'}, :multipart => true) do %>
+						<%= hidden_field_tag "tid", r8 %></br>
+						Details: <%= text_area_tag 'updateDetails', r2, size: "100x10" %></br>
+						Priority: <%= select_tag "updatePriority", options_for_select(@pTypes,r3) %></br>
+						Status: <%= select_tag "updateStatus", options_for_select(@statusTypes,r6) %></br>
+						<%= submit_tag "Save",  :class => 'btn btn-primary btn-medium' %>
+				<% end -%>
+			<% else -%>
+				<div>
+					<b>Details</b>: <%= r2 %></br>
+					<b>Priority</b>: <%=  r3 %></br>
+					<b>Status</b>: <%= r6 %>
+				</div>	
+			<% end -%>
+		<% end -%>	
+	</div>	
+
+</div>
+
+

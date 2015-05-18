@@ -38,12 +38,40 @@ class Tickets
   def self.getTickets()
     
     ccU = Tickets.new.self
-    qryTickets = "SELECT `subject`,`details`,`priority`,`user`,`created_on`,`status`,`last_update` FROM tickets  WHERE `status` = 'open' ORDER BY `created_on` DESC"
+    qryTickets = "SELECT `subject`,`details`,`priority`,`user`,`created_on`,`status`,`last_update`,`id` FROM tickets  WHERE `status` = 'open' ORDER BY `created_on` DESC"
     refTickets = ccU.query(qryTickets)
     ccU.close
     
     return refTickets,refTickets.num_rows
      
+  end
+  
+  ## get ticket by id
+  def self.getTicketById(params)
+    
+    ccU = Tickets.new.self
+    qryTickets = "SELECT `subject`,`details`,`priority`,`user`,`created_on`,`status`,`last_update`,`id` FROM tickets  WHERE `id` = " + params[:tid] + ""
+    refTickets = ccU.query(qryTickets)
+    ccU.close
+    
+    return refTickets,refTickets.num_rows    
+    
+  end
+  
+  ## update ticket details by id
+  def self.updateTicketById(params)
+    
+    msg = nil
+      
+    ccU = Tickets.new.self
+    qryUpdateTicket = "update tickets set `details` = '"+ params[:updateDetails]+"',`priority` = '"+ params[:updatePriority]+"',`status` = '"+ params[:updateStatus]+"',`last_update` = NOW() WHERE `id` = " + params[:tid] + ""
+    ccU.query(qryUpdateTicket)
+    ccU.close
+    
+    msg = "updated"
+    
+    return msg      
+    
   end
   
   ## get filtered tickets
@@ -67,9 +95,9 @@ class Tickets
     ccU = Tickets.new.self
     qryTickets = ""
     if filters.length == 0
-      qryTickets = "select T.`subject`,T.`details`,T.`priority`,T.`user`,T.`created_on`,T.`status`,T.`last_update` from tickets as T order by T.`created_on` desc"
+      qryTickets = "select T.`subject`,T.`details`,T.`priority`,T.`user`,T.`created_on`,T.`status`,T.`last_update`,`id` from tickets as T order by T.`created_on` desc"
     else
-      qryTickets = "select T.`subject`,T.`details`,T.`priority`,T.`user`,T.`created_on`,T.`status`,T.`last_update` from tickets as T" + filterString + " order by T.`created_on` desc"    
+      qryTickets = "select T.`subject`,T.`details`,T.`priority`,T.`user`,T.`created_on`,T.`status`,T.`last_update`,`id` from tickets as T" + filterString + " order by T.`created_on` desc"    
     end
     refTickets = ccU.query(qryTickets)
     ccU.close
