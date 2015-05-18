@@ -24,22 +24,13 @@
 					<% @res.each do |r1,r2,r3,r4,r5,r6,r7| -%>
 							<div>
 								<h4><%= r3 %>
-								<span title="View post"><%= link_to '<i class="icon-eye-open"></i>'.html_safe, 
+								<span title="View post"><%= link_to '<i class="icon-eye-open"> View post </i>'.html_safe, 
 								{:controller => "webportal", :action => "viewPostById",:postid => r7} %></span>
 								</h4>
 								<p style="color:#808080">post creation info:
 								<span title="created by"><i class="icon-user"></i> <%= r1 %></span> &nbsp;
 								<span title="created at"><i class="icon-time"></i> <%= r5 %></span>
 								</p>
-								<div class="well">
-									<p>
-										<% if r4.length > 1000 -%>
-											<%= r4[0, 999] + " .." %>
-										<% else -%>	
-											<%= r4 %>
-										<% end -%>
-									</p>
-								</div>	
 							</div>	
 			 		<% end -%>
 			 	<%end -%>

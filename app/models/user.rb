@@ -666,7 +666,7 @@ class User
     ccU = User.new.self
     qryPost = "SELECT * from user_forum_posts where id=" + params[:postid] + ""
     refPost = ccU.query(qryPost)
-    qryPostDetail = "SELECT * from post_comments where post_id=" + params[:postid] + " ORDER BY `created_at` ASC"
+    qryPostDetail = "SELECT P.`post_id`,CONCAT(U.`firstname`, ' ',U.lastname),P.comment,P.`created_at`,P.id FROM `post_comments` as P inner join `users` as U on P.username = U.username where P.`post_id` =" + params[:postid] + " ORDER BY `created_at` ASC"
     refPostDetail = ccU.query(qryPostDetail)
     ccU.close
     
@@ -786,8 +786,8 @@ class User
       retStr = str
     end
     ## \r\n
-    retStr.gsub!(/\r/,"")
-    retStr.gsub!(/\n/,"")
+    # retStr.gsub!(/\r/,"")
+    # retStr.gsub!(/\n/,"")
       
     return retStr   
   end
