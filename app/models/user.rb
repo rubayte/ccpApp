@@ -699,6 +699,12 @@ class User
     user_attending = ""
     arrDate = ""
     depDate = ""
+    dptHour = ""
+    dptMin = ""
+    dptAmpm = ""
+    arrHour = ""
+    arrMin = ""
+    arrAmpm = ""
     
     ## get next event
     ccU = User.new.self
@@ -723,13 +729,25 @@ class User
       refUAtt = ccU.query(qryUAtt)
       refUAtt.each do |r1,r2,r3|
         user_attending = r1
-        arrDate = r2
-        depDate = r3
+        if r2 =~ /(\s)+/
+          (tempd,tempt) = r2.split(" ")
+          arrDate = tempd
+          (arrHour,arrMin,arrAmpm) = tempt.split(":")
+        else
+           arrDate = r2
+        end
+        if r2 =~ /(\s)+/      
+          (tempd,tempt) = r3.split(" ")
+          depDate = tempd
+          (dptHour,dptMin,dptAmpm) = tempt.split(":")
+        else
+          depDate = r3
+        end            
       end      
     end
     
     ccU.close
-    return meeting,refAtt,user_attending,arrDate,depDate
+    return meeting,refAtt,user_attending,arrDate,depDate,arrHour,arrMin,arrAmpm,dptHour,dptMin,dptAmpm
     
   end
 
@@ -738,6 +756,8 @@ class User
     
     msg = ""
     present = ""
+    arrivalDateTime = params[:arrivalDate] + " " + params[:atthour] + ":" + params[:attminute] + ":" + params[:attampm] 
+    departureDateTime = params[:departureDate] + " " + params[:dpthour] + ":" + params[:dptminute] + ":" + params[:dptampm]
     ## get user email
     user_mail = getUserMail(user) 
     ## create new post
@@ -747,13 +767,13 @@ class User
     if refIni.num_rows == 0
       ## make insert
       qryinsert = "insert into meeting_attendance (`username`,`email`,`attending`,`arrivalDate`,`departureDate`,`meetingid`,`created_at`,`last_edit`) values('" + 
-      user + "','" + user_mail + "','" + params[:attending] + "','" + params[:arrivalDate] + "','" + params[:departureDate] + "'," + params[:mid] + ",NOW(),NOW());"
+      user + "','" + user_mail + "','" + params[:attending] + "','" + arrivalDateTime + "','" + departureDateTime + "'," + params[:mid] + ",NOW(),NOW());"
       ccU.query(qryinsert)
       msg = "created"
     else
       ## make update
-      qryupdate = "update meeting_attendance set `attending` = '" + params[:attending] + "', `arrivalDate` = '" + params[:arrivalDate] + "', `departureDate` = '" + 
-      params[:departureDate] + "', `last_edit` = NOW() where meetingid = " + params[:mid] + " and username = '" + user + "'"
+      qryupdate = "update meeting_attendance set `attending` = '" + params[:attending] + "', `arrivalDate` = '" + arrivalDateTime + "', `departureDate` = '" + 
+      departureDateTime + "', `last_edit` = NOW() where meetingid = " + params[:mid] + " and username = '" + user + "'"
       ccU.query(qryupdate)
       msg = "created"
     end    

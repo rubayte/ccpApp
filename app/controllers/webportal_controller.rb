@@ -422,7 +422,10 @@ class WebportalController < ApplicationController
   end
 
   def meetings
-    (@res,@attres,@uatt,@uad,@udd) = User.getNextUpcomingEvent(session[:user])
+    @hour = ['1','2','3','4','5','6','7','8','9','10','11','12']
+    @minute = ['00','15','30','45']
+    @ampm = ['AM','PM']
+    (@res,@attres,@uatt,@uad,@udd,@uah,@uam,@uaap,@udh,@udm,@udap) = User.getNextUpcomingEvent(session[:user])
     @meetingId = @res.keys[0]
   end
 

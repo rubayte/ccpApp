@@ -1,10 +1,10 @@
 <div class="row-fluid">
 		<div class="span12">
-			<h3>Next Upcoming Event</h3>
+			<h3>Next Upcoming Meeting</h3>
 		
 		<% if @res.keys.length == 0 -%>
 			<div class="well">
-				<p>No upcoming event(s) found.</p>
+				<p>No upcoming meeting(s) found.</p>
 			</div>
 		<% else -%>
 			<div class="well">
@@ -32,8 +32,8 @@
 							<th>Name </th>
 							<th>Email</th>
 							<th>Atteding?</th>
-							<th>Arrival Date</th>
-							<th>Departure Date</th>
+							<th>Arrival Date &amp; Time</th>
+							<th>Departure Date &amp; Time</th>
 						</tr>
 					</thead>				
 					<tbody>
@@ -74,7 +74,7 @@
 	</p>
 
 	<div class="modal-header">
-		<h3>Your attendance</h3>
+		<h3>Your RSVP</h3>
 	</div>
 	<div class="modal-body">
 	<%= form_tag({:controller => 'webportal',:action => 'createMeetingRsvp'}, :multipart => true) do %>
@@ -86,13 +86,17 @@
 		<% end -%>
 		<% if @uad != "" -%>
 			Arrival Date: <input type="text" id="datepicker" name="arrivalDate" value="<%= @uad %>" ><br><br>
+			Arrival Time: <%= select_tag :atthour , options_for_select(@hour,@uah), :style => "width:70px" %>:<%= select_tag :attminute , options_for_select(@minute,@uam),:style => "width:70px" %>:<%= select_tag :attampm , options_for_select(@ampm,@uaap),:style => "width:70px" %> <br><br>
 		<% else -%>
 			Arrival Date: <input type="text" id="datepicker" name="arrivalDate"><br><br>
+			Arrival Time: <%= select_tag :atthour , options_for_select(@hour), :style => "width:70px" %>:<%= select_tag :attminute , options_for_select(@minute),:style => "width:70px" %>:<%= select_tag :attampm , options_for_select(@ampm),:style => "width:70px" %> <br><br>
 		<% end -%>
 		<% if @udd != "" -%>
 			Departure Date: <input type="text" id="datepicker2" name="departureDate" value="<%= @udd %>"><br><br>
+			Departure Time: <%= select_tag :dpthour , options_for_select(@hour,@udh), :style => "width:70px" %>:<%= select_tag :dptminute , options_for_select(@minute,@udm),:style => "width:70px" %>:<%= select_tag :dptampm , options_for_select(@ampm,@udap),:style => "width:70px" %> <br><br>
 		<% else -%>	
 			Departure Date: <input type="text" id="datepicker2" name="departureDate"><br><br>
+			Departure Time: <%= select_tag :dpthour , options_for_select(@hour), :style => "width:70px" %>:<%= select_tag :dptminute , options_for_select(@minute),:style => "width:70px" %>:<%= select_tag :dptampm , options_for_select(@ampm),:style => "width:70px" %> <br><br>
 		<% end -%>
 	</div>
 	<div class="modal-footer">
