@@ -1,13 +1,17 @@
 <div class="row-fluid">
 		<div class="span12">
 			<h3>Next Upcoming Meeting</h3>
-		
 		<% if @res.keys.length == 0 -%>
 			<div class="well">
 				<p>No upcoming meeting(s) found.</p>
 			</div>
 		<% else -%>
 			<div class="well">
+				<div class="alert alert-info alert-dismissible" role="alert">
+ 					 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  					  <div align="center">This attendee list is not complete yet!</div>
+				</div>
+
 			<% @res.each do |key,value| -%>
 				<% vals = value.split(";") -%>
 			<h3><%= vals[0] %></h3>
