@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
       return true
     else
       redirect_to(:controller => 'users', :action => 'login')
+      flash[:notice] = "You need to login to view the requested page! "
+      flash[:color]= "invalid"
       return false
     end
   end

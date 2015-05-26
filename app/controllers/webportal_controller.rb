@@ -1,6 +1,11 @@
 class WebportalController < ApplicationController
   
-  before_filter :authenticate_user, :only => [:index,:data,:project, :members]
+  # before_filter :authenticate_user, :only => [:index,:data,:project, :members]
+  before_filter :authenticate_user, :only => [:index,:data,:project,:members,
+  :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
+  :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
+  :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
+  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
