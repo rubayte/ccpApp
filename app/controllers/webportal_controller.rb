@@ -96,7 +96,7 @@ class WebportalController < ApplicationController
     valmsg = ""
     valmsg = Datafile.updateWikiFile(session[:user],params)
     if valmsg == "updated"
-      redirect_to :wiki
+      redirect_to :controller => "webportal", :action => "wiki", :pageid => params[:pageName]
       flash[:notice] = "Page has been updated!"
       flash[:color]= "valid"
       return
@@ -350,7 +350,7 @@ class WebportalController < ApplicationController
     msg = ""
     msg = Datafile.createWikiPage(session[:user], params)
     if msg == "created"
-      redirect_to :wiki
+      redirect_to :controller => "webportal", :action => "wiki", :pageid => params[:pageName]
       flash[:notice] = "Your page has been created !!"
       flash[:color]= "valid"
       return              

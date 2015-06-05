@@ -12,11 +12,10 @@
 				<%= form_tag({:controller => 'webportal',:action => 'editWikiFiles'}, :multipart => true) do %>
 				<%= hidden_field_tag :pageName , @file %></br>
 				Page body: &nbsp; 
-				<%=  link_to_modal "Wiki Syntax", "#wikiSyntax", :class=>"btn btn-primary btn-medium" %>
-				</br></br> 
-				<%= text_area_tag :pageDesc , @contents, size: "10x10" %></br>
+				<%= text_area_tag :pageDesc , @contents, :class => "tinymce" , :rows => 20, :cols => 120 %></br>
+				<%= tinymce  %>
 				Attach file: <%= file_field_tag 'afile' %></br>
-				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>&nbsp; <a class="btn btn-danger" href="wiki">Cancel</a>
 				<% end -%>	
 			</p>			
 			</div>

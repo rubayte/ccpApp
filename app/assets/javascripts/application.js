@@ -18,3 +18,4 @@
 //= require jquery.ui.all
 //= require jquery.modal
 //= require dataTables/jquery.dataTables
+//= require tinymce

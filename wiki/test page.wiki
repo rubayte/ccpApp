@@ -1,3 +1,6 @@
-<h3> test page</h3>
-
+<h3>test page</h3>
 <p>this is a test page.</p>
+<p>&nbsp;</p>
+<p>how about adding some more stuff with tinymce on the old format of the wiki??</p>
+<p>&nbsp;</p>
+<p><em>does this work??</em></p>
