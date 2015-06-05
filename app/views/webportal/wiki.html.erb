@@ -5,7 +5,7 @@
 		<div class="span2">
 			<div align="right">
 				<a class="btn btn-primary btn-medium" href="createWikiPage">Create new page</a>
-				&nbsp; <%=  link_to_modal "Wiki Syntax", "#wikiSyntax", :class=>"btn btn-primary btn-medium" %>
+				
 			</div>
 		</div>	
 </div>
@@ -81,99 +81,3 @@
 </div>
 
 
-<div id="wikiSyntax" class="modal" style="display: none; ">
-
-
-	<div class="modal-header">
-		<h3>Wiki Syntax</h3>
-	</div>
-	<div class="modal-body">
-		
-			<div class="present">
-				<h3>Headings</h3>
-				<p>
-					&lt; h3 &gt; My Header &lt; h3 /&gt;  <h3>My Header</h3>
-				</p>	
-			</div>
-			<div class="present">
-				<h3>Paragraph</h3>
-				<p>
-					&lt; p &gt; Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.&lt; p /&gt;  
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh. </p>
-				</p>
-			</div>
-			<div class="present">
-				<h3>Text Styling</h3>
-				<ul>
-					<li>Bold <p>&lt; b &gt; something bold &lt; b /&gt;</p>  <p><b>something bold</b></p></li>
-					<li>Italic <p>&lt; i &gt; something italic &lt; i /&gt;</p>  <p><i>something italic</i></p></li>
-					<li>strong <p>&lt; strong &gt; something strong &lt; strong /&gt;</p>  <p><strong>something strong</b></strong></li>
-					<li>strong <p>&lt; mark &gt; something marked &lt; mark /&gt;</p>  <p><mark>something marked</b></mark></li>
-
-				</ul>	
-			</div>
-			
-			<div class="present">
-				<h3>Ordered list</h3>
-				<p>&lt; ol &gt; My List </br>
-					&lt; li &gt; item1 &lt; li /&gt;</br>
-					&lt; li &gt; item2 &lt; li /&gt;</br>
-					&lt; ol /&gt;
-				</p>
-				<p> 
-					<ol> My List
-					<li> item1 </li>
-					<li> item2 </li>
-					</ol>
-				</p>	
-			</div>
-		
-			<div class="present">
-				<h3>Unordered list</h3>
-				<p>&lt; ul &gt; My List </br>
-					&lt; li &gt; item1 &lt; li /&gt;</br>
-					&lt; li &gt; item2 &lt; li /&gt;</br>
-					&lt; ul /&gt;
-				</p>
-				<p> 
-					<ul> My List
-					<li> item1 </li>
-					<li> item2 </li>
-					</ul>
-				</p>	
-			</div>
-
-
-			<div class="present">
-				<h3>Table</h3>
-				<p>&lt; table border="1" &gt;</br>
-					&lt; caption &gt; My Table &lt; caption /&gt;</br>
-					&lt; tr &gt; </br>
-					&lt; th &gt; A &lt; th /&gt;</br>
-					&lt; th &gt; B &lt; th /&gt;</br>
-					&lt; tr /&gt; </br>
-					&lt; tr &gt; </br>
-					&lt; td &gt; item1 &lt; td /&gt;</br>
-					&lt; td &gt; item2 &lt; td /&gt;</br>
-					&lt; tr /&gt; </br>
-					&lt; tr &gt; </br>
-					&lt; td &gt; item3 &lt; td /&gt;</br>
-					&lt; td &gt; item4 &lt; td /&gt;</br>
-					&lt; tr /&gt; </br>
-					&lt; table /&gt;
-				</p>
-				<p>
-					<table border="1">
-						<caption> My Table </caption>
-						<tr><th>A</th><th>B</th></tr>
-						<tr><td>item1</td><td>item2</td></tr>
-						<tr><td>item3</td><td>item4</td></tr>
-					</table>	 
-				</p>	
-			</div>
-
-
-	</div>
-	<div class="modal-footer">
-	</div>
-</div>

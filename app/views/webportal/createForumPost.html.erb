@@ -1,0 +1,17 @@
+<div class="row-fluid">
+	<div class="container">
+
+    	<div class="span12">
+
+		<%= form_tag({:controller => 'webportal',:action => 'createPost'}, :multipart => true) do %>
+			Title: <%= text_field_tag "newPostTitle", '' %> </br>
+			Description: </br><%= text_area_tag 'newPostDesc', nil, :size => "100x20" %>
+			</br>
+		    <%= submit_tag 	"Create",  :class => 'btn btn-primary btn-medium' %>&nbsp; <a class="btn btn-danger" href="forum">Cancel</a>
+		<% end %>					
+		
+		</div>	
+			
+	</div>
+</div>
+

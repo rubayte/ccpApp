@@ -5,7 +5,7 @@ class WebportalController < ApplicationController
   :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
-  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp]
+  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -448,6 +448,10 @@ class WebportalController < ApplicationController
         flash[:color]= "invalid"
         return
     end
+  end
+
+  def createForumPost
+    
   end
 
 end
