@@ -276,17 +276,17 @@ class WebportalController < ApplicationController
     @msg = nil
     @msg = Datafile.uploadAgendaFile(session[:user],params)  
     if @msg == "uploaded"
-      redirect_to :meetings
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
       flash[:notice] = "Your file has been uploaded"
       flash[:color]= "valid"        
       return
     elsif @msg == "exists"
-      redirect_to :meetings
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
       flash[:notice] = "A file already exists with this name. Rename your file and try again"
       flash[:color]= "invalid"        
       return      
     else
-      redirect_to :meetings
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
       flash[:notice] = "Something went wrong"
       flash[:color]= "invalid"
       return              
@@ -297,17 +297,17 @@ class WebportalController < ApplicationController
     @msg = nil
     @msg = Datafile.uploadMpFile(session[:user],params)  
     if @msg == "uploaded"
-      redirect_to :meetings
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
       flash[:notice] = "Your file has been uploaded"
       flash[:color]= "valid"        
       return
     elsif @msg == "exists"
-      redirect_to :meetings
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
       flash[:notice] = "A file already exists with this name. Rename your file and try again"
       flash[:color]= "invalid"        
       return      
     else
-      redirect_to :meetings
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
       flash[:notice] = "Something went wrong"
       flash[:color]= "invalid"
       return              
@@ -481,8 +481,13 @@ class WebportalController < ApplicationController
     @hour = ['1','2','3','4','5','6','7','8','9','10','11','12']
     @minute = ['00','15','30','45']
     @ampm = ['AM','PM']
-    (@res,@attres,@uatt,@uad,@udd,@uah,@uam,@uaap,@udh,@udm,@udap,@minpre) = User.getNextUpcomingEvent(session[:user])
-    @meetingId = @res.keys[0]
+    if (params[:mtnid] == nil or params[:mtnid] == "")
+      (@res,@curres,@attres,@uatt,@uad,@udd,@uah,@uam,@uaap,@udh,@udm,@udap,@minpre) = User.getNextUpcomingEvent(session[:user],"")
+      @meetingId = @curres.keys[0]      
+    else
+      (@res,@curres,@attres,@uatt,@uad,@udd,@uah,@uam,@uaap,@udh,@udm,@udap,@minpre) = User.getNextUpcomingEvent(session[:user],params[:mtnid])
+      @meetingId = params[:mtnid]        
+    end
   end
 
   def createMeetingRsvp

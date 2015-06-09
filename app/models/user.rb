@@ -718,10 +718,12 @@ class User
   end
 
   ## get next upcoming event
-  def self.getNextUpcomingEvent(user)
+  def self.getNextUpcomingEvent(user,reqid)
     
+
     mid = nil
     meeting = Hash.new
+    currentMeeting = Hash.new
     user_attending = ""
     arrDate = ""
     depDate = ""
@@ -731,15 +733,39 @@ class User
     arrHour = ""
     arrMin = ""
     arrAmpm = ""
-    
-    ## get next event
+
     ccU = User.new.self
+    
+    ## update mid
+    if (reqid == nil or reqid == "")
+      mid = mid
+      ## get next event
+      qryMeetings = "SELECT * FROM `meetings` order by startDate desc limit 1" 
+      refMeetings = ccU.query(qryMeetings)
+      refMeetings.each do |r1,r2,r3,r4,r5|
+        currentMeeting[r5] = r1 + ";" + r2 + ";" + r3 + ";" + r4
+        mid = r5
+      end
+    else
+      mid = reqid
+      ## get requested event
+      qryMeetings = "SELECT * FROM `meetings` where id = " + mid + "" 
+      refMeetings = ccU.query(qryMeetings)
+      refMeetings.each do |r1,r2,r3,r4,r5|
+        currentMeeting[r5] = r1 + ";" + r2 + ";" + r3 + ";" + r4
+      end
+    end
+    
+    ## get all events
     qryMeetings = "SELECT * from meetings" 
     refMeetings = ccU.query(qryMeetings)
     refMeetings.each do |r1,r2,r3,r4,r5|
-      meeting[r5] = r1 + ";" + r2 + ";" + r3 + ";" + r4
-      mid = r5
+      meeting[r5] = r1 
+      #currentMeeting[r5] = r1 + ";" + r2 + ";" + r3 + ";" + r4
+      #mid = r5
     end
+    
+    
     
     ## get meeting attendees
     if mid != nil
@@ -779,7 +805,7 @@ class User
     end
     
     ccU.close
-    return meeting,refAtt,user_attending,arrDate,depDate,arrHour,arrMin,arrAmpm,dptHour,dptMin,dptAmpm,refMinPre
+    return meeting,currentMeeting,refAtt,user_attending,arrDate,depDate,arrHour,arrMin,arrAmpm,dptHour,dptMin,dptAmpm,refMinPre
     
   end
 
