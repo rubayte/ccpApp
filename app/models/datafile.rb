@@ -332,5 +332,112 @@ class Datafile
 
   end
 
+  def self.uploadAgendaFile(user,params)
+      valMsg = nil
+      ## check meetings agenda folder
+      if (not(File.exists?(Rails.root.join("meetings","agenda"))))
+        Dir.mkdir(Rails.root.join("meetings","agenda")) 
+      end
+      ## check folder for meeting id
+      if (params[:mid] != nil)
+        if (not(File.exists?(Rails.root.join("meetings","agenda", params[:mid]))))
+          Dir.mkdir(Rails.root.join("meetings","agenda", params[:mid])) 
+        end
+        ## save uploaded file
+        if (params[:file].original_filename !~ /\./)
+          params[:file].original_filename = params[:file].original_filename + ".iostream"
+        end
+        if (not(File.exists?(Rails.root.join("meetings","agenda", params[:mid],params[:file].original_filename)))) 
+          File.open(Rails.root.join("meetings","agenda", params[:mid],params[:file].original_filename), 'wb') do |iostream|
+            iostream.write(params[:file].read)
+          end
+          valMsg = "uploaded"
+          ## log to db
+          #valMsg = User.createUploadFile(user,params[:fileType],params[:wgType],params[:newSubType],params[:file].original_filename,params[:comments])
+          #if valMsg == "inserted"
+          #  valMsg = "uploaded"
+          #end
+        else
+          valMsg = "exists"
+        end    
+      else
+        if (not(File.exists?(Rails.root.join("meetings","agenda", params[:mid]))))
+          Dir.mkdir(Rails.root.join("meetings","agenda", params[:mid])) 
+        end
+        ## save uploaded file
+        if (params[:file].original_filename !~ /\./)
+          params[:file].original_filename = params[:file].original_filename + ".iostream"
+        end
+        if (not(File.exists?(Rails.root.join("meetings","agenda", params[:mid],params[:file].original_filename))))
+          File.open(Rails.root.join("meetings","agenda", params[:mid],params[:file].original_filename),'wb') do |iostream|
+            iostream.write(params[:file].read)
+          end 
+          valMsg = "uploaded"
+          ## log to db
+          #valMsg = User.createUploadFile(user,params[:fileType],params[:wgType],params[:sType],params[:file].original_filename,params[:comments])
+          #if valMsg == "inserted"
+          #  valMsg = "uploaded"
+          #end
+        else
+          valMsg = "exists"
+        end    
+      end  
+      return valMsg      
+  end
+
+
+
+  def self.uploadMpFile(user,params)
+      valMsg = nil
+      ## check meetings minutes folder
+      if (not(File.exists?(Rails.root.join("meetings","minutes"))))
+        Dir.mkdir(Rails.root.join("meetings","minutes")) 
+      end
+      ## check folder for meeting id
+      if (params[:mid] != nil)
+        if (not(File.exists?(Rails.root.join("meetings","minutes", params[:mid]))))
+          Dir.mkdir(Rails.root.join("meetings","minutes", params[:mid])) 
+        end
+        ## save uploaded file
+        if (params[:file].original_filename !~ /\./)
+          params[:file].original_filename = params[:file].original_filename + ".iostream"
+        end
+        if (not(File.exists?(Rails.root.join("meetings","minutes", params[:mid],params[:file].original_filename)))) 
+          File.open(Rails.root.join("meetings","minutes", params[:mid],params[:file].original_filename), 'wb') do |iostream|
+            iostream.write(params[:file].read)
+          end
+          valMsg = "uploaded"
+          ## log to db
+          valMsg = User.createUploadMPFile(user,params[:mid],params[:file].original_filename,params[:title])
+          if valMsg == "inserted"
+            valMsg = "uploaded"
+          end
+        else
+          valMsg = "exists"
+        end    
+      else
+        if (not(File.exists?(Rails.root.join("meetings","minutes", params[:mid]))))
+          Dir.mkdir(Rails.root.join("meetings","minutes", params[:mid])) 
+        end
+        ## save uploaded file
+        if (params[:file].original_filename !~ /\./)
+          params[:file].original_filename = params[:file].original_filename + ".iostream"
+        end
+        if (not(File.exists?(Rails.root.join("meetings","minutes", params[:mid],params[:file].original_filename))))
+          File.open(Rails.root.join("meetings","minutes", params[:mid],params[:file].original_filename),'wb') do |iostream|
+            iostream.write(params[:file].read)
+          end 
+          valMsg = "uploaded"
+          ## log to db
+          valMsg = User.createUploadMPFile(user,params[:mid],params[:file].original_filename,params[:title])
+          if valMsg == "inserted"
+            valMsg = "uploaded"
+          end        else
+          valMsg = "exists"
+        end    
+      end  
+      return valMsg      
+  end
+
 
 end

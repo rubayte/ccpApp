@@ -271,8 +271,59 @@ class WebportalController < ApplicationController
     end
   end
   
+  
+  def uploadAgenda
+    @msg = nil
+    @msg = Datafile.uploadAgendaFile(session[:user],params)  
+    if @msg == "uploaded"
+      redirect_to :meetings
+      flash[:notice] = "Your file has been uploaded"
+      flash[:color]= "valid"        
+      return
+    elsif @msg == "exists"
+      redirect_to :meetings
+      flash[:notice] = "A file already exists with this name. Rename your file and try again"
+      flash[:color]= "invalid"        
+      return      
+    else
+      redirect_to :meetings
+      flash[:notice] = "Something went wrong"
+      flash[:color]= "invalid"
+      return              
+    end
+  end
+
+  def uploadMp
+    @msg = nil
+    @msg = Datafile.uploadMpFile(session[:user],params)  
+    if @msg == "uploaded"
+      redirect_to :meetings
+      flash[:notice] = "Your file has been uploaded"
+      flash[:color]= "valid"        
+      return
+    elsif @msg == "exists"
+      redirect_to :meetings
+      flash[:notice] = "A file already exists with this name. Rename your file and try again"
+      flash[:color]= "invalid"        
+      return      
+    else
+      redirect_to :meetings
+      flash[:notice] = "Something went wrong"
+      flash[:color]= "invalid"
+      return              
+    end    
+  end
+  
   def download
     send_file Rails.root.join("fileloc", params[:file]), :disposition => 'attachment'      
+  end
+  
+  def downloadAgenda
+    send_file Rails.root.join("meetings", params[:type], params[:mid], params[:file]), :disposition => 'attachment'      
+  end
+
+  def viewAgenda
+    send_file(Rails.root.join("meetings", params[:type], params[:mid], params[:file]), :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")
   end
   
   def downloadFolder
@@ -430,7 +481,7 @@ class WebportalController < ApplicationController
     @hour = ['1','2','3','4','5','6','7','8','9','10','11','12']
     @minute = ['00','15','30','45']
     @ampm = ['AM','PM']
-    (@res,@attres,@uatt,@uad,@udd,@uah,@uam,@uaap,@udh,@udm,@udap) = User.getNextUpcomingEvent(session[:user])
+    (@res,@attres,@uatt,@uad,@udd,@uah,@uam,@uaap,@udh,@udm,@udap,@minpre) = User.getNextUpcomingEvent(session[:user])
     @meetingId = @res.keys[0]
   end
 

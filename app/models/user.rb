@@ -382,6 +382,32 @@ class User
     
   end
 
+  ## create new meeting minutes & presentation file
+  def self.createUploadMPFile(user,mid,filename,title)
+    
+    msg  = ""
+    useremail = []
+    ccU = User.new.self
+    ## get user email
+    qryEmail = "select email from users where username ='" + user + "';"
+    refEmails = ccU.query(qryEmail)
+    refEmails.each do |r1|
+      useremail= r1
+    end
+    useremailstr = useremail.join(",")
+    filename = validateStr2(filename)
+    qryInsert = "insert into `meeting_minpre`(`username`,`email`,`meetingid`,`title`,`filename`,`created_at`,`last_edit`) values('" + 
+    user + "','" + useremailstr + "'," + mid + ",'" + title + "','"  + filename + "',NOW(),NOW());"
+    ccU.query(qryInsert)
+    ccU.close
+    msg = "inserted"
+    
+    return msg
+    
+  end
+
+
+
   ## get valid values from database
   def self.getValidValues()
     
@@ -746,8 +772,14 @@ class User
       end      
     end
     
+    ## get meeitng minutes and presentations
+    if mid !=nil
+      qryMinPre = "SELECT * from `meeting_minpre` where meetingid = " + mid + ""
+      refMinPre = ccU.query(qryMinPre)
+    end
+    
     ccU.close
-    return meeting,refAtt,user_attending,arrDate,depDate,arrHour,arrMin,arrAmpm,dptHour,dptMin,dptAmpm
+    return meeting,refAtt,user_attending,arrDate,depDate,arrHour,arrMin,arrAmpm,dptHour,dptMin,dptAmpm,refMinPre
     
   end
 
