@@ -36,7 +36,7 @@
                 </ul>
               </li>
               <li><%=  link_to session[:user], :controller => "users", :action => "profile" %></li>
-              <li><%=  link_to "logout", :controller => "users", :action => "logout" %></li> 
+              <li><%=  link_to '<span title="logout"><i class="icon-off icon-medium icon-white"></i></span>'.html_safe, :controller => "users", :action => "logout" %></li> 
             </ul>
           </div><!--/.nav-collapse -->
          <% else -%>
@@ -63,7 +63,7 @@
 
 
 	<div class="ft">
-   		    <p style="color:#B7AEAE">&copy; 2014 combat-cancer project | beta version</p>
+   		    <p style="color:#B7AEAE">&copy; 2014-2015 combat-cancer project | Funded by <%= link_to "European Research Council (ERC)", "http://erc.europa.eu/", :target => "_blank" %></p>
    	</div>
 
 
