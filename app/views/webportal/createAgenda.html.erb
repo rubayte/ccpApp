@@ -1,0 +1,18 @@
+<div class="row-fluid">
+	<div class="container">
+
+    	<div class="span12">
+
+			<%= form_tag({:controller => 'webportal',:action => 'createAgendaFile'}, :multipart => true) do %>
+				<%= hidden_field_tag :meetingId , @mid %></br>
+				Agenda: &nbsp; </br>
+				<%= text_area_tag :agenda , @agendaContent  , :class => "tinymce" , :rows => 20, :cols => 120 %></br>
+				<%= tinymce  %>
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %> &nbsp; <a class="btn btn-danger" href="meetings">Cancel</a>
+			<% end -%>	
+					
+		</div>	
+			
+	</div>
+</div>
+

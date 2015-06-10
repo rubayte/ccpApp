@@ -85,25 +85,46 @@
         		</div>
         		<div class="tab-pane active" id="agenda">
     				<div class="alert alert-success" role="alert">
-  						  <div align="center"><%=  link_to_modal '<i class="icon-upload"> <strong>Upload meeting agenda</strong></i>'.html_safe, "#uploadFile" %></div>
+  						  <div align="center">
+  						  	<%=  link_to_modal '<i class="icon-upload"> <strong>Upload meeting agenda</strong> (pdf format preferred) </i>'.html_safe, "#uploadFile" %> 
+  						  	&nbsp; or &nbsp;
+  						  	<%=  link_to '<i class="icon-pencil"> <strong>Create/Edit meeting agenda</strong></i>'.html_safe, {:controller => "webportal", :action => "createAgenda",:mid => @meetingId } %> 
+  						  </div>
 					</div>
 					<% if (File.exists?(Rails.root.join("meetings","agenda", @meetingId))) -%>
 						<% Dir.foreach(Rails.root.join("meetings","agenda", @meetingId)) do |file| -%>
-							<% next if file == '.' or file == '..' -%>
+							<% next if file == '.' or file == '..' or file == 'agenda.wiki' -%>
 							<div class="well">
-    								<h4>
-    									<span title="open file"><%= link_to file,  {:controller => "webportal", :action => "viewAgenda", :mid => @meetingId, :file => file, :type => "agenda"}, :target => "_blank" %></span>
-    								</h4>
+    							<h4>
+    								<span title="open file"><%= link_to file,  {:controller => "webportal", :action => "viewAgenda", :mid => @meetingId, :file => file, :type => "agenda"}, :target => "_blank" %></span>
+    							</h4>
   								<div>
 									<span title="Download"><%= link_to '<i class="icon-download"> Download </i>'.html_safe, {:controller => "webportal", :action => "downloadAgenda",:mid => @meetingId, :file => file, :type => "agenda"} %></span>
   								</div>
 							</div>
-						<% end -%>
+						<% end -%>	
+					<% end -%>
+					<% if (File.exists?(Rails.root.join("meetings","agenda", @meetingId))) -%>
+						<% Dir.foreach(Rails.root.join("meetings","agenda", @meetingId)) do |file| -%>
+							<% if file == 'agenda.wiki' -%>
+								<div class="well">
+								<% File.open(Rails.root.join("meetings","agenda", @meetingId, file), 'rb') do |infile| -%>
+									<% while line = infile.gets() -%>
+										<% if line =~ /<(.*)>/ -%>
+											<%= line.html_safe %>
+										<% else -%>	
+											<%= line %>
+										<% end -%>	
+									<% end -%>
+								<% end -%>
+								</div>
+							<% end -%>		
+						<% end -%>	
 					<% end -%>
         		</div>
         		<div class="tab-pane" id="minutes">
     				<div class="alert alert-success" role="alert">
-  						  <div align="center"><%=  link_to_modal '<i class="icon-upload"> <strong>Upload meeting minutes or presentations</strong></i>'.html_safe, "#uploadMinPre" %></div>
+  						  <div align="center"><%=  link_to_modal '<i class="icon-upload"> <strong>Upload meeting minutes or presentations</strong> (pdf format preferred) </i>'.html_safe, "#uploadMinPre" %></div>
 					</div>
 					
 					<% if @minpre.num_rows == 0 -%>

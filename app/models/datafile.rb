@@ -440,4 +440,35 @@ class Datafile
   end
 
 
+  def self.createAgenda(user,params)
+    
+    valMsg = nil
+    filename = "agenda.wiki"
+    
+    ## check if meeting id dir present or not
+    if (not(File.exists?(Rails.root.join('meetings','agenda',params[:meetingId]))))
+      Dir.mkdir(Rails.root.join('meetings','agenda',params[:meetingId]))
+    end      
+    
+    ## check if file exists
+    if (not(File.exists?(Rails.root.join('meetings','agenda',params[:meetingId],filename))))
+      ## create file with new content
+      File.open(Rails.root.join('meetings','agenda',params[:meetingId],filename),'wb') do |iostream|
+                  iostream.write(params[:agenda])
+      end
+      valMsg = "created"
+    else
+      ## present, then remove first
+      File.delete(Rails.root.join('meetings','agenda',params[:meetingId],filename))
+      ## create file with new content
+      File.open(Rails.root.join('meetings','agenda',params[:meetingId],filename),'wb') do |iostream|
+                  iostream.write(params[:agenda])
+      end
+      valMsg = "created"
+    end          
+    return valMsg
+
+  end
+
+
 end

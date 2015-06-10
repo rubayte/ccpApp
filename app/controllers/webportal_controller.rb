@@ -5,7 +5,7 @@ class WebportalController < ApplicationController
   :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
-  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost]
+  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -290,6 +290,35 @@ class WebportalController < ApplicationController
       flash[:notice] = "Something went wrong"
       flash[:color]= "invalid"
       return              
+    end
+  end
+
+  def createAgenda
+    @mid = params[:mid]
+    @agendaContent = ""
+    ## check if agenda file exists
+    if (File.exists?(Rails.root.join('meetings','agenda',params[:mid],"agenda.wiki")))
+      File.open(Rails.root.join("meetings","agenda", params[:mid], "agenda.wiki"), 'rb') do |infile|
+        while line = infile.gets()
+          @agendaContent =  @agendaContent + line
+        end   
+      end        
+    end
+  end
+  
+  def createAgendaFile
+    @msg = nil
+    @msg = Datafile.createAgenda(session[:user],params)
+    if @msg == "created"
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:meetingId]
+      flash[:notice] = "Meeting agenda has been created"
+      flash[:color]= "valid"        
+      return
+    else
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:meetingId]
+      flash[:notice] = "Something went wrong. Tyr again!"
+      flash[:color]= "invalid"        
+      return
     end
   end
 

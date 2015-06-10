@@ -395,6 +395,7 @@ class User
       useremail= r1
     end
     useremailstr = useremail.join(",")
+    title = validateStr(title)
     filename = validateStr2(filename)
     qryInsert = "insert into `meeting_minpre`(`username`,`email`,`meetingid`,`title`,`filename`,`created_at`,`last_edit`) values('" + 
     user + "','" + useremailstr + "'," + mid + ",'" + title + "','"  + filename + "',NOW(),NOW());"
@@ -859,7 +860,7 @@ class User
     
     ## single qoute
     if (str =~ /\'/)
-      retStr = str.gsub(/\'/,"\"")
+      retStr = str.gsub(/\'/,"")
     else
       retStr = str
     end
