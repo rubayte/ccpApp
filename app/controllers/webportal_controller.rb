@@ -355,6 +355,11 @@ class WebportalController < ApplicationController
     send_file(Rails.root.join("meetings", params[:type], params[:mid], params[:file]), :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")
   end
   
+  def viewPdfFile
+    params[:page] = params[:page][0..-6]
+    send_file(Rails.root.join("wikiattachments", params[:page], params[:file]), :filename => params[:file], :disposition => 'inline', :type => "application/pdf")
+  end
+  
   def downloadFolder
     targetdiectory = "fileloc"+"/"+params[:folder]
     temp = params[:folder].gsub(/\//,"_")

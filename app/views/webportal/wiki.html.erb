@@ -69,7 +69,12 @@
 			<hr>
 					<h4>Page attachment(s)</h4>
 					<% @atts.each do |a1| -%>
-						<i class="icon-tags"></i> <%= a1 %>
+						<i class="icon-tags"></i> 
+						<% if a1.ends_with? ".pdf" -%>
+							<span title="open file"><%= link_to a1,  {:controller => "webportal", :action => "viewPdfFile", :page => @filetoshow, :file => a1}, :target => "_blank" %></span>
+						<% else -%>
+							<%= a1 %>
+						<% end -%> &nbsp;	
 								<span title="Download attachment"><%= link_to '<i class="icon-download"></i>'.html_safe, 
 								{:controller => "webportal", :action => "downloadWikiAtatchment",:page => @filetoshow,:file => a1} %></span>
 						</br>	
