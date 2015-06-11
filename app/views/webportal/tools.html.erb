@@ -1,0 +1,90 @@
+<div class="row-fluid">
+
+		<div class="span10">
+				<h3>Project Tools</h3>
+		</div>
+		<div class="span2">
+			<div align="right">
+				<%=  link_to_modal 'Add tool', "#addtool", :class=>"btn btn-primary btn-medium" %>
+			</div>
+		</div>
+</div>			
+<div class="row-fluid">
+	<div class="span12">
+		<div align="center">			
+			
+			<table id="tableTools" class="display compact" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Tool</th>
+						<th>Short Description</th>
+						<th>Contact Person</th>
+						<th>Public Link</th>
+						<th>Wiki Link</th>
+						<th>Actions</th>
+				</thead>				
+				<tbody>
+					<% if @rows == 0 -%>
+					<tr>
+						<td> empty </td>
+					</tr>
+					<% else -%>
+						<% @res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9| -%>
+						<tr>
+							<td><strong><%= r1 %></strong></td>
+							<td><%= r2 %></td>
+							<td><%= r3 %></td>
+							<td><%= link_to r4, r4, :target => "_blank" %></td>
+							<td><%= link_to r5, r5, :target => "_blank" %></td>
+							<td><span title="edit tool"><%= link_to '<i class="icon-pencil"></i>'.html_safe,  {:controller => "webportal", :action => "editTool", :tid => r9} %></span</td>
+						</tr>
+						<% end -%>
+					<% end -%>	
+				</tbody>		
+			</table>
+		
+
+		</div>
+	</div>
+</div>
+
+
+<div id="addtool" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+	</p>
+
+	<div class="modal-header">
+		<h3>Add tool </h3>
+	</div>
+	<div class="modal-body">
+	<%= form_tag({:controller => 'webportal',:action => 'createTool'}, :multipart => true) do %>
+		Tool: <%= text_field_tag 'tool', nil,  :class => 'mptitle' %></br>
+		Tool Short Description: </br><%= text_area_tag 'toolDesc', nil %></br>
+		Contact Person: <%= select_tag 'contactPerson', options_for_select(@emails)  %></br>
+		Public Link: <%= text_field_tag 'publink', "",  :class => 'mptitle' %></br>
+		Wiki Link: <%= text_field_tag 'wikilink', "",  :class => 'mptitle' %></br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Save",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+</div>
+
+
+
+<% if flash[:addtool] %>
+	<script type="text/javascript">
+		$('#addtool').modal('show');
+	</script>
+<% end %>

@@ -171,6 +171,16 @@ class User
         
   end
   
+  ## get all user emails
+  def self.getAllUserEmails()
+    
+    ccU = User.new.self
+    qryEmails = "select CONCAT(firstname, ' ' , lastname, ' (', email, ')') from `users`"
+    refEmails = ccU.query(qryEmails)
+    return refEmails
+        
+  end
+  
   ## edit file in db
   def self.commitFileChanges(params)
 
@@ -843,6 +853,62 @@ class User
     
   end
 
+  ## create project tool 
+  def self.createTool(user,params)
+  
+    msg = ""
+    
+    ## validate params
+    params[:tool] = validateStr(params[:tool])
+    params[:toolDesc] = validateStr(params[:toolDesc])
+    ## add comment to post
+    ccU = User.new.self
+    qryinsert = "insert into tools(`toolName`,`toolDesc`,`contactPerson`,`publicLink`,`wikiLink`,`created_by`,`created_at`,`last_edit`) values('" + 
+    params[:tool] + "','" + params[:toolDesc] + "','" + params[:contactPerson] + "','" + params[:publink] + "','" + params[:wikilink] + "','" + user +  "',NOW(),NOW());"
+    ccU.query(qryinsert)
+    msg = "created"
+    ccU.close
+    return msg 
+  
+  end  
+
+  ## get all project tools
+  def self.getTools()
+    
+    ccU = User.new.self 
+    qryTools = "SELECT * FROM `tools`" 
+    refTools = ccU.query(qryTools)
+
+    return refTools,refTools.num_rows
+        
+  end
+
+  ## get project tool by id
+  def self.getToolById(toolid)
+    
+    ccU = User.new.self 
+    qryTools = "SELECT * FROM `tools` where id = " + toolid + "" 
+    refTools = ccU.query(qryTools)
+    
+    return refTools
+  
+  end
+
+  ## update tool by id
+  def self.updateTool(user,params)
+    
+    msg = ""
+    
+    ## validate params
+    params[:etool] = validateStr(params[:etool])
+    params[:etoolDesc] = validateStr(params[:etoolDesc])
+    ccU = User.new.self 
+    qryupdate = "update tools set `toolName` = '"+ params[:etool]+"',`toolDesc` = '"+params[:etoolDesc]+"',`contactPerson` = '"+ params[:econtactPerson] +"',`publicLink` = '"+params[:epublink]+"',`wikiLink`='"+params[:ewikilink]+"',`last_edit` = NOW() where id = "+params[:eid]+""
+    ccU.query(qryupdate)
+    msg = "updated"
+    
+  end
+
   ## encrypt password
   def self.encrypt_password(password)
     salt = ""
@@ -860,7 +926,7 @@ class User
     
     ## single qoute
     if (str =~ /\'/)
-      retStr = str.gsub(/\'/,"")
+      retStr = str.gsub(/\'/,"\"")
     else
       retStr = str
     end

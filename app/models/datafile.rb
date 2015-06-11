@@ -432,7 +432,8 @@ class Datafile
           valMsg = User.createUploadMPFile(user,params[:mid],params[:file].original_filename,params[:title])
           if valMsg == "inserted"
             valMsg = "uploaded"
-          end        else
+          end        
+        else
           valMsg = "exists"
         end    
       end  

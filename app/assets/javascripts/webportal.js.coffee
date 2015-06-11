@@ -51,4 +51,12 @@ jQuery ->
     "sScrollY": "100%",
     "paging":false,
     "bScrollCollapse": true
-  }) ;  
+  });  
+jQuery ->
+  $('#tableTools').dataTable( {
+    "sScrollX": "100%",
+    "sScrollY": "100%",
+    "paging":false,
+    "bScrollCollapse": true,
+    "columns": [{ "width": "10%"},{"width": "30%"},{"width": "10%"},{"width": "20%"},{"width": "20%"},{"width": "2%"}]
+  });  

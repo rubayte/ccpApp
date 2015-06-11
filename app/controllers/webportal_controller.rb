@@ -5,7 +5,7 @@ class WebportalController < ApplicationController
   :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
-  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda]
+  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, :createTool, :editTool]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -537,6 +537,50 @@ class WebportalController < ApplicationController
 
   def createForumPost
     
+  end
+  
+  def tools
+    
+    @emails = User.getAllUserEmails()
+    (@res,@rows) = User.getTools()  
+    
+  end
+
+  def createTool
+    msg = nil
+    msg = User.createTool(session[:user],params)
+    if msg == "created"
+        redirect_to :tools
+        flash[:notice] = "Your tool has been added to the list."
+        flash[:color]= "valid"
+        return
+    else
+        redirect_to :tools 
+        flash[:notice] = "Something went wrong."
+        flash[:color]= "invalid"
+        return
+    end
+  end
+
+  def editTool
+    @emails = User.getAllUserEmails()
+    @res = User.getToolById(params[:tid])
+  end
+
+  def editToolAction
+    msg = nil
+    msg = User.updateTool(session[:user],params)
+    if msg == "updated"
+        redirect_to :tools
+        flash[:notice] = "Your tool details have been updated."
+        flash[:color]= "valid"
+        return
+    else
+        redirect_to :tools 
+        flash[:notice] = "Something went wrong."
+        flash[:color]= "invalid"
+        return
+    end    
   end
 
 end

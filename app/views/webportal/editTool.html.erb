@@ -1,0 +1,21 @@
+<div class="row-fluid">
+	<div class="container">
+		<div class="span10">
+			<p> (edit mode)</p>
+			<% @res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9| -%>
+			
+				<%= form_tag({:controller => 'webportal',:action => 'editToolAction'}, :multipart => true) do %>
+					<%= hidden_field_tag :eid , r9 %></br>
+					Tool: <%= text_field_tag 'etool', r1 %></br>
+					Tool Short Description: </br><%= text_area_tag 'etoolDesc', r2 , :size => "15x15" %></br>
+					Contact Person: <%= select_tag 'econtactPerson', options_for_select(@emails,r3)  %></br>
+					Public Link: <%= text_field_tag 'epublink', r4  %></br>
+					Wiki Link: <%= text_field_tag 'ewikilink', r5  %></br>
+	    			<%= submit_tag 	"Update",  :class => 'btn btn-primary btn-medium' %> &nbsp; <a class="btn btn-danger" href="tools">Cancel</a>
+				<% end %>
+				
+ 			<% end -%>
+
+		</div>
+	</div>
+</div>			
