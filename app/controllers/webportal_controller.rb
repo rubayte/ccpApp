@@ -276,17 +276,17 @@ class WebportalController < ApplicationController
     @msg = nil
     @msg = Datafile.uploadAgendaFile(session[:user],params)  
     if @msg == "uploaded"
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "agenda"
       flash[:notice] = "Your file has been uploaded"
       flash[:color]= "valid"        
       return
     elsif @msg == "exists"
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "agenda"
       flash[:notice] = "A file already exists with this name. Rename your file and try again"
       flash[:color]= "invalid"        
       return      
     else
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "agenda"
       flash[:notice] = "Something went wrong"
       flash[:color]= "invalid"
       return              
@@ -310,12 +310,12 @@ class WebportalController < ApplicationController
     @msg = nil
     @msg = Datafile.createAgenda(session[:user],params)
     if @msg == "created"
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:meetingId]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:meetingId], :tab => "agenda"
       flash[:notice] = "Meeting agenda has been created"
       flash[:color]= "valid"        
       return
     else
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:meetingId]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:meetingId], :tab => "agenda"
       flash[:notice] = "Something went wrong. Tyr again!"
       flash[:color]= "invalid"        
       return
@@ -326,17 +326,17 @@ class WebportalController < ApplicationController
     @msg = nil
     @msg = Datafile.uploadMpFile(session[:user],params)  
     if @msg == "uploaded"
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "minutes"
       flash[:notice] = "Your file has been uploaded"
       flash[:color]= "valid"        
       return
     elsif @msg == "exists"
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "minutes"
       flash[:notice] = "A file already exists with this name. Rename your file and try again"
       flash[:color]= "invalid"        
       return      
     else
-      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid]
+      redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "minutes"
       flash[:notice] = "Something went wrong"
       flash[:color]= "invalid"
       return              
@@ -507,6 +507,13 @@ class WebportalController < ApplicationController
   end
 
   def meetings
+    @tabactive = "agenda"
+    if (params[:tab] == nil or params[:tab] == "")
+      @tabactive = "agenda"
+    else
+      @tabactive = params[:tab]
+    end
+
     @hour = ['1','2','3','4','5','6','7','8','9','10','11','12']
     @minute = ['00','15','30','45']
     @ampm = ['AM','PM']
@@ -523,12 +530,12 @@ class WebportalController < ApplicationController
     msg = ""
     msg = User.createUserRsvp(session[:user],params)
     if msg == "created"
-        redirect_to :controller => "webportal", :action => "meetings"
+        redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "attendees"
         flash[:notice] = "Your attendance details have been saved for this meeting."
         flash[:color]= "valid"
         return
     else
-        redirect_to :controller => "webportal", :action => "meetings" 
+        redirect_to :controller => "webportal", :action => "meetings", :mtnid => params[:mid], :tab => "attendees" 
         flash[:notice] = "Something went wrong."
         flash[:color]= "invalid"
         return

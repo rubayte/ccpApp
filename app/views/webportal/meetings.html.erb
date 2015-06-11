@@ -39,13 +39,13 @@
 			
 
 			<ul class="nav nav-tabs" id="myTab">
-				  <li><a href="#attendees">Attendee(s)</a></li>
-				  <li class="active"><a href="#agenda">Agenda</a></li>
-  				  <li><a href="#minutes">Minutes &amp; Presentations</a></li>
+				  <li class="<%= 'active' if @tabactive == 'attendees' %>"><a href="#attendees">Attendee(s)</a></li>
+				  <li class="<%= 'active' if @tabactive == 'agenda' %>"><a href="#agenda">Agenda</a></li>
+  				  <li class="<%= 'active' if @tabactive == 'minutes' %>"><a href="#minutes">Minutes &amp; Presentations</a></li>
     		</ul>
     		
 			<div class="tab-content">
-				<div class="tab-pane" id="attendees">
+				<div class="<%= if (@tabactive == 'attendees' )then 'tab-pane active'  else 'tab-pane' end%>" id="attendees">
     				<div class="alert alert-info alert-dismissible" role="alert">
  						 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   						  <div align="center">This attendee list is not complete yet!</div>
@@ -83,7 +83,7 @@
 					<% end -%>
 					</div>
         		</div>
-        		<div class="tab-pane active" id="agenda">
+        		<div class="<%= if (@tabactive == 'agenda' )then 'tab-pane active'  else 'tab-pane' end%>" id="agenda">
     				<div class="alert alert-success" role="alert">
   						  <div align="center">
   						  	<%=  link_to_modal '<i class="icon-upload"> <strong>Upload meeting agenda</strong> (pdf format preferred) </i>'.html_safe, "#uploadFile" %> 
@@ -122,7 +122,7 @@
 						<% end -%>	
 					<% end -%>
         		</div>
-        		<div class="tab-pane" id="minutes">
+        		<div class="<%= if (@tabactive == 'minutes')then 'tab-pane active'  else 'tab-pane' end%>" id="minutes">
     				<div class="alert alert-success" role="alert">
   						  <div align="center"><%=  link_to_modal '<i class="icon-upload"> <strong>Upload meeting minutes or presentations</strong> (pdf format preferred) </i>'.html_safe, "#uploadMinPre" %></div>
 					</div>
