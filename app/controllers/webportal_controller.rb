@@ -5,7 +5,7 @@ class WebportalController < ApplicationController
   :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
-  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile]
+  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -448,6 +448,11 @@ class WebportalController < ApplicationController
 
     
   end  
+  
+  def viewSampleDetails
+    @res = params[:data]
+    @sample = params[:sample]
+  end
   
   def downloadFolder
     targetdiectory = "fileloc"+"/"+params[:folder]
