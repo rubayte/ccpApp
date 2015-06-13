@@ -1,0 +1,94 @@
+<div class="row-fluid">
+	<div class="span10">
+	<h3>
+		<%= link_to "Home", :controller => "webportal", :action => "data" %> >
+		<i class="icon-folder-open"></i> &nbsp; <%= link_to @cfolderLebel, {:controller => "webportal", :action => "folderLookInto", :cfolder => @cfolderLebel, :subfolder => nil} %> >
+		<% if @subfolderLebel != nil -%>
+		<i class="icon-folder-open"></i> &nbsp; <%= link_to @subfolderLebel, {:controller => "webportal", :action => "folderLookInto", :cfolder => @cfolderLebel, :subfolder => @subfolderLebel} %> >
+		<i class="icon-file"></i> &nbsp; <%= @basefilename %>
+		<% end -%>
+	</h3>
+	</div>
+	<div class="span2">
+		<div align="right">				
+			<%=  link_to_modal "Settings", "#fileSettings", :class=>"btn btn-primary btn-medium" %>	    		
+		</div>
+	</div>
+</div>
+
+<div class="row-fluid">
+	    <div class="span12">		
+	    	
+	    	<% if @FileViewType != "1" -%>
+	    		<div class="alert alert-warning alert-dismissible" role="alert">
+ 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  					<div align="center"><strong>You are only viewing top 100 lines from the file. You can change that on the 'Settings' button! </strong></div>
+				</div>
+	    	<% end -%>
+	    	
+	    	<table id="tableDataFileShow" class="table table-condensed table-hover">
+	    	<% @header.each do |item| -%>
+	    		<thead>
+	    		<tr>
+	    		<% if item.instance_of? Array -%>	
+					<% item.each do |subitem| -%>
+						<th><%= subitem %></th>
+					<% end -%>
+				<% else -%>
+						<th><%= item %></th>
+				<% end -%>
+				</tr>
+				</thead>
+	    	<% end -%>
+	    		<tbody>	
+			<% @data.each do |item| -%>
+				<tr>
+				<% if item.instance_of? Array -%>
+					<% item.each do |subitem| -%>
+						<td><%= subitem %></td>
+					<% end -%>
+					</tr>
+				<% else -%>
+						<td><%= item %></td>
+				<% end -%>		
+			<% end -%>
+				</tbody>
+      		</table>
+      		
+		</div>
+</div>
+
+
+<div id="fileSettings" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+	</p>
+
+	<div class="modal-header">
+		<h3>Settings</h3>
+	</div>
+	<div class="modal-body">
+	<%= form_tag({:controller => 'webportal',:action => 'viewTextFile'}, :multipart => true) do %>
+		<%= hidden_field_tag 'file',@file %>
+		<%= hidden_field_tag 'cfolder',@cfolderLebel %>
+		<%= hidden_field_tag 'subfolder',@subfolderLebel %>
+		<%= hidden_field_tag 'baselocation',@dir %>
+		File Separator: <%= select_tag 'sep', options_from_collection_for_select(@seps,:first,:last) %></br>
+		Use first line as heaqder <%= check_box_tag 'firstLineHeader' %></br>
+		Show full file anyway <%= check_box_tag 'showFullFile' %></br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Submit",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+</div>

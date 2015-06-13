@@ -16,6 +16,8 @@ gem 'jquery-rails'
 gem 'jquery-datatables-rails'
 gem 'libv8', '3.16.14.1'
 gem 'tinymce-rails'
+gem 'ruby-filemagic'
+
 
 # Gems used only for assets and not required
 # in production environments by default.

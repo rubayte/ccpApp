@@ -102,6 +102,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    ruby-filemagic (0.6.3-x86-mingw32)
     ruby-mysql (2.9.13)
     sass (3.4.13)
     sass-rails (3.2.6)
@@ -148,6 +149,7 @@ DEPENDENCIES
   less-rails
   libv8 (= 3.16.14.1)
   rails (= 3.2.11)
+  ruby-filemagic
   ruby-mysql (~> 2.9.12)
   sass-rails (~> 3.2.3)
   therubyracer (= 0.11.0beta1)

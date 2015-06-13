@@ -5,7 +5,7 @@ class WebportalController < ApplicationController
   :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
-  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, :createTool, :editTool]
+  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -254,17 +254,17 @@ class WebportalController < ApplicationController
     end
     @msg = Datafile.uploadResourceFiles(session[:user],params)  
     if @msg == "uploaded"
-      redirect_to :data
+      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:wgType] , :subfolder => params[:sType]
       flash[:notice] = "Your file has been uploaded"
       flash[:color]= "valid"        
       return
     elsif @msg == "exists"
-      redirect_to :data
+      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:wgType] , :subfolder => params[:sType]
       flash[:notice] = "A file already exists with this name. Rename your file and try again"
       flash[:color]= "invalid"        
       return      
     else
-      redirect_to :data
+      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:wgType] , :subfolder => params[:sType]
       flash[:notice] = "Something went wrong"
       flash[:color]= "invalid"
       return              
@@ -359,6 +359,95 @@ class WebportalController < ApplicationController
     params[:page] = params[:page][0..-6]
     send_file(Rails.root.join("wikiattachments", params[:page], params[:file]), :filename => params[:file], :disposition => 'inline', :type => "application/pdf")
   end
+  
+  def dataViewFile
+    ## get file mime type
+    #mtype = MIME::Types.type_for(Rails.root.join("fileloc", params[:file])).first.content_type # => "image/gif"
+    mtypes = FileMagic.new(FileMagic::MAGIC_MIME).file(Rails.root.join("fileloc", params[:file]).to_s)
+    mtypesa = mtypes.split(';')
+    mtype = mtypesa[0]
+    
+    ## show files
+    if (mtype == "application/pdf")
+      send_file(Rails.root.join("fileloc", params[:file]), :filename => "test file", :disposition => 'inline', :type => mtype)
+    elsif (mtype.starts_with?"image/")
+      send_file(Rails.root.join("fileloc", params[:file]), :filename => "test file", :disposition => 'inline', :type => mtype)
+    elsif (mtype == "text/plain")
+      redirect_to :controller => "webportal", :action => "viewTextFile", :cfolder => params[:cfolder], :subfolder => params[:subfolder], :file => params[:file], :baselocation => "fileloc"
+      #self.viewTextFile("fileloc",params)
+    else
+      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:cfolder], :subfolder => params[:subfolder]
+      flash[:notice] = "Viewing this file type is not supported. File MIME type: " + mtype
+      flash[:color]= "invalid"
+      return
+    end
+    
+  end
+  
+  def viewTextFile
+   
+   @seps = Hash["Select separator" => "Select separator", "\t" => "Tab", ',' => 'Comma']
+   @dir = params[:baselocation]
+   @file = params[:file]
+   @cfolderLebel = params[:cfolder]
+   @subfolderLebel = params[:subfolder]
+   @filesep = nil
+   @basefilename = params[:file].split('/')[2]
+   if @basefilename.ends_with? "csv"
+     @filesep = ","
+   elsif @basefilename.ends_with? "tsv"
+     @filesep = "\t"
+   else
+     @filesep = nil
+   end
+   
+   if (params[:sep] != "Select separator")
+     @filesep = params[:sep]  
+   end
+   
+   @FileViewType = params[:showFullFile]
+    
+   @data = []
+   @header = []
+   linenum = 0
+   File.open(Rails.root.join(@dir,@file), 'rb') do |infile|
+     while line = infile.gets()
+       
+        if linenum == 0 and params[:firstLineHeader] == "1"
+            if  @filesep != nil 
+              @header.push(line.split(@filesep))
+              linenum += 1
+            else
+              if line != ""
+                @header.push(line)
+                linenum += 1
+               end 
+            end
+        else
+           if  @filesep != nil 
+             temp = line.split(@filesep)
+             @data.push(temp)
+             linenum += 1
+             if (linenum == 100 and params[:showFullFile] != "1")
+               break
+             end
+           else
+             if line != ""
+               @data.push(line)
+               linenum += 1
+               if (linenum == 100 and params[:showFullFile] != "1")
+                 break
+               end
+             end  
+           end  
+        end
+        
+       end
+     end
+     
+
+    
+  end  
   
   def downloadFolder
     targetdiectory = "fileloc"+"/"+params[:folder]

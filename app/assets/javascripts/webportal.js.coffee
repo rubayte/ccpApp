@@ -60,3 +60,9 @@ jQuery ->
     "bScrollCollapse": true,
     "columns": [{ "width": "10%"},{"width": "30%"},{"width": "10%"},{"width": "20%"},{"width": "20%"},{"width": "2%"}]
   });  
+jQuery ->
+  $('#tableDataFileShow').dataTable( {
+    "sScrollX": "100%",
+    "paging":false,
+    "bScrollCollapse": true
+  });    

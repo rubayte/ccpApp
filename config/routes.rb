@@ -22,6 +22,7 @@ Ccp::Application.routes.draw do
   match "createForumPost", :to => 'webportal#createForumPost'
   match "createAgenda", :to => 'webportal#createAgenda'
   match "editTool", :to => 'webportal#editTool'
+  match "viewTextFile", :to => 'webportal#viewTextFile'
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

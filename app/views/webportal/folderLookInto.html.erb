@@ -4,7 +4,7 @@
 		<%= link_to "Home", :controller => "webportal", :action => "data" %> >
 		<i class="icon-folder-open"></i> &nbsp; <%= link_to @cfolderLebel, {:controller => "webportal", :action => "folderLookInto", :cfolder => @cfolderLebel, :subfolder => nil} %> >
 		<% if @subfolderLebel != nil -%>
-		<i class="icon-folder-open"></i> &nbsp; <%= link_to @subfolderLebel, {:controller => "webportal", :action => "folderLookInto", :cfolder => @cfolderLebel, :sunfolder => @subfolderLebel} %> >
+		<i class="icon-folder-open"></i> &nbsp; <%= link_to @subfolderLebel, {:controller => "webportal", :action => "folderLookInto", :cfolder => @cfolderLebel, :subfolder => @subfolderLebel} %> >
 		<% end -%>
 	</h3>
 	</div>
@@ -62,7 +62,7 @@
 									<% end -%>
 									<% if @level == "2" -%>
 									<span title="Edit file"><%= link_to '<i class="icon-edit"></i>'.html_safe, {:controller => "webportal", :action => "updateFileDetails",:fileid => items[8]} %></span>
-									| &nbsp;<i class="icon-eye-open"></i>
+									| &nbsp;<span title="View file"><%= link_to '<i class="icon-eye-open"></i>'.html_safe, {:controller => "webportal", :action => "dataViewFile",:cfolder => items[3] , :subfolder => items[4],:file => items[3]+"/"+items[4]+"/"+items[5]}, :target => "_blank" %></span>
 									| &nbsp;<span title="Download file"><%= link_to '<i class="icon-download"></i>'.html_safe, {:controller => "webportal", :action => "download",:file => items[3]+"/"+items[4]+"/"+items[5]} %></span>
 	    	    					<% end -%>
 	    	    				</td>
