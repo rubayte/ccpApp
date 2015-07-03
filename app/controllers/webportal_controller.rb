@@ -253,19 +253,19 @@ class WebportalController < ApplicationController
       return
     else
     end
-    @msg = Datafile.uploadResourceFiles(session[:user],params)  
+    (@msg,targetCfolder,targetSubfolder) = Datafile.uploadResourceFiles(session[:user],params)  
     if @msg == "uploaded"
-      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:wgType] , :subfolder => params[:sType]
+      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => targetCfolder , :subfolder => targetSubfolder
       flash[:notice] = "Your file has been uploaded"
       flash[:color]= "valid"        
       return
     elsif @msg == "exists"
-      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:wgType] , :subfolder => params[:sType]
+      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => targetCfolder , :subfolder => targetSubfolder
       flash[:notice] = "A file already exists with this name. Rename your file and try again"
       flash[:color]= "invalid"        
       return      
     else
-      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => params[:wgType] , :subfolder => params[:sType]
+      redirect_to :controller => "webportal", :action => "folderLookInto", :cfolder => targetCfolder , :subfolder => targetSubfolder
       flash[:notice] = "Something went wrong"
       flash[:color]= "invalid"
       return              

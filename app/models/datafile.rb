@@ -159,6 +159,8 @@ class Datafile
   
   def self.uploadResourceFiles(user,params)
       valMsg = nil
+      tcfol = nil
+      tsfol = nil
       ## check work group type
       if (not(File.exists?(Rails.root.join("fileloc",params[:wgType]))))
         Dir.mkdir(Rails.root.join("fileloc", params[:wgType])) 
@@ -177,6 +179,8 @@ class Datafile
             iostream.write(params[:file].read)
           end
           valMsg = "uploaded"
+          tcfol = params[:wgType]
+          tsfol = params[:newSubType]
           ## log to db
           valMsg = User.createUploadFile(user,params[:fileType],params[:wgType],params[:newSubType],params[:file].original_filename,params[:comments])
           if valMsg == "inserted"
@@ -184,6 +188,8 @@ class Datafile
           end
         else
           valMsg = "exists"
+          tcfol = params[:wgType]
+          tsfol = params[:newSubType]
         end    
       else
         if (not(File.exists?(Rails.root.join("fileloc",params[:wgType], params[:sType]))))
@@ -198,6 +204,8 @@ class Datafile
             iostream.write(params[:file].read)
           end 
           valMsg = "uploaded"
+          tcfol = params[:wgType]
+          tsfol = params[:sType]
           ## log to db
           valMsg = User.createUploadFile(user,params[:fileType],params[:wgType],params[:sType],params[:file].original_filename,params[:comments])
           if valMsg == "inserted"
@@ -205,9 +213,11 @@ class Datafile
           end
         else
           valMsg = "exists"
+          tcfol = params[:wgType]
+          tsfol = params[:sType]
         end    
       end  
-      return valMsg      
+      return valMsg,tcfol,tsfol      
   end
 
 
