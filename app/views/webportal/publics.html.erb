@@ -1,0 +1,105 @@
+<div class="row-fluid">
+      <div class="container">
+        <h1>Combat-Cancer Project</h1>
+        <p>
+        	<span title="Edit this content">
+				<%= link_to '<i class="icon-edit"> &nbsp; Edit this section </i>'.html_safe, {:controller => "webportal", :action => "publics",:sectionedit => "true", :sectionName => "project" } %>
+			</span>
+        </p>
+        <p>
+        <% if @editsection == "true" && @sectionToEdit == "project.wiki" -%>
+
+        	<%= form_tag({:controller => 'webportal',:action => 'editPublicSection'}, :multipart => true) do %>
+	        	<%= hidden_field_tag :pageSection , "project" %></br>
+				<%= text_area_tag :pageDesc , @contents, :class => "tinymce" , :rows => 20, :cols => 120 %></br>
+				<%= tinymce  %>
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>&nbsp; <a class="btn btn-danger" href="publics">Cancel</a>
+			<% end -%>	
+			
+        <% else -%>
+        	<% File.open(Rails.root.join('publicContent',"project.wiki"), 'rb') do |infile| -%>
+				<% while line = infile.gets() -%>
+					<% if line =~ /<(.*)>/%>
+						<%= line.html_safe %>
+					<% else -%>	
+						<%= line %>
+					<% end -%>	
+				<% end -%>
+			<% end -%>
+		<% end -%>	
+        </p>
+      </div>
+</div>	
+
+<div class="row-fluid">
+      <div class="container">
+        <h2>Involved Research Institutes &amp; Groups</h2>
+        
+        <div class="span5">
+        	<div align="left">
+        	<p>
+        		<span title="Edit this content">
+					<%= link_to '<i class="icon-edit"> &nbsp; Edit this section </i>'.html_safe, {:controller => "webportal", :action => "publics",:sectionedit => "true" , :sectionName => "nki"} %>
+				</span>
+        	</p>
+        	<p>
+        	<% if @editsection == "true" and @sectionToEdit == "nki.wiki" -%>
+
+        		<%= form_tag({:controller => 'webportal',:action => 'editPublicSection'}, :multipart => true) do %>
+	        		<%= hidden_field_tag :pageSection , "nki" %></br>
+					<%= text_area_tag :pageDesc , @contents, :class => "tinymce" , :rows => 20, :cols => 120 %></br>
+					<%= tinymce  %>
+					<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>&nbsp; <a class="btn btn-danger" href="publics">Cancel</a>
+				<% end -%>	
+			
+        	<% else -%>
+        		<% File.open(Rails.root.join('publicContent',"nki.wiki"), 'rb') do |infile| -%>
+					<% while line = infile.gets() -%>
+						<% if line =~ /<(.*)>/%>
+							<%= line.html_safe %>
+						<% else -%>	
+							<%= line %>
+						<% end -%>	
+					<% end -%>
+				<% end -%>
+			<% end -%>	
+        	</p>
+        	</div>
+        </div>	
+
+		<div class="span5">
+			<div align="left">
+        	<p>
+        		<span title="Edit this content">
+					<%= link_to '<i class="icon-edit"> &nbsp; Edit this section </i>'.html_safe, {:controller => "webportal", :action => "publics",:sectionedit => "true" , :sectionName => "sanger"} %>
+				</span>
+        	</p>
+        	<p>
+        	<% if @editsection == "true" and @sectionToEdit == "sanger.wiki" -%>
+
+        		<%= form_tag({:controller => 'webportal',:action => 'editPublicSection'}, :multipart => true) do %>
+	        		<%= hidden_field_tag :pageSection , "sanger" %></br>
+					<%= text_area_tag :pageDesc , @contents, :class => "tinymce" , :rows => 20, :cols => 120 %></br>
+					<%= tinymce  %>
+					<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>&nbsp; <a class="btn btn-danger" href="publics">Cancel</a>
+				<% end -%>	
+			
+        	<% else -%>
+        		<% File.open(Rails.root.join('publicContent',"sanger.wiki"), 'rb') do |infile| -%>
+					<% while line = infile.gets() -%>
+						<% if line =~ /<(.*)>/%>
+							<%= line.html_safe %>
+						<% else -%>	
+							<%= line %>
+						<% end -%>	
+					<% end -%>
+				<% end -%>
+			<% end -%>	
+        	</p>
+        	</div>
+		</div>
+		
+		</div>		
+      </div>
+</div>
+	

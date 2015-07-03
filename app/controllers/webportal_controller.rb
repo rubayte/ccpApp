@@ -5,7 +5,8 @@ class WebportalController < ApplicationController
   :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
-  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails]
+  :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, 
+  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -687,6 +688,43 @@ class WebportalController < ApplicationController
         flash[:color]= "invalid"
         return
     end    
+  end
+  
+  def publics
+    
+    @editsection = nil
+    @contents = nil
+    @sectionToEdit = nil
+    
+    if params[:sectionedit] != nil
+      @sectionToEdit = params[:sectionName] + ".wiki"
+      @contents = File.read(Rails.root.join('publicContent',@sectionToEdit))
+      @editsection = "true"
+    end
+    
+  end
+  
+  def editPublicSection
+    
+    msg = nil
+    targetFile = params[:pageSection] + ".wiki"
+    targetFile = Rails.root.join('publicContent') + targetFile
+    
+    File.open(targetFile,'wb') do |iostream|
+      iostream.write(params[:pageDesc])
+    end
+    msg = "updated"
+    if msg == "updated"
+        redirect_to :publics
+        flash[:notice] = "Section " + params[:pageSection] + " has been updated!"
+        flash[:color]= "valid"
+        return
+    else
+        redirect_to :publics 
+        flash[:notice] = "Something went wrong."
+        flash[:color]= "invalid"
+        return
+    end  
   end
 
 end
