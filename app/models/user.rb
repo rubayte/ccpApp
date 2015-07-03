@@ -751,7 +751,7 @@ class User
     if (reqid == nil or reqid == "")
       mid = mid
       ## get next event
-      qryMeetings = "SELECT * FROM `meetings` order by startDate desc limit 1" 
+      qryMeetings =  "SELECT * FROM `meetings` WHERE endDate > NOW() + 1 ORDER BY startDate asc limit 1"
       refMeetings = ccU.query(qryMeetings)
       refMeetings.each do |r1,r2,r3,r4,r5|
         currentMeeting[r5] = r1 + ";" + r2 + ";" + r3 + ";" + r4
@@ -767,8 +767,35 @@ class User
       end
     end
     
+    ## initially set the arrival & departure date time according to meeting
+    temp = currentMeeting[mid].split(";")
+    ## arrival
+    atmp = temp[2].split(" ")
+    arrDateT = atmp[0]
+    (y,m,d) = arrDateT.split("-")
+    arrDate = m + "/" + d + "/" + y
+    (arrHour,arrMin,arrAmpm) = atmp[1].split(":")
+    if arrHour.to_i >= 13
+      arrAmpm = "PM"
+      arrHour = (arrHour.to_i - 12).to_s
+    else
+      arrAmpm = "AM"
+    end   
+    ## departure
+    dtmp = temp[3].split(" ")
+    depDateT = dtmp[0]
+    (y,m,d) = depDateT.split("-")
+    depDate = m + "/" + d + "/" + y
+    (dptHour,dptMin,dptAmpm) = dtmp[1].split(":")
+    if dptHour.to_i >= 13
+      dptAmpm = "PM"
+      dptHour = (dptHour.to_i - 12).to_s
+    else
+      dptAmpm = "AM"
+    end   
+    
     ## get all events
-    qryMeetings = "SELECT * from meetings" 
+    qryMeetings = "SELECT * FROM `meetings` ORDER BY startDate ASC" 
     refMeetings = ccU.query(qryMeetings)
     refMeetings.each do |r1,r2,r3,r4,r5|
       meeting[r5] = r1 
@@ -786,27 +813,33 @@ class User
       refAtt = []
     end    
 
-    ## get user previous rsvp status
+    ## get user previous rsvp status and if it exists then update the  rsvp arrival, departure date time and rsvp status
     if mid != nil
+    
       qryUAtt = "SELECT attending,arrivalDate,departureDate from `meeting_attendance` where meetingid = " + mid + " and username = '" + user + "'"
       refUAtt = ccU.query(qryUAtt)
-      refUAtt.each do |r1,r2,r3|
-        user_attending = r1
-        if r2 =~ /(\s)+/
-          (tempd,tempt) = r2.split(" ")
-          arrDate = tempd
-          (arrHour,arrMin,arrAmpm) = tempt.split(":")
-        else
-           arrDate = r2
+      
+      if refUAtt.num_rows > 0
+       refUAtt.each do |r1,r2,r3|
+         user_attending = r1
+         if r2 =~ /(\s)+/
+           (tempd,tempt) = r2.split(" ")
+           arrDate = tempd
+           (arrHour,arrMin,arrAmpm) = tempt.split(":")
+         else
+            arrDate = r2
+         end
+        
+         if r2 =~ /(\s)+/      
+           (tempd,tempt) = r3.split(" ")
+           depDate = tempd
+           (dptHour,dptMin,dptAmpm) = tempt.split(":")
+         else
+            depDate = r3
+          end            
         end
-        if r2 =~ /(\s)+/      
-          (tempd,tempt) = r3.split(" ")
-          depDate = tempd
-          (dptHour,dptMin,dptAmpm) = tempt.split(":")
-        else
-          depDate = r3
-        end            
-      end      
+      end
+    
     end
     
     ## get meeitng minutes and presentations
