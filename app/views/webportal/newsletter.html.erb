@@ -1,0 +1,35 @@
+<div class="row-fluid">
+      <div class="container">
+        <h1>Newsletter</h1>
+        <p>
+        	<span title="Edit Newsletter Template">
+				<%= link_to '<i class="icon-edit"> &nbsp; Edit Newsletter Template </i>'.html_safe, {:controller => "webportal", :action => "newsletter",:edit => "true" } %>
+			</span>
+        </p>
+        <hr>
+        <p>
+        <% if @editsection == "true"-%>
+
+        	<%= form_tag({:controller => 'webportal',:action => 'editNewsletterSection'}, :multipart => true) do %>
+				<%= text_area_tag :pageDesc , @contents, :class => "tinymce" , :rows => 20, :cols => 120 %></br>
+				<%= tinymce  %>
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %>&nbsp; <a class="btn btn-danger" href="newsletter">Cancel</a>
+			<% end -%>	
+			
+        <% else -%>
+        	<% File.open(Rails.root.join('newsletter',"template.wiki"), 'rb') do |infile| -%>
+				<% while line = infile.gets() -%>
+					<% if line =~ /<(.*)>/%>
+						<%= line.html_safe %>
+					<% else -%>	
+						<%= line %>
+					<% end -%>	
+				<% end -%>
+			<% end -%>
+		<% end -%>	
+        </p>
+      </div>
+</div>	
+
+
+	

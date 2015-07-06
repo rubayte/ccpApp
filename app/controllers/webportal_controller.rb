@@ -6,7 +6,7 @@ class WebportalController < ApplicationController
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
   :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, 
-  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection]
+  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -726,5 +726,38 @@ class WebportalController < ApplicationController
         return
     end  
   end
+
+  def newsletter
+
+    @editsection = nil
+    @contents = nil
+    
+    if params[:edit] != nil
+      @contents = File.read(Rails.root.join('newsletter','template.wiki'))
+      @editsection = "true"
+    end
+    
+  end
+
+  def editNewsletterSection
+    msg = nil
+    
+    File.open(Rails.root.join('newsletter','template.wiki'),'wb') do |iostream|
+      iostream.write(params[:pageDesc])
+    end
+    msg = "updated"
+    if msg == "updated"
+        redirect_to :newsletter
+        flash[:notice] = "Newsletter template has been updated!"
+        flash[:color]= "valid"
+        return
+    else
+        redirect_to :newsletter 
+        flash[:notice] = "Something went wrong."
+        flash[:color]= "invalid"
+        return
+    end      
+  end 
+
 
 end
