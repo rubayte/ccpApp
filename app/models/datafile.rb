@@ -76,15 +76,27 @@ class Datafile
   def self.createMemberListFile(results)
     
     msg = ""
+    hi = 0
+    
+    ## write data
     File.open(Rails.root.join('memberlist','listofpeople.csv'), 'wb') do |file|
       results.each do |r1,r2,r3,r4,r5,r6,r7|
-        file.write(r1 + ",")
+        if hi == 0
+          file.write("First Name,")
+          file.write("Last Name,")
+          file.write("Email Address,")
+          file.write("Institute,")
+          file.write("Group,")
+          file.write("Working Groups \n")          
+        end
+        hi += 1
+        wgs = r7.gsub(/,/,";")
         file.write(r2 + ",")
         file.write(r3 + ",")
         file.write(r4 + ",")
         file.write(r5 + ",")
         file.write(r6 + ",")
-        file.write(r7 + "\n")     
+        file.write(wgs + "\n")     
       end
     end
     msg = "file_created"
