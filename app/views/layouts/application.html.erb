@@ -40,6 +40,7 @@
               <% if session[:user] == "rubayte" or session[:user] == "m.michaut" -%>
               <li><a href="newsletter">Newletter</a></li>
               <% end -%>
+              <li><%=  link_to_modal "Create Ticket", "#newTicket" %></li>
               <li><%=  link_to '<span title="logout"><i class="icon-off icon-medium icon-white"></i></span>'.html_safe, :controller => "users", :action => "logout" %></li> 
             </ul>
           </div><!--/.nav-collapse -->
@@ -73,3 +74,36 @@
 
 </body>
 </html>
+
+<div id="newTicket" class="modal" style="display: none; ">
+
+	<p>
+	<% if flash[:color]== "valid" %>
+		<div class="valid_notice">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="invalid_notice">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<%else%>
+	<%end%>
+
+	</p>
+	
+	<div class="modal-header">
+		<h3>Create new ticket</h3>
+	</div>
+	<div class="modal-body">	 
+	<%= form_tag(:controller => 'webportal',:action => 'createIssues') do %>
+		Subject: <%= text_field_tag "issueSub" %><br><br>
+		Details: <%= text_area_tag 'issueDesc', nil, size: "10x10" %><br><br>
+		Priority: <%= select_tag "issuePriority", options_for_select(['Any','low','medium','high']) %><br><br>
+		<%= check_box_tag(:createNew) %> Create another ticket</br></br>
+	</div>
+	<div class="modal-footer">
+	    <%= submit_tag 	"Create",  :class => 'btn btn-primary btn-medium' %>
+	<% end %>
+	</div>
+</div>
+
