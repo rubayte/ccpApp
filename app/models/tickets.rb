@@ -18,6 +18,12 @@ class Tickets
       valMsg = "created"
       ccU.close
       
+      ## create ticket in atlassian jira
+      data = "{\\\"fields\\\":{\\\"project\\\":{\\\"key\\\":\\\"SUP\\\"},\\\"summary\\\":\\\"combatcancer-#{params[:issueSub]}\\\",\\\"description\\\":\\\"#{params[:issueDesc]}\\\",\\\"issuetype\\\":{\\\"name\\\":\\\"Task\\\"},\\\"customfield_10004\\\":2}}"
+      issuecreateCmd = "curl -D- -u user:pass -X POST --data \"#{data}\" -H \"Content-Type: application/json\" https://nki-research-it.atlassian.net/rest/api/latest/issue/"
+      system(issuecreateCmd)
+      valMsg = "created"
+      
       return valMsg      
   
   end
