@@ -36,11 +36,17 @@
                   <li><a href="admin">Admin</a></li> 
                 </ul>
               </li>
-              <li><%=  link_to session[:user], :controller => "users", :action => "profile" %></li>
+              <li><a href="#">|</a></li>
+              <li><%=  link_to "logged in as: #{session[:user]}", :controller => "users", :action => "profile" %></li>
               <% if session[:user] == "rubayte" or session[:user] == "m.michaut" -%>
+              <li><a href="#">|</a></li>
               <li><a href="newsletter">Newletter</a></li>
               <% end -%>
+              <li><a href="#">|</a></li>
+              <li><%=  link_to "Next Upcoming Meeting Event", {:controller => "webportal", :action => "meetings",:mtnid => nil }%></li>
+              <li><a href="#">|</a></li>
               <li><%=  link_to_modal "Create Ticket", "#newTicket" %></li>
+              <li><a href="#">|</a></li>
               <li><%=  link_to '<span title="logout"><i class="icon-off icon-medium icon-white"></i></span>'.html_safe, :controller => "users", :action => "logout" %></li> 
             </ul>
           </div><!--/.nav-collapse -->
