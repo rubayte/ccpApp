@@ -6,7 +6,7 @@ class WebportalController < ApplicationController
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
   :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, 
-  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings]
+  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings, :allnewsletters]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -764,5 +764,20 @@ class WebportalController < ApplicationController
     end      
   end 
 
+  def allnewsletters
+
+    @filetoshow = nil
+    @newsletters = Dir.glob(Rails.root.join("newsletter_prod","*.wiki"))
+    if params[:newsletterid] == nil
+      if @newsletters.length > 0
+        @filetoshow = @newsletters[0]
+      else
+        @filetoshow = nil        
+      end
+    else
+      @filetoshow = params[:newsletterid] + ".wiki"
+    end  
+
+  end
 
 end

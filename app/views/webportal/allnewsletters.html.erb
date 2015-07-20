@@ -1,0 +1,51 @@
+<div class="row-fluid">
+		<div class="span12">
+			<h3>Project Newsletters</h3>
+		</div>
+</div>
+
+<div class="row-fluid">
+	
+		<div class="span3">
+			
+			<table id="tablePages" class="table table-condensed table-hover">
+	    	    	<thead>
+	    	    		<tr>
+	    	    			<th>Archive</th>
+	    	    		</tr>
+	    	    	</thead>
+	    	    	<tbody>
+	    	    		<% if @newsletters.length == 0 -%>
+	    	    			<tr><td>No Newsletter found!</td></tr>
+	    	    		<% else -%>	
+		    	    		<% @newsletters.each do |file| -%>
+							<% fs = file.split("/") -%>
+							<% fss = fs[fs.length - 1].split(".") -%>
+								<tr><td><%= link_to fss[0], {:controller => "webportal" , :action => "allnewsletters", :newsletterid => fss[0] } %></td></tr>	
+							<% end -%>
+						<% end -%>		    	    		
+	    	    	</tbody>
+	    	</table>	
+			
+
+		</div>
+	
+		<div class="span9">
+			<div>
+			<% if @filetoshow == nil -%>
+				<p>No newsletter selected! </p>
+			<% else -%>
+				<% File.open(Rails.root.join('newsletter_prod',@filetoshow), 'rb') do |infile| -%>
+					<% while line = infile.gets() -%>
+						<% if line =~ /<(.*)>/%>
+							<%= line.html_safe %>
+						<% else -%>	
+							<%= line %>
+						<% end -%>	
+					<% end -%>
+				<% end -%>
+			<% end -%>	
+			</div>
+						
+		</div>
+	</div>
