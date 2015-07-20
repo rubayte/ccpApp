@@ -6,7 +6,7 @@ class WebportalController < ApplicationController
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
   :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, 
-  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection]
+  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -625,6 +625,10 @@ class WebportalController < ApplicationController
       (@res,@curres,@attres,@uatt,@uad,@udd,@uah,@uam,@uaap,@udh,@udm,@udap,@minpre) = User.getNextUpcomingEvent(session[:user],params[:mtnid])
       @meetingId = params[:mtnid]        
     end
+  end
+  
+  def allmeetings
+    (@res,@rescb) = User.getAllMeetingEvents()
   end
 
   def createMeetingRsvp

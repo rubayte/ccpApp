@@ -26,6 +26,7 @@ Ccp::Application.routes.draw do
   match "publicSection", :to => 'public#publicSection'
   match "publics", :to => 'webportal#publics'
   match "newsletter", :to => 'webportal#newsletter'
+  match "allmeetings", :to => 'webportal#allmeetings'
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

@@ -1,0 +1,42 @@
+<div class="row-fluid">
+		<div class="span12">
+			<div class="span6">
+			<h3>All General Meetings</h3>
+			</div>
+			<div class="span6">
+				<div align="right">
+					<%= form_tag({:controller => 'webportal',:action => 'meetings'}, :class => "form-inline" ) do %>
+						<strong>All meetings</strong> &nbsp; <%= select_tag "mtnid", options_from_collection_for_select(@rescb,:first,:last) %>
+						<%= submit_tag 	"Show details",  :class => 'btn btn-primary btn-medium' %>
+					<% end %>
+				</div>	
+			</div>	
+		</div>
+</div>
+<div class="row-fluid">
+			
+		<div class="span12">
+		<% if @res.keys.length == 0 -%>
+			<div class="well">
+				<p>No upcoming meeting(s) found.</p>
+			</div>
+		<% else -%>
+			<% @res.each do |key,value| -%>
+				<% vals = value.split(";") -%>
+				<div class="well">
+					<h3>
+						<%=  link_to vals[0], {:controller => "webportal", :action => "meetings",:mtnid => key } %> 
+					</h3>
+					<p>
+					<ul>
+						<li>Location: <b><%= vals[1] %></b></li>
+						<li>Start Date: <b><%= vals[2] %></b></li>
+						<li>End Date: <b><%= vals[3] %></b></li>
+					</ul>	
+					</p>
+				</div>		
+			<% end -%>	
+		<% end -%>
+	</div>
+
+</div>

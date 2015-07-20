@@ -728,6 +728,25 @@ class User
     
   end
 
+  ## get all meetings
+  def self.getAllMeetingEvents()
+ 
+    allMeetings = Hash.new
+    meetingBox = Hash.new
+    
+    ccU = User.new.self
+    ## get requested events
+    qryMeetings = "SELECT * FROM `meetings` ORDER BY startDate ASC" 
+    refMeetings = ccU.query(qryMeetings)
+    refMeetings.each do |r1,r2,r3,r4,r5|
+      allMeetings[r5] = r1 + ";" + r2 + ";" + r3 + ";" + r4
+      meetingBox[r5] = r1
+    end
+    ccU.close
+    
+    return allMeetings,meetingBox     
+  end
+
   ## get next upcoming event
   def self.getNextUpcomingEvent(user,reqid)
     
