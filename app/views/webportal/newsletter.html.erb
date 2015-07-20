@@ -28,8 +28,14 @@
 			<% end -%>
 		<% end -%>	
         </p>
+        <hr>
+        <div align="left">
+        	<%= form_tag({:controller => 'webportal',:action => 'publishnewsletter'}, :class => "form-inline" ,:multipart => true) do %>
+				<%= text_field_tag :newsletterName , "Moth_Year" %>
+				<%= check_box_tag(:overwrite) %> Overwrite existing newsletter with same name
+				<%= submit_tag "Publish", :class => 'btn btn-primary btn-medium' %>
+			<% end -%>
+		</div>	
       </div>
 </div>	
 
-
-	

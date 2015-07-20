@@ -492,6 +492,39 @@ class Datafile
     return valMsg
 
   end
+  
+  def self.publishNewsletter(draft,newsletter,overwrite)
+    
+    valmsg = nil
+    outfile = newsletter + ".wiki"
+    ## check outfile existence
+    if (not(File.exists?(Rails.root.join('newsletter_prod',outfile))))
+      ## create new file
+      ## read template
+      contents = File.read(Rails.root.join('newsletter',draft))
+      ## save file
+      File.open(Rails.root.join('newsletter_prod',outfile),'wb') do |iostream|
+        iostream.write(contents)
+      end
+      valmsg = "published"
+    else
+      if (overwrite == "1")
+        ## create new file
+        ## read template
+        contents = File.read(Rails.root.join('newsletter',draft))
+        ## save file
+        File.open(Rails.root.join('newsletter_prod',outfile),'wb') do |iostream|
+         iostream.write(contents)
+        end
+        valmsg = "published"
+      else
+        valmsg= "fileExists"
+      end
+    end
+    
+    return valmsg
+    
+  end
 
 
 end

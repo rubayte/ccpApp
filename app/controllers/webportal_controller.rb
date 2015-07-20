@@ -780,4 +780,31 @@ class WebportalController < ApplicationController
 
   end
 
+  def publishnewsletter
+    
+    draft = "template.wiki"
+    newsletter = params[:newsletterName]
+    @gnewsletter = newsletter
+    msg = Datafile.publishNewsletter(draft,newsletter,params[:overwrite])
+    
+    if msg == "published"
+      redirect_to :controller => "webportal", :action => "allnewsletters", :newsletterid => newsletter
+      flash[:notice] = "Newsletter has been published!"
+      flash[:color]= "valid"
+      return
+    elsif msg == "fileExists"
+      redirect_to :newsletter
+      flash[:notice]= "Newsletter with same name already exists. Either provide a new name or tick the overwrite check box to publish."
+      flash[:color] = "invalid"
+      return
+    else
+      redirect_to :newsletter 
+      flash[:notice] = "Something went wrong."
+      flash[:color]= "invalid"
+      return  
+    end
+    
+  end
+  
+
 end
