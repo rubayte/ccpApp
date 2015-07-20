@@ -73,13 +73,13 @@ class Datafile
     
   end
   
-  def self.createMemberListFile(results)
+  def self.createMemberListFile(results,file)
     
     msg = ""
     hi = 0
     
     ## write data
-    File.open(Rails.root.join('memberlist','listofpeople.csv'), 'wb') do |file|
+    File.open(Rails.root.join('memberlist',file), 'wb') do |file|
       results.each do |r1,r2,r3,r4,r5,r6,r7|
         if hi == 0
           file.write("First Name,")

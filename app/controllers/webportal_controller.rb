@@ -36,11 +36,12 @@ class WebportalController < ApplicationController
   end
 
   def getMembersList
+    filename = Time.now.strftime("%d-%m-%Y-%H-%M") + "_listofpeople.csv"
     (res,rows) = User.getUsers()
     if rows > 0
-      msg = Datafile.createMemberListFile(res)
+      msg = Datafile.createMemberListFile(res,filename)
       if (msg == "file_created")
-        send_file Rails.root.join("memberlist", 'listofpeople.csv'), :disposition => 'attachment'
+        send_file Rails.root.join("memberlist", filename), :disposition => 'attachment'
       end
     end
   end

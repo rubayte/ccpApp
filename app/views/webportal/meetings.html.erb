@@ -46,10 +46,7 @@
     		
 			<div class="tab-content">
 				<div class="<%= if (@tabactive == 'attendees' )then 'tab-pane active'  else 'tab-pane' end%>" id="attendees">
-    				<div class="alert alert-info alert-dismissible" role="alert">
- 						 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  						  <div align="center">This attendee list is not complete yet!</div>
-					</div>
+    				
     				<div class="alert alert-success" role="alert">
   						  <div align="center"><%=  link_to_modal '<i class="icon-edit"> <strong>Update your meeting status</strong></i>'.html_safe, "#meetingRSVP" %></div>
 					</div>
@@ -63,7 +60,7 @@
 							<tr>
 							<th>Name </th>
 							<th>Email</th>
-							<th>Atteding?</th>
+							<th>Attending?</th>
 							<th>Arrival Date &amp; Time</th>
 							<th>Departure Date &amp; Time</th>
 						</tr>
