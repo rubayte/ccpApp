@@ -1,6 +1,7 @@
 <div class="row-fluid">
       <div class="container">
-        <h1>Combat-Cancer Project</h1>
+        <h2>Combat-Cancer Project</h2>
+        <hr>
         <p>
         	<span title="Edit this content">
 				<%= link_to '<i class="icon-edit"> &nbsp; Edit this section </i>'.html_safe, {:controller => "webportal", :action => "publics",:sectionedit => "true", :sectionName => "project" } %>
@@ -34,7 +35,7 @@
 <div class="row-fluid">
       <div class="container">
         <h2>Involved Research Institutes &amp; Groups</h2>
-        
+		<hr>        
         <div class="span5">
         	<div align="left">
         	<p>
@@ -102,4 +103,25 @@
 		</div>		
       </div>
 </div>
-	
+<hr>	
+<div class="row-fluid">
+      <div class="container">
+
+      	<div class="span4">
+	        <p><%= image_tag("logo-nki.png", :size => "200x100") %> </p>
+	    </div>    
+
+      	<div class="span4">
+      		</br>
+      		</br>
+	        <p><%= image_tag("sanger-logo.png", :size => "205x100") %> </p>
+	    </div>    
+
+
+      	<div class="span4">
+	        <h4>Project funded by</h4> 
+	        <p><%= image_tag("erc_banner-horizontal.jpg") %> </p>
+	    </div>    
+
+	  </div>
+</div>	  	
