@@ -65,4 +65,8 @@ jQuery ->
     "sScrollX": "100%",
     "paging":false,
     "bScrollCollapse": true
-  });    
+  });
+jQuery ->
+  $('#wikitable').treetable({ 
+    expandable: true 
+  });      

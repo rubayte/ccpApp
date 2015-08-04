@@ -6,6 +6,107 @@ class User
     return con
   end
   
+  ## get wiki pages
+  def self.getWikiPages()
+     
+    pages = Hash.new()
+    parentPages = []
+    
+    ccU = User.new.self
+    ## get wiki pages
+    qryWiki = "select * from `user_created_wikis` as W left join `wiki_structure` as S on W.page = S.`parent_page_name`;"
+    refWikis = ccU.query(qryWiki)
+    refWikis.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10|
+      if pages.has_key?(r3)
+        pages[r3] = pages[r3] + "#" + r9
+      else
+        pages[r3] = r9
+      end
+    end
+    ccU.close
+    
+    parentPages = User.getParentPages()
+    
+    return pages,parentPages
+     
+  end
+  
+  ## get all target pages to move
+  def self.getTargetChildPages()
+    
+    pages = []
+    ccU = User.new.self
+    ## get target child pages
+    qryChildWiki = "select * from `user_created_wikis` as W left join `wiki_structure` as S on W.page = S.`parent_page_name` where S.`parent_page_name` is NULL and S.`child_page_name` is NULL;"
+    refChildWiki = ccU.query(qryChildWiki)
+    refChildWiki.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10|
+      pages.push(r3)
+    end  
+    ccU.close
+    
+    return pages
+    
+  end
+  
+  ## get all parent pages
+  def self.getParentPages()
+    
+    pages = []
+    ccU = User.new.self
+    ## get all possible parent pages
+    qryParentWiki = "select * from `user_created_wikis` as W left join `wiki_structure` as S on W.page = S.`child_page_name` where S.`child_page_name` is NULL;"
+    refParentWiki = ccU.query(qryParentWiki)
+    refParentWiki.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10|
+      pages.push(r3)
+    end
+    ccU.close
+    
+    return pages
+    
+  end
+  
+  ## move wiki pages
+  def self.moveChildToParentWiki(params)
+    
+    msg = nil
+    if params[:childPage] == params[:parentPage]
+      msg = "same"
+    else
+      ## move the page
+      ccU = User.new.self
+      ## check if the page is currently under any parent page
+      qryCheck = "select * from `wiki_structure` where `child_page_name` = '" +params[:childPage]+ "'"
+      refCheck = ccU.query(qryCheck)
+      if refCheck.num_rows > 0
+        ## child page is already under some parent; delete the current relation and make insertion
+        qryDeleteChild = "delete from `wiki_structure` where `child_page_name` = '" +params[:childPage]+ "'"
+        ccU.query(qryDeleteChild)
+        if (params[:parentPage] == "wiki root /")
+          ## nothing to do
+          msg = "moved"
+        else
+          qryMove = "insert into `wiki_structure`(`parent_page_name`,`child_page_name`) values ('"+params[:parentPage]+"','"+params[:childPage]+"')"
+          ccU.query(qryMove)
+          msg = "moved"            
+        end
+      else
+        if (params[:parentPage] == "wiki root /")
+          ## nothing to do
+          msg = "already_in_location"
+        else
+          ## not present; simply make an insertion with parent page
+          qryMove = "insert into `wiki_structure`(`parent_page_name`,`child_page_name`) values ('"+params[:parentPage]+"','"+params[:childPage]+"')"
+          ccU.query(qryMove)
+          msg = "moved"      
+        end
+      end
+      ccU.close
+    end
+    
+    return msg
+    
+  end
+  
   ## get wiki attachments by page
   def self.getWikiAttachmentByPage(page)
     

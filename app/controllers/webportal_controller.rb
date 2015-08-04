@@ -510,7 +510,11 @@ class WebportalController < ApplicationController
   
   def wiki
     @filetoshow = nil
-    @pages = Dir.glob(Rails.root.join("wiki","*.*"))
+    # @pages = Dir.glob(Rails.root.join("wiki","*.*"))
+    (@pages,@parentPages) = User.getWikiPages()
+    @pagestomove = User.getTargetChildPages()
+    @possibleParentPages = User.getParentPages()
+    @possibleParentPages.push('wiki root /')
     if params[:pageid] == nil
       @filetoshow = "project.wiki"
       @cby,@cat,@leby,@leat = User.getWikiInfoByPage("project")
@@ -519,6 +523,28 @@ class WebportalController < ApplicationController
       @filetoshow = params[:pageid] + ".wiki"
       @cby,@cat,@leby,@leat = User.getWikiInfoByPage(params[:pageid])
       @atts = User.getWikiAttachmentByPage(params[:pageid])
+    end  
+  end
+  
+  def reorderWikiPage
+    msg = ""
+    msg = User.moveChildToParentWiki(params)
+    if msg == "same"
+      redirect_to :wiki, flash: { reorderPages: true, :notice => "Page to move and new location can't be same!", :color => "invalid" }
+      return
+    elsif msg == "moved"
+      redirect_to :controller => "webportal", :action => "wiki", :pageid => params[:childPage]
+      flash[:notice] = "You page has been moved"
+      flash[:color] = "valid"
+      return
+    elsif msg == "already_in_location"
+      redirect_to :controller => "webportal", :action => "wiki", :pageid => params[:childPage]
+      flash[:notice] = "You page is already in that location"
+      flash[:color] = "valid"
+      return
+    else
+      redirect_to :wiki, flash: { reorderPages: true, :notice => "Something went wrong!", :color => "invalid" }
+      return
     end  
   end
 
@@ -804,6 +830,10 @@ class WebportalController < ApplicationController
       return  
     end
     
+  end
+  
+  def test
+    [{label: 'node1',children: [{ label: 'child1' },{ label: 'child2' }]},{label: 'node2',children: [{ label: 'child3' }]}].to_json
   end
   
 

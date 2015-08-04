@@ -15,36 +15,23 @@
 <div class="row-fluid">
 	
 		<div class="span3">
-			<div>		
-				<table id="wikitable" class="table table-hover">
-					<thead>
+			
+			<table id="tablePages" class="table table-condensed table-hover">
+	    	    	<thead>
 	    	    		<tr>
 	    	    			<th>Pages</th>
 	    	    		</tr>
 	    	    	</thead>
-					<% @parentPages.each do |page| -%>
-					<tbody>
-					<tr data-tt-id="<%= page %>">
-    					<td><%= link_to page, {:controller => "webportal" , :action => "wiki", :pageid => page} %></td>
-  					</tr>
-  					<% value = @pages[page] -%>
-  					<% if value != nil -%>
-  						<% subpages = value.split("#") -%>
-  						<% subpages.each do |spage| -%>
-  							<tr data-tt-id="<%= spage + page %>" data-tt-parent-id="<%= page %>" >
-  								<td><%= link_to spage, {:controller => "webportal" , :action => "wiki", :pageid => spage} %></td>
-  							</tr>	
-  						<% end -%>
-  					<% end -%>
-					</tbody>
-					<% end -%>
-				</table>
-			</div>	
-			<hr>
-			<div>
-				<%=  link_to_modal '<i class="icon-random"> <strong>Reorder Pages</strong></i>'.html_safe, "#reorderPages" %>
-			</div>
-
+	    	    		<% @pages.each do |file| -%>
+						<% fs = file.split("/") -%>
+						<% fss = fs[fs.length - 1].split(".") -%>
+							<tr><td><%= link_to fss[0], {:controller => "webportal" , :action => "wiki", :pageid => fss[0] } %></td></tr>	
+						<% end -%>
+	    	    	<tbody>
+	    	    		
+	    	    	</tbody>
+	    	</table>	
+			
 
 		</div>
 	
@@ -97,49 +84,5 @@
 		</div>
 	</div>
 </div>
-
-
-<div id="reorderPages" class="modal" style="display: none; ">
-
-	<p>
-	<% if flash[:color]== "valid" %>
-		<div class="valid_notice">
-			<p><%= flash[:notice]%></p>
-		</div>
-	<% elsif flash[:color]== "invalid"%>
-		<div class="invalid_notice">
-			<p><%=flash[:notice]%></p>
-		</div>
-	<%else%>
-	<%end%>
-	</p>
-
-	<div class="modal-header">
-		<h3>Reorder Wiki Page</h3>
-	</div>
-	<div class="modal-body">
-	<%= form_tag({:controller => 'webportal',:action => 'reorderWikiPage'}, :multipart => true) do %>
-		<%= hidden_field_tag :mid, @meetingId %><br>
-		Page to move: <%= select_tag :childPage , options_for_select(@pagestomove) %> <br>
-		New location: <%= select_tag :parentPage , options_for_select(@possibleParentPages) %> <br>
-	</div>
-	<div class="modal-footer">
-	    <%= submit_tag 	"Move",  :class => 'btn btn-primary btn-medium' %>
-	<% end %>
-	</div>
-</div>
-
-
-<% if flash[:reorderPages] %>
-	<script type="text/javascript">
-		$('#reorderPages').modal('show');
-	</script>
-<% end %>
-
-
-<script>
-  $("#wikitable").treetable("expandNode", "test page");
-</script>
-
 
 
