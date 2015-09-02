@@ -1,15 +1,20 @@
-<h1 id="newsletter_july_2014" class="sectionedit1">NEWSLETTER August&nbsp;2015</h1>
-<p>Welcome to the first NKI newsletter. With this newsletter we want to inform everyone in the Research about recent developments within the Research. As you can see below, the news items can be quite diverse; from new equipment or protocols to changes in the Research staff. It does not replace the info posted on the Antonet, the intranet sites of research facilities or the NKI website. The newsletter will be published quarterly.</p>
-<p>Feedback on this first newsletter is much appreciated and if you have news items for the next newsletter you can also send them to us. The newsletter is prepared by Mariet van den Berg and Henri van Luenen, the technical development of the page was done by Jelle ten Hoeve.</p>
+<h1 id="newsletter_july_2014" class="sectionedit1">September&nbsp;2015</h1>
+<p>Welcome to the first Combat Cancer newsletter! With this newsletter we want to inform everyone involved&nbsp;about recent developments inthe project. The news items can be quite diverse: from new datasets available&nbsp;or discussion topics in the forum&nbsp;to developments on the website, meeting announcements and new exciting results!</p>
+<p>Feedback on this first newsletter is much appreciated and if you have news items for the next newsletter you can also send them to us. The newsletter is prepared by <a title="profile" href="webportal/getProfile?useridvalue=rubayte">Rubayte Rahman</a>&nbsp;and&nbsp;<a title="profile" href="webportal/getProfile?useridvalue=m.michaut">Magali Michaut</a></p>
 <p>&nbsp;</p>
-<h2>General News</h2>
-<h3>News 1 : Header Line for News 1</h3>
-<p>Welcome to the first NKI newsletter. With this newsletter we want to inform everyone in the Research about recent developments within the Research. As you can see below, the news items can be quite diverse; from new equipment or protocols to changes in the Research staff. It does not replace the info posted on the Antonet, the intranet sites of research facilities or the NKI website. The newsletter will be published quarterly.</p>
-<p>Feedback on this first newsletter is much appreciated and if you have news items for the next newsletter you can also send them to us. The newsletter is prepared by Mariet van den Berg and Henri van Luenen, the technical development of the page was done by Jelle ten Hoeve.</p>
+<h3>Next meetings: Mark the date</h3>
+<p>The next meeting will take place at the Wellcome Trust Sanger Institute on January 11-13 2016. So mark the date in your agenda and fill your RSVP in the <a title="meetings" href="meetings">meeting page</a>.&nbsp;</p>
+<h3>Data confidentiality:&nbsp;What do you think?</h3>
+<p>It is important that we all agree and are aware of the confidentiality of the data shared on that website. As you know access to the website is restricted to the ERC project members.&nbsp;The data are for internal use. Before any presentation or publication including some project data, the owner of the data must be contacted. If you have questions or comments on that topic, please post it in the <a title="forum" href="webportal/viewPostById?postid=3">forum</a>&nbsp;so we can discuss it.&nbsp;</p>
+<h3>Accounts:&nbsp;Fill your profile information</h3>
+<p>Great that you have an account on the webiste! It would be even better if everyone would fill firstname, lastname and put a picture so the resource is more useful. In addition, please fill your <a title="profile" href="profile">profile information</a>&nbsp;with some background (or just move what you did put on the previous wiki).</p>
+<h3>Public contents:&nbsp;First page ready to go</h3>
+<p>We have created <a title="public" href="webportal/publics">a general page</a>&nbsp;about the project to present it to the public. It is still internal but will soon be publicly accessible. Please review the page and let us know if you want some changes to be made. Thanks! In addition, you will notice that we have added a structure in the wiki, so pages can be grouped under other pages. Feel free to move pages around and organise them as you want. The urls stay the same so it won't break any links.</p>
+<h3>Volcano tool:&nbsp;Have a try</h3>
+<p>We have created a sections with <a title="tools" href="webportal/tools">tools related to the project</a>. If you want us to add some tools, please let us know. If you have a result file from an association analysis (e.g. drug response and mutations), you can upload it into the <a title="volcano" href="https://nki-nl.shinyapps.io/volcanoplot" target="_blank">volcano tool</a>&nbsp;and interact with the results. Give it a go!</p>
 <p>&nbsp;</p>
-<h3>News 2&nbsp;: Header Line for News 2</h3>
-<p>Welcome to the first NKI newsletter. With this newsletter we want to inform everyone in the Research about recent developments within the Research. As you can see below, the news items can be quite diverse; from new equipment or protocols to changes in the Research staff. It does not replace the info posted on the Antonet, the intranet sites of research facilities or the NKI website. The newsletter will be published quarterly.</p>
-<p>Feedback on this first newsletter is much appreciated and if you have news items for the next newsletter you can also send them to us. The newsletter is prepared by Mariet van den Berg and Henri van Luenen, the technical development of the page was done by Jelle ten Hoeve.</p>
+<p>Thanks for reading,</p>
+<p>Rubayte and Magali</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

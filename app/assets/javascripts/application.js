@@ -13,12 +13,12 @@
 // require dataTables/src/demo_table_jui
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
-//= require_tree .
 //= require jquery.ui.all
+//= require twitter/bootstrap
 //= require jquery.modal
 //= require dataTables/jquery.dataTables
 //= require tinymce
+//= require_tree .
 (function($) {
   var Node, Tree, methods;
 

@@ -6,7 +6,7 @@
 		<p><h3>Log in to combat-cancer webportal</h3> 
 		If you dont have an account yet, please register <%=  link_to_modal "here", "#newAccount", :class=>"button" %>
 		</p>
-		<%= form_tag(:controller => 'users', :action => 'autheticateUser') do %>				
+		<%= form_tag(:controller => 'users', :action => 'autheticateUser') do %>
 			<%= text_field_tag :login_id , nil, :placeholder => "username/email" %></br>
 			<%= password_field_tag :login_password, nil,:placeholder => "password" %></br>
 			<%= submit_tag "Login", :class => 'btn btn-primary btn-large' %>		

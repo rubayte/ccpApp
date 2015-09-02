@@ -899,6 +899,9 @@ class User
       arrAmpm = "PM"
       arrHour = (arrHour.to_i - 12).to_s
     else
+      if (arrHour =~ /^0/)
+        arrHour = arrHour[1..arrHour.length-1]
+      end
       arrAmpm = "AM"
     end   
     ## departure
@@ -911,6 +914,9 @@ class User
       dptAmpm = "PM"
       dptHour = (dptHour.to_i - 12).to_s
     else
+      if (dptHour =~ /^0/)
+        dptHour = dptHour[1..dptHour.length-1]
+      end
       dptAmpm = "AM"
     end   
     

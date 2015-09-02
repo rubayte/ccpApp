@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :save_login_state, :only => [:login, :autheticateUser]
 
   def login
+
     
   end
 
@@ -69,6 +70,8 @@ class UsersController < ApplicationController
   end
   
   def autheticateUser
+    
+    
     valmsg = ""
     if (params[:login_id] == "" or params[:login_password] == "")
       redirect_to :login
@@ -80,7 +83,7 @@ class UsersController < ApplicationController
     end
     if (valmsg == 'validuser')
       session[:user] = User.mapSessionUser(params[:login_id])
-      redirect_to :controller => 'webportal', :action => 'index'
+      redirect_to :controller => "webportal", :action => "index"
       return
     else
       redirect_to :login
