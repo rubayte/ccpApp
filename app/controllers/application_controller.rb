@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
     if session[:user]
       return true
     else
+      session[:return_to] = request.fullpath
       redirect_to(:controller => 'users', :action => 'login')
       flash[:notice] = "You need to login to view the requested page! "
       flash[:color]= "invalid"

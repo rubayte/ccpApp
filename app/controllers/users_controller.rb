@@ -83,7 +83,12 @@ class UsersController < ApplicationController
     end
     if (valmsg == 'validuser')
       session[:user] = User.mapSessionUser(params[:login_id])
-      redirect_to :controller => "webportal", :action => "index"
+      if session[:return_to] == "" or session[:return_to] == nil
+        redirect_to :controller => "webportal", :action => "index"
+      else
+        redirect_to session[:return_to]
+      end
+      session[:return_to] = nil
       return
     else
       redirect_to :login
@@ -140,6 +145,7 @@ class UsersController < ApplicationController
   
   def logout     
     session[:user] = nil
+    session[:return_to] = nil
     redirect_to :login
     return
   end
