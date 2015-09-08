@@ -735,6 +735,10 @@ class WebportalController < ApplicationController
     
   end
   
+  def publicsView
+    
+  end
+  
   def editPublicSection
     
     msg = nil

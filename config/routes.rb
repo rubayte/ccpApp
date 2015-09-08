@@ -25,6 +25,7 @@ Ccp::Application.routes.draw do
   match "viewTextFile", :to => 'webportal#viewTextFile'
   match "publicSection", :to => 'public#publicSection'
   match "publics", :to => 'webportal#publics'
+  match "publicsView", :to => 'webportal#publicsView'
   match "newsletter", :to => 'webportal#newsletter'
   match "allmeetings", :to => 'webportal#allmeetings'
   match "allnewsletters", :to => 'webportal#allnewsletters'

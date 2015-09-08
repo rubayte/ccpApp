@@ -1,0 +1,78 @@
+<div class="row-fluid">
+      <div class="container">
+        <h2>Combat-Cancer Project</h2>
+        <hr>
+        <p>
+       	<% File.open(Rails.root.join('publicContent',"project.wiki"), 'rb') do |infile| -%>
+				<% while line = infile.gets() -%>
+					<% if line =~ /<(.*)>/%>
+						<%= line.html_safe %>
+					<% else -%>	
+						<%= line %>
+					<% end -%>	
+				<% end -%>
+		<% end -%>	
+        </p>
+      </div>
+</div>	
+
+<div class="row-fluid">
+      <div class="container">
+        <h2>Involved Research Institutes &amp; Groups</h2>
+		<hr>        
+        <div class="span5">
+        	<div align="left">
+        		<p>
+        		<% File.open(Rails.root.join('publicContent',"nki.wiki"), 'rb') do |infile| -%>
+					<% while line = infile.gets() -%>
+						<% if line =~ /<(.*)>/%>
+							<%= line.html_safe %>
+						<% else -%>	
+							<%= line %>
+						<% end -%>	
+					<% end -%>
+				<% end -%>
+				</p>
+        	</div>
+        </div>	
+
+		<div class="span5">
+			<div align="left">
+        	<p>
+        		<% File.open(Rails.root.join('publicContent',"sanger.wiki"), 'rb') do |infile| -%>
+					<% while line = infile.gets() -%>
+						<% if line =~ /<(.*)>/%>
+							<%= line.html_safe %>
+						<% else -%>	
+							<%= line %>
+						<% end -%>	
+					<% end -%>
+				<% end -%>
+        	</p>
+        	</div>
+		</div>
+		
+		</div>		
+</div>
+<hr>	
+<div class="row-fluid">
+      <div class="container">
+
+      	<div class="span4">
+	        <p><%= image_tag("logo-nki.png", :size => "200x100") %> </p>
+	    </div>    
+
+      	<div class="span4">
+      		</br>
+      		</br>
+	        <p><%= image_tag("sanger-logo.png", :size => "205x100") %> </p>
+	    </div>    
+
+
+      	<div class="span4">
+	        <h4>Project funded by</h4> 
+	        <p><%= image_tag("erc_banner-horizontal.jpg") %> </p>
+	    </div>    
+
+	  </div>
+</div>	  	
