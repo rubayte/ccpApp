@@ -23,7 +23,7 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown">webportal <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="publics">Public Contents</a></li>
+                  <li><a href="publicsView">Public Contents</a></li>
                   <li><a href="members">Members</a></li>
                   <li><a href="wiki">Wiki</a></li>
                   <li><a href="data">Files</a></li>
@@ -57,6 +57,11 @@
           </div><!--/.nav-collapse -->
          <% else -%>
          <a class="brand" href="#">Combat-Cancer</a>
+          <!--<form class="navbar-form pull-right">
+         	    	<input class="span2" type="text" placeholder="Email">
+              		<input class="span2" type="password" placeholder="Password">
+              		<button type="submit" class="btn">Sign in</button> &nbsp; | &nbsp;<%=  link_to "Profile", :controller => "users", :action => "profile" %>
+          </form>-->
          <%end -%>
         </div>
       </div>
