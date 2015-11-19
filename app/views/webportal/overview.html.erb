@@ -66,7 +66,7 @@
 								<span title="click to view sample details"><%= link_to r4, {:controller => "webportal", :action => "viewSampleDetails",:data => r8, :sample => r4 }, :target => "_blank" %></span>
 							</td>		
 
-							<td class="smallt"><a href="#" data-toggle="tooltip" title="<%= r2 %>"><%= r1 %></a></td>
+							<td class="smallt"><%= r1 %></td>
 							
 							<td class="smallt"><%= r5 %></td>
 							
@@ -199,13 +199,15 @@
 							<td class="future"></td>							
 							<% else -%>
 							<td class="present" align="center">
-								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
-								<div id="popover_content_wrapper" style="display: none">
+								<span title="click to view screen details"><%= link_to '<i class="icon-th"></i>'.html_safe, {:controller => "webportal", :action => "viewScreenDetails",:screenDescription => r17, :sample => r4 }, :target => "_blank" %></span>
+								<!--
+								<a class='ssdesc' data-placement='left' title="Single-Screen Description" href='#'><i class="icon-th"></i></a>
+								<div id="popover_content_wrapper_single" style="display: none">
   								<div>
   										<%= r17.html_safe %>
   								</div>
 								</div>
-
+								-->
 							</td>
 							<% end -%>
 
@@ -215,12 +217,15 @@
 							<td class="future"></td>							
 							<% else -%>
 							<td class="present" align="center">
+								<span title="click to view screen details"><%= link_to '<i class="icon-th"></i>'.html_safe, {:controller => "webportal", :action => "viewScreenDetails",:screenDescription => r19, :sample => r4 }, :target => "_blank" %></span>
+								<!--
 								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
 								<div id="popover_content_wrapper" style="display: none">
   								<div>
   										<%= r19.html_safe %>
   								</div>
 								</div>
+								-->
 							</td>
 							<% end -%>
 						</tr>
@@ -230,6 +235,7 @@
 			<% end -%>
 </div>
 		
+<!--		
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -244,7 +250,21 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+  $('.ssdesc').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper_single').html();
+    }
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+
 $(function () {
   $('[data-toggle="tooltip"]').tooltip().html()
 });
 </script>
+-->

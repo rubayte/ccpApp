@@ -27,15 +27,16 @@ class Overview
     filterString = ""
     
     if params[:cType] != "All"
-      fil = " S.cancer = '" + params[:cType] + "' "
+      #fil = " S.cancer = '" + params[:cType] + "' "
+      fil = " S.cancer = '#{params[:cType]}' "
       filters.push(fil)
     end
     if params[:sType] != "All"
-      fil = " M.name = '" + params[:sType] + "' "
+      fil = " M.name = '#{params[:sType]}' "
       filters.push(fil)
     end
     if params[:oType] != "All"
-      fil = " S.organism = '" + params[:oType] + "' "
+      fil = " S.organism = '#{params[:oType]}' "
       filters.push(fil)
     end    
     filterString = filters.join(" and ")  #" S.cancer = '" + params[:cType] + "' and M.name = '" + params[:sType] + "' and S.organism = '" + params[:oType]+ "'" 

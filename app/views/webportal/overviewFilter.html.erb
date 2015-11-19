@@ -64,7 +64,7 @@
 								<span title="click to view sample details"><%= link_to r4, {:controller => "webportal", :action => "viewSampleDetails",:data => r8, :sample => r4 }, :target => "_blank" %></span>
 							</td>		
 
-							<td class="smallt"><a href="#" data-toggle="tooltip" title="<%= r2 %>"><%= r1 %></a></td>
+							<td class="smallt"><%= r1 %></td>
 							
 							<td class="smallt"><%= r5 %></td>
 							
@@ -197,13 +197,7 @@
 							<td class="future"></td>							
 							<% else -%>
 							<td class="present" align="center">
-								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
-								<div id="popover_content_wrapper" style="display: none">
-  								<div>
-  										<%= r17.html_safe %>
-  								</div>
-								</div>
-
+								<span title="click to view screen details"><%= link_to '<i class="icon-th"></i>'.html_safe, {:controller => "webportal", :action => "viewScreenDetails",:screenDescription => r17, :sample => r4 }, :target => "_blank" %></span>
 							</td>
 							<% end -%>
 
@@ -213,12 +207,7 @@
 							<td class="future"></td>							
 							<% else -%>
 							<td class="present" align="center">
-								<a class='csdesc' data-placement='left' title="Combi-Screen Description" href='#'><i class="icon-th"></i></a>
-								<div id="popover_content_wrapper" style="display: none">
-  								<div>
-  										<%= r19.html_safe %>
-  								</div>
-								</div>
+								<span title="click to view screen details"><%= link_to '<i class="icon-th"></i>'.html_safe, {:controller => "webportal", :action => "viewScreenDetails",:screenDescription => r19, :sample => r4 }, :target => "_blank" %></span>
 							</td>
 							<% end -%>
 
@@ -229,23 +218,3 @@
 			<% end -%>	
 			
 </div>
-
-<script type="text/javascript">
-
-$(document).ready(function(){
-  $('.csdesc').popover({ 
-    html : true,
-    content: function() {
-      return $('#popover_content_wrapper').html();
-    }
-  });
-});
-</script>			
-
-
-<script type="text/javascript">
-
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-});
-</script>

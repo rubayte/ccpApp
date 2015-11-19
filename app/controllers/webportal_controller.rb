@@ -452,8 +452,24 @@ class WebportalController < ApplicationController
   end  
   
   def viewSampleDetails
-    @res = params[:data]
     @sample = params[:sample]
+
+    if (params[:data] == nil or params[:data] == "")
+      @res = "empty!"      
+    else
+      @res = params[:data]      
+    end
+
+  end
+  
+  def viewScreenDetails
+    @sample = params[:sample]
+
+    if (params[:screenDescription] == nil or params[:screenDescription] == "")
+      @res = "empty!"      
+    else
+      @res = params[:screenDescription]      
+    end    
   end
   
   def downloadFolder
