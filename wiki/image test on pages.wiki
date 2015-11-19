@@ -1,0 +1,9 @@
+<p>asd</p>
+<p>asd</p>
+<p>&nbsp;</p>
+<p><img src="webportal/dataViewFile?cfolder=Others&amp;file=Others%2Ficons%2Fisolon_storage.png&amp;subfolder=icons" alt="image to test" width="600" height="309" /></p>
+<p>as</p>
+<p>d</p>
+<p>asd</p>
+<p>asd</p>
+<p>&nbsp;</p>
