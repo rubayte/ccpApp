@@ -47,6 +47,7 @@
     	          <% if session[:user] == "rubayte" or session[:user] == "m.michaut" -%>
 	              <li><a href="newsletter">Create Newsletter</a></li>
 	              <li><a href="publics">Edit Public Contents</a></li>
+	              <li><a href="survey">Survey</a></li>
         	      <% end -%>
                   <li class="divider"></li>
                   <li><%=  link_to 'Sign out', :controller => "users", :action => "logout" %></li> 

@@ -856,5 +856,16 @@ class WebportalController < ApplicationController
     [{label: 'node1',children: [{ label: 'child1' },{ label: 'child2' }]},{label: 'node2',children: [{ label: 'child3' }]}].to_json
   end
   
+  def survey
+    
+  end
+  
+  def submitSurveyResults
+    redirect_to :survey 
+    flash[:notice] = params[:survey]
+    flash[:color]= "valid"
+    return
+  end
+  
 
 end

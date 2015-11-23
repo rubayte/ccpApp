@@ -1,0 +1,265 @@
+<div class="row-fluid">
+	<div class="container">
+		<div class="span12">
+			
+			<%= form_tag({:controller => 'webportal',:action => 'submitSurveyResults'}, :multipart => true) do %>
+			<%= hidden_field_tag "userid", session[:user] %>
+			
+			<h3>Globally</h3>
+			
+			<b>Do you find the Combat Cancer portal useful?</b></br>
+			<%= radio_button :survey, :combat_cancer_useful, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :combat_cancer_useful, 'No' %> No<br />
+			</br>
+
+			<b>Did you know that some pages are public?</b></br>
+			<%= radio_button :survey, :some_pages_public, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :some_pages_public, 'No' %> No<br />
+			</br>
+			
+			<b>How many newsletters have we published so far? </b></br>
+			<%= radio_button :survey, :published_newsletter_number, '0' %> 0<br />
+			<%= radio_button :survey, :published_newsletter_number, '1' %> 1<br />
+			<%= radio_button :survey, :published_newsletter_number, '2' %> 2<br />
+			<%= radio_button :survey, :published_newsletter_number, '3' %> 3<br />		
+			</br>
+			
+			<b>How many newsletters have you read? </b></br>
+			<%= radio_button :survey, :read_newsletter_number, '0' %> 0<br />
+			<%= radio_button :survey, :read_newsletter_number, '1' %> 1<br />
+			<%= radio_button :survey, :read_newsletter_number, '2' %> 2<br />
+			<%= radio_button :survey, :read_newsletter_number, '3' %> 3<br />		
+			</br>
+			
+			<b>Did you know that you can export the list of members and get all emails? </b></br>
+			<%= radio_button :survey, :get_member_list, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :get_member_list, 'No' %> No<br />
+			</br>
+			
+			<b>Have you filled your meeting attendance for January?  </b></br>
+			<%= radio_button :survey, :meeting_attendance_january, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :meeting_attendance_january, 'No' %> No<br />
+			</br>
+			
+			<b>Do you know where to find the presentations of the different meetings? </b></br>
+			<%= radio_button :survey, :meeting_resources, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :meeting_resources, 'No' %> No<br />
+			</br>
+			
+			<b>Have you used the member list to check a name / email / information about someone else?</b></br>
+			<%= radio_button :survey, :check_member_list, 'Never' %> Never<br />
+			<%= radio_button :survey, :check_member_list, 'At least once' %> At least once<br />
+			<%= radio_button :survey, :check_member_list, 'In the last month' %> In the last month<br />
+			</br>
+			
+			<b>If you have trouble with the portal, what do you do?</b></br>
+			<%= radio_button :survey, :trouble_in_portal, 'Tickets' %> Tickets<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Give up' %> Give up<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Ask a colleague' %> Ask a colleague<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Email Rubayte/Magali' %> Email Rubayte/Magali<br />
+			</br>
+			</br>
+			
+			<h3>Sections</h3>
+			For each of the following sections of the portal, indicate how often you use it.
+			</br>
+			
+			<table class="table table-bordered">
+				<tr>
+					<th>Sections\Options</th>
+					<th>Don't know this section</th>
+					<th>Never used it</th>
+					<th>Used it a few times</th>
+					<th>Every month</th>
+					<th>Every week</th>
+				</tr>
+				<tr>
+					<td>Public Seciton</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>
+				<tr>
+					<td>Members</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Wiki</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Files</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Data Overview</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Tickets</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Forum</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Meetings</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Profile</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Tools</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+				<tr>
+					<td>Newletters</td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+					<td><%= check_box_tag 'accept' %></td>
+				</tr>		
+			</table>
+			<br/>
+			
+			<h3>Data Overview</h3>
+			</br>
+			
+			<b>Have you looked at the data overview? </b></br>
+			<%= radio_button :survey, :saw_data_overview, 'Never' %> Never<br />
+			<%= radio_button :survey, :saw_data_overview, 'At least once' %> At least once<br />
+			<%= radio_button :survey, :saw_data_overview, 'In the last month' %> In the last month<br />
+			</br>
+
+			<b>Are the data you are generating / working on represented in the data overview?  </b></br>
+			<%= radio_button :survey, :your_data_at_do, 'Don\'t know' %> Don't know<br />
+			<%= radio_button :survey, :your_data_at_do, 'No' %> No<br />
+			<%= radio_button :survey, :your_data_at_do, 'Partially' %> Partially<br />
+			<%= radio_button :survey, :your_data_at_do, 'Yes' %> Yes<br />
+			</br>
+			
+			<b>Do you have any suggestions to improve it?  </b></br>
+			<%= text_area_tag :suggestion_data_overview, nil %>
+			</br>
+
+			<h3>Files</h3>
+			</br>
+			
+			<b>Have you downloaded files from the portal?  </b></br>
+			<%= radio_button :survey, :data_download, 'Never' %> Never<br />
+			<%= radio_button :survey, :data_download, 'At least once' %> At least once<br />
+			<%= radio_button :survey, :data_download, 'In the last month' %> In the last month<br />
+			</br>
+
+			<b>Have you uploaded files from the portal?   </b></br>
+			<%= radio_button :survey, :data_upload, 'Never' %> Never<br />
+			<%= radio_button :survey, :data_upload, 'At least once' %> At least once<br />
+			<%= radio_button :survey, :data_upload, 'In the last month' %> In the last month<br />
+			</br>
+
+			<h3>Wiki</h3>
+			</br>
+			
+			<b>Have you consulted a page on the wiki?   </b></br>
+			<%= radio_button :survey, :wiki_page_use, 'Never' %> Never<br />
+			<%= radio_button :survey, :wiki_page_use, 'At least once' %> At least once<br />
+			<%= radio_button :survey, :wiki_page_use, 'In the last month' %> In the last month<br />
+			</br>
+
+			<b>Have you edited or created a page on the wiki?  </b></br>
+			<%= radio_button :survey, :wiki_page_creation, 'Never' %> Never<br />
+			<%= radio_button :survey, :wiki_page_creation, 'At least once' %> At least once<br />
+			<%= radio_button :survey, :wiki_page_creation, 'In the last month' %> In the last month<br />
+			</br>
+
+			<b>Do you find the wiki good as it it? </b></br>
+			<%= radio_button :survey, :is_wiki_good, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :is_wiki_good, 'No' %> No<br />
+			</br>
+
+			<b>Do you have any suggestions to improve it?  </b></br>
+			<%= text_area_tag :suggestion_wiki, nil %>
+			</br>
+
+
+			<h3>Forum</h3>
+			</br>
+
+			<b>Did you know we have a forum on the portal? </b></br>
+			<%= radio_button :survey, :know_forum, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :know_forum, 'No' %> No<br />
+			</br>
+			
+			<b>Do you think it is:  </b></br>
+			<%= radio_button :survey, :forum_usefullness, 'useful' %> useful<br />
+			<%= radio_button :survey, :forum_usefullness, 'could be useful' %> could be useful<br />
+			<%= radio_button :survey, :forum_usefullness, 'not useful' %> not useful<br />
+			</br>
+
+			<b>What do you think prevent people from using it?  </b></br>
+			<%= radio_button :survey, :forum_failure, 'did not know it existed' %> did not know it existed<br />
+			<%= radio_button :survey, :forum_failure, 'not easy to use' %> not easy to use<br />
+			<%= radio_button :survey, :forum_failure, 'I dont want to start a topic' %> I dont want to start a topic<br />
+			<%= radio_button :survey, :forum_failure, 'I have nothing to discuss' %> I have nothing to discuss<br />
+			<%= radio_button :survey, :forum_failure, 'if I want to discuss something, I use email' %> if I want to discuss something, I use email<br />
+			<%= radio_button :survey, :forum_failure, 'other' %> other<br />						
+			</br>
+
+			<h3>Conclusion</h3>
+			<br>
+
+			Thanks for taking the time to fill the survey. If you have any more comment or suggestion, please let us know. </b></br>
+			<%= text_area_tag :suggestion, nil %>
+			</br>
+			
+
+			<br />
+			<br />
+	    	<%= submit_tag 	"Submit",  :class => 'btn btn-primary btn-medium' %>
+			<% end -%>
+		
+		</div>
+	</div>
+</div>			
