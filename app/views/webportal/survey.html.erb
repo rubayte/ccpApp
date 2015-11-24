@@ -2,7 +2,15 @@
 	<div class="container">
 		<div class="span12">
 			
+			<div class="alert alert-info" role="alert">
+				<div align="center">
+					Welcome to the survey. Please fill in all the quesitons for a proper survey and the suggestions are optional.</br>
+					This will not take more than 7/8 minutes.
+				</div>
+			</div>
+			
 			<%= form_tag({:controller => 'webportal',:action => 'submitSurveyResults'}, :multipart => true) do %>
+			
 			
 			<h3>Globally</h3>
 			
@@ -52,7 +60,7 @@
 			</br>
 			
 			<b>If you have trouble with the portal, what do you do?</b></br>
-			<%= radio_button :survey, :trouble_in_portal, 'Tickets' %> Tickets<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Tickets' %> Create "Tickets" in the portal<br />
 			<%= radio_button :survey, :trouble_in_portal, 'Give up' %> Give up<br />
 			<%= radio_button :survey, :trouble_in_portal, 'Ask a colleague' %> Ask a colleague<br />
 			<%= radio_button :survey, :trouble_in_portal, 'Email Rubayte/Magali' %> Email Rubayte/Magali<br />
@@ -73,7 +81,7 @@
 					<th>Every week</th>
 				</tr>
 				<tr>
-					<td>Public Seciton</td>
+					<td>Public Section</td>
 					<td><%= radio_button :survey, :useage_of_public_section, 'dont_know_this_section' %></td>
 					<td><%= radio_button :survey, :useage_of_public_section, 'never_used_it' %></td>
 					<td><%= radio_button :survey, :useage_of_public_section, 'used_it_few_times' %></td>
@@ -179,8 +187,8 @@
 			<%= radio_button :survey, :your_data_at_do, 'Yes' %> Yes<br />
 			</br>
 			
-			<b>Do you have any suggestions to improve it?  </b></br>
-			<%= text_area_tag :suggestion_data_overview, nil %>
+			<b>Do you have any suggestions to improve it?  (Optional) </b></br>
+			<%= text_area_tag :suggestion_data_overview, nil %> 
 			</br>
 
 			<h3>Files</h3>
@@ -192,7 +200,7 @@
 			<%= radio_button :survey, :data_download, 'In the last month' %> In the last month<br />
 			</br>
 
-			<b>Have you uploaded files from the portal?   </b></br>
+			<b>Have you uploaded files to the portal?   </b></br>
 			<%= radio_button :survey, :data_upload, 'Never' %> Never<br />
 			<%= radio_button :survey, :data_upload, 'At least once' %> At least once<br />
 			<%= radio_button :survey, :data_upload, 'In the last month' %> In the last month<br />
@@ -213,12 +221,12 @@
 			<%= radio_button :survey, :wiki_page_creation, 'In the last month' %> In the last month<br />
 			</br>
 
-			<b>Do you find the wiki good as it it? </b></br>
+			<b>Do you find the wiki good as it is? </b></br>
 			<%= radio_button :survey, :is_wiki_good, 'Yes' %> Yes<br />
 			<%= radio_button :survey, :is_wiki_good, 'No' %> No<br />
 			</br>
 
-			<b>Do you have any suggestions to improve it?  </b></br>
+			<b>Do you have any suggestions to improve it?  (Optional) </b></br>
 			<%= text_area_tag :suggestion_wiki, nil %>
 			</br>
 
@@ -249,7 +257,7 @@
 			<h3>Conclusion</h3>
 			<br>
 
-			Thanks for taking the time to fill the survey. If you have any more comment or suggestion, please let us know. </b></br>
+			Thanks for taking the time to fill the survey. If you have any more comments or suggestions, please let us know. (Optional)</b></br>
 			<%= text_area_tag :suggestion, nil %>
 			</br>
 			
