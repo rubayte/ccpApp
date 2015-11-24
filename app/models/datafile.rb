@@ -104,6 +104,42 @@ class Datafile
       
   end
   
+  def self.createSurveyFile(params,user)
+    
+    msg = nil
+    surveyfile = user + ".survey"
+    sugdataovr = user + ".suggestion_data_overview"
+    sugwiki = user + ".suggestion_wiki"
+    sugoverall = user + ".suggestion_overall"
+    
+    ## write survey data
+    File.open(Rails.root.join('survey', surveyfile), 'wb') do |file|
+      string_survey= ""
+      params[:survey].each do |key,value|
+        string_survey = string_survey + key + ":" + value + "," 
+      end
+      file.write(user + "\t" + string_survey)  
+    end
+
+    ## write suggestions
+    ## data overview
+    File.open(Rails.root.join('survey', sugdataovr), 'wb') do |file|
+      file.write(user + "\n" + params[:suggestion_data_overview])  
+    end
+    ## wiki
+    File.open(Rails.root.join('survey', sugwiki), 'wb') do |file|
+      file.write(user + "\n" + params[:suggestion_wiki])  
+    end
+    ## general suggestion
+    File.open(Rails.root.join('survey', sugoverall), 'wb') do |file|
+      file.write(user + "\n" + params[:suggestion])  
+    end  
+    
+    msg = "created"
+    return msg  
+    
+  end
+  
   def self.setNewProfileImage(targetFileName)
     
     msg = ""

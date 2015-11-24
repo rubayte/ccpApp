@@ -3,7 +3,6 @@
 		<div class="span12">
 			
 			<%= form_tag({:controller => 'webportal',:action => 'submitSurveyResults'}, :multipart => true) do %>
-			<%= hidden_field_tag "userid", session[:user] %>
 			
 			<h3>Globally</h3>
 			
@@ -75,91 +74,91 @@
 				</tr>
 				<tr>
 					<td>Public Seciton</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'every_week' %></td>
 				</tr>
 				<tr>
 					<td>Members</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Wiki</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Files</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Data Overview</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Tickets</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Forum</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Meetings</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Profile</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Tools</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'every_week' %></td>
 				</tr>		
 				<tr>
 					<td>Newletters</td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
-					<td><%= check_box_tag 'accept' %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'dont_know_this_section' %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'never_used_it' %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'used_it_few_times' %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'every_month' %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'every_week' %></td>
 				</tr>		
 			</table>
 			<br/>
