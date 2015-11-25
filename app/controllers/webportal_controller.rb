@@ -6,8 +6,9 @@ class WebportalController < ApplicationController
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
   :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, 
-  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings, :allnewsletters,
-  :survey,:submitSurveyResults]
+  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings, :allnewsletters]
+  
+  before_filter :done_with_survey?, :only => [:survey,:submitSurveyResults]
   
   def index
     @firstname = User.getUserFirstName(session[:user])    
@@ -869,6 +870,11 @@ class WebportalController < ApplicationController
       redirect_to :index 
       flash[:notice] = "Your survey has been saved. Thank you for your time and feedback!"
       flash[:color]= "valid"
+      return
+    elsif @msg == "incomplete"
+      redirect_to :survey 
+      flash[:notice] = "Please fill in all the questions. Only the suggestion text boxes are optional!"
+      flash[:color]= "invalid"
       return
     else
       redirect_to :survey 

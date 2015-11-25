@@ -24,5 +24,27 @@ class ApplicationController < ActionController::Base
       return true
     end
   end
+  
+  ## this method allows people to only submit the survey once
+  def done_with_survey?
+    if session[:user]
+      ## check on users survey
+      response = Datafile.checkSurveyByUser(session[:user])
+      if response == "yes"
+        redirect_to(:controller => 'webportal', :action => 'index')
+        flash[:notice] = "You have already submitted your survey! Thank you!!"
+        flash[:color] = "valid"
+        return false
+      else
+        return true  
+      end
+    else
+      session[:return_to] = request.fullpath
+      redirect_to(:controller => 'users', :action => 'login')
+      flash[:notice] = "You need to login to view the requested page! "
+      flash[:color]= "invalid"
+      return false
+    end    
+  end  
 
 end

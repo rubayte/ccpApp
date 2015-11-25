@@ -112,6 +112,13 @@ class Datafile
     sugwiki = user + ".suggestion_wiki"
     sugoverall = user + ".suggestion_overall"
     
+    ## valiedate survey replies
+    answered_questions = params[:survey].keys
+    if answered_questions.length != 30
+      msg = "incomplete"
+      return msg
+    end
+    
     ## write survey data
     File.open(Rails.root.join('survey', surveyfile), 'wb') do |file|
       string_survey= ""
@@ -139,6 +146,22 @@ class Datafile
     return msg  
     
   end
+  
+  def self.checkSurveyByUser(user)
+    
+    msg = nil
+    targetFileName = user + ".survey"
+    ## check for survey files from the user
+    if File.exists?(Rails.root.join('survey',targetFileName))
+      msg = "yes"
+    else
+      msg = "no"
+    end
+    
+    return msg
+    
+  end
+  
   
   def self.setNewProfileImage(targetFileName)
     
