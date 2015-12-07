@@ -6,6 +6,60 @@ class Overview
     return con
   end
   
+  
+  ## get overall data overview
+  def self.getPieData()
+
+    dataC = Hash.new()
+    dataO = Hash.new()
+    dataA = Hash.new()
+    
+    ccU = Overview.new.self
+    
+    qryOverview = "select cancer,count(*) from sample group by cancer"
+    refOverview = ccU.query(qryOverview)
+    refOverview.each do |cancer,count|
+      dataC[cancer] = count
+    end
+    
+    qryOverview = "select organism,count(*) from sample group by organism"
+    refOverview = ccU.query(qryOverview)
+    refOverview.each do |org,count|
+      dataO[org] = count
+    end
+    
+    qryOverview = "select  sum(`analysisVariantCalling`),sum(`analysisCNVCalling`),sum(`analysisExpression`),sum(`wgs`),sum(`wes`),sum(`s360s`),sum(`lcovs`),sum(`rnas`),sum(`gearray`),sum(`meth`),sum(`siRNA`),sum(`shRNA`),sum(`crispr`),sum(`enu`),sum(`im`),sum(`ssr`),sum(`csr`) " + 
+                   "from model as M inner join sample as S inner join sampleToAnalysis as A inner join sampleToScreening as SCR inner join sampleToDataAnnotation as D on M.id = S.model and S.sampleName = A.sample and S.sampleName = SCR.sample and S.sampleName = D.sample"
+    refOverview = ccU.query(qryOverview)
+    #refOverview.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17|
+    refOverview.each do | cols |
+      cols.each do |c| 
+        dataA['VarinatCalls'] = c
+        dataA['CNVCalls'] = c
+        dataA['Expression'] = c
+        dataA['WGS'] = c
+        dataA['WES'] = c
+        dataA['Sanger360'] = c
+        dataA['LowCoverage'] = c
+        dataA['RNAseq'] = c
+        dataA['GEArray'] = c
+        dataA['Methylation'] = c
+        dataA['siRNA'] = c
+        dataA['shRNA'] = c
+        dataA['CRISPR'] = c
+        dataA['ENU'] = c
+        dataA['IM'] = c
+        dataA['SingleScreens'] = c
+        dataA['CombiScreens'] = c
+      end  
+    end
+      
+    ccU.close
+    
+    return dataC,dataO,dataA
+    
+  end
+  
   ## get data overview
   def self.getDataOverview()
     

@@ -134,6 +134,7 @@ class WebportalController < ApplicationController
     @stypes = ['All','tumor sample','normal sample','cell line','gemm','pdx']
     @res = []
     @res,rows = Overview.getDataOverview()
+    (@piedataC,@piedataO,@piedataA) = Overview.getPieData()
     if rows == 0
       @res = nil
     end
