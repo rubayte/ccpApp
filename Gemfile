@@ -4,7 +4,7 @@ gem 'rails', '3.2.11'
 gem 'will_paginate', '~> 3.0'
 #gem 'capistrano'
 gem 'jquery-datatables-rails'
-gem 'therubyracer', '0.11.0beta1'
+gem 'therubyracer', '0.11.0beta1' ## other version for prod
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'ruby-mysql',  '~> 2.9.12'
@@ -14,7 +14,7 @@ gem 'jquery-modal-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-rails'
 gem 'jquery-datatables-rails'
-gem 'libv8', '3.16.14.1'
+gem 'libv8', '3.16.14.1' ## other version for prod
 gem 'tinymce-rails'
 gem 'ruby-filemagic'
 gem 'chartkick'

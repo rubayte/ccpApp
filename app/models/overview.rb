@@ -31,27 +31,27 @@ class Overview
     qryOverview = "select  sum(`analysisVariantCalling`),sum(`analysisCNVCalling`),sum(`analysisExpression`),sum(`wgs`),sum(`wes`),sum(`s360s`),sum(`lcovs`),sum(`rnas`),sum(`gearray`),sum(`meth`),sum(`siRNA`),sum(`shRNA`),sum(`crispr`),sum(`enu`),sum(`im`),sum(`ssr`),sum(`csr`) " + 
                    "from model as M inner join sample as S inner join sampleToAnalysis as A inner join sampleToScreening as SCR inner join sampleToDataAnnotation as D on M.id = S.model and S.sampleName = A.sample and S.sampleName = SCR.sample and S.sampleName = D.sample"
     refOverview = ccU.query(qryOverview)
-    #refOverview.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17|
-    refOverview.each do | cols |
-      cols.each do |c| 
-        dataA['VarinatCalls'] = c
-        dataA['CNVCalls'] = c
-        dataA['Expression'] = c
-        dataA['WGS'] = c
-        dataA['WES'] = c
-        dataA['Sanger360'] = c
-        dataA['LowCoverage'] = c
-        dataA['RNAseq'] = c
-        dataA['GEArray'] = c
-        dataA['Methylation'] = c
-        dataA['siRNA'] = c
-        dataA['shRNA'] = c
-        dataA['CRISPR'] = c
-        dataA['ENU'] = c
-        dataA['IM'] = c
-        dataA['SingleScreens'] = c
-        dataA['CombiScreens'] = c
-      end  
+    refOverview.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17|
+    #refOverview.each do | cols |
+      #cols.each do |c| 
+        dataA['VarinatCalls'] = r1
+        dataA['CNVCalls'] = r2
+        dataA['Expression'] = r3
+        dataA['WGS'] = r4
+        dataA['WES'] = r5
+        dataA['Sanger360'] = r6
+        dataA['LowCoverage'] = r7
+        dataA['RNAseq'] = r8
+        dataA['GEArray'] = r9
+        dataA['Methylation'] = r10
+        dataA['siRNA'] = r11
+        dataA['shRNA'] = r12
+        dataA['CRISPR'] = r13
+        dataA['ENU'] = r14
+        dataA['IM'] = r15
+        dataA['SingleScreens'] = r16
+        dataA['CombiScreens'] = r17
+      #end  
     end
       
     ccU.close
