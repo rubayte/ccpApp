@@ -28,8 +28,11 @@ class Overview
       dataO[org] = count
     end
     
-    qryOverview = "select  sum(`analysisVariantCalling`),sum(`analysisCNVCalling`),sum(`analysisExpression`),sum(`wgs`),sum(`wes`),sum(`s360s`),sum(`lcovs`),sum(`rnas`),sum(`gearray`),sum(`meth`),sum(`siRNA`),sum(`shRNA`),sum(`crispr`),sum(`enu`),sum(`im`),sum(`ssr`),sum(`csr`) " + 
-                   "from model as M inner join sample as S inner join sampleToAnalysis as A inner join sampleToScreening as SCR inner join sampleToDataAnnotation as D on M.id = S.model and S.sampleName = A.sample and S.sampleName = SCR.sample and S.sampleName = D.sample"
+    qryOverview = "select  sum(IF(`analysisVariantCalling`=1,true,false)),sum(if(`analysisCNVCalling`=1,true,false)),sum(if(`analysisExpression`=1,true,false)),sum(if(`wgs`=1,true,false)),sum(if(`wes`=1,true,false)),sum(if(`s360s`=1,true,false)),sum(if(`lcovs`=1,true,false)),sum(if(`rnas`=1,true,false)),sum(if(`gearray`=1,true,false)),sum(if(`meth`=1,true,false)),sum(if(`siRNA`=1,true,false)),sum(if(`shRNA`=1,true,false)),sum(if(`crispr`=1,true,false)),sum(if(`enu`=1,true,false)),sum(if(`im`=1,true,false)),sum(if(`ssr`=1,true,false)),sum(if(`csr`=1,true,false)) " +
+                  "from model as M inner join sample as S inner join sampleToAnalysis as A inner join sampleToScreening as SCR inner join sampleToDataAnnotation as D on M.id = S.model and S.sampleName = A.sample and S.sampleName = SCR.sample and S.sampleName = D.sample"
+    
+    #qryOverview = "select  sum(`analysisVariantCalling`),sum(`analysisCNVCalling`),sum(`analysisExpression`),sum(`wgs`),sum(`wes`),sum(`s360s`),sum(`lcovs`),sum(`rnas`),sum(`gearray`),sum(`meth`),sum(`siRNA`),sum(`shRNA`),sum(`crispr`),sum(`enu`),sum(`im`),sum(`ssr`),sum(`csr`) " + 
+    #               "from model as M inner join sample as S inner join sampleToAnalysis as A inner join sampleToScreening as SCR inner join sampleToDataAnnotation as D on M.id = S.model and S.sampleName = A.sample and S.sampleName = SCR.sample and S.sampleName = D.sample"
     refOverview = ccU.query(qryOverview)
     refOverview.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17|
     #refOverview.each do | cols |
