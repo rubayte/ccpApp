@@ -114,7 +114,7 @@ class Datafile
     
     ## valiedate survey replies
     answered_questions = params[:survey].keys
-    if answered_questions.length != 30
+    if answered_questions.length != 29
       msg = "incomplete"
       return msg
     end
