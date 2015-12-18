@@ -882,6 +882,17 @@ class WebportalController < ApplicationController
     @fuseful = Hash['useful' => false, 'cbuseful' => false, 'nuseful' => false]
     @ffailure = Hash['exist' => false, 'noteasy' => false, 'starttopic' => false, 'discuss' => false, 'usemail' => false, 'other' => false]
     @text_s = nil
+    @public_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @members_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @wiki_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @files_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @do_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @tickets_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @forum_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @meetings_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @profile_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @tools_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
+    @newsletter_section = Hash['dks' => false, 'nui' => false, 'uift' => false, 'em' => false, 'ew' => false]
     
     if params[:sub_suggestion] != nil
       @text_s = params[:sub_suggestion]
@@ -1077,7 +1088,186 @@ class WebportalController < ApplicationController
       if params[:submittedAnswers][:forum_failure] == "other"
         @ffailure["other"] = true  
       end
+      
+      if params[:submittedAnswers][:useage_of_public_section] == "dont_know_this_section"
+        @public_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_public_section] == "never_used_it"
+        @public_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_public_section] == "used_it_few_times"      
+        @public_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_public_section] == "every_month"      
+        @public_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_public_section] == "every_week"      
+        @public_section["ew"] = true  
+      end
 
+      if params[:submittedAnswers][:useage_of_members_section] == "dont_know_this_section"
+        @members_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_members_section] == "never_used_it"
+        @members_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_members_section] == "used_it_few_times"      
+        @members_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_members_section] == "every_month"      
+        @members_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_members_section] == "every_week"      
+        @members_section["ew"] = true  
+      end
+
+      if params[:submittedAnswers][:useage_of_wiki_section] == "dont_know_this_section"
+        @wiki_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_wiki_section] == "never_used_it"
+        @wiki_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_wiki_section] == "used_it_few_times"      
+        @wiki_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_wiki_section] == "every_month"      
+        @wiki_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_wiki_section] == "every_week"      
+        @wiki_section["ew"] = true  
+      end
+
+      if params[:submittedAnswers][:useage_of_files_section] == "dont_know_this_section"
+        @files_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_files_section] == "never_used_it"
+        @files_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_files_section] == "used_it_few_times"      
+        @files_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_files_section] == "every_month"      
+        @files_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_files_section] == "every_week"      
+        @files_section["ew"] = true  
+      end
+
+
+      if params[:submittedAnswers][:useage_of_data_overview_section] == "dont_know_this_section"
+        @do_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_data_overview_section] == "never_used_it"
+        @do_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_data_overview_section] == "used_it_few_times"      
+        @do_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_data_overview_section] == "every_month"      
+        @do_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_data_overview_section] == "every_week"      
+        @do_section["ew"] = true  
+      end
+
+      if params[:submittedAnswers][:useage_of_tickets_section] == "dont_know_this_section"
+        @tickets_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_tickets_section] == "never_used_it"
+        @tickets_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_tickets_section] == "used_it_few_times"      
+        @tickets_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_tickets_section] == "every_month"      
+        @tickets_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_tickets_section] == "every_week"      
+        @tickets_section["ew"] = true  
+      end
+
+
+      if params[:submittedAnswers][:useage_of_forum_section] == "dont_know_this_section"
+        @forum_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_forum_section] == "never_used_it"
+        @forum_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_forum_section] == "used_it_few_times"      
+        @forum_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_forum_section] == "every_month"      
+        @forum_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_forum_section] == "every_week"      
+        @forum_section["ew"] = true  
+      end
+
+
+      if params[:submittedAnswers][:useage_of_meetings_section] == "dont_know_this_section"
+        @meetings_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_meetings_section] == "never_used_it"
+        @meetings_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_meetings_section] == "used_it_few_times"      
+        @meetings_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_meetings_section] == "every_month"      
+        @meetings_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_meetings_section] == "every_week"      
+        @meetings_section["ew"] = true  
+      end
+
+
+      if params[:submittedAnswers][:useage_of_profile_section] == "dont_know_this_section"
+        @profile_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_profile_section] == "never_used_it"
+        @profile_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_profile_section] == "used_it_few_times"      
+        @profile_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_profile_section] == "every_month"      
+        @profile_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_profile_section] == "every_week"      
+        @profile_section["ew"] = true  
+      end
+
+      if params[:submittedAnswers][:useage_of_tools_section] == "dont_know_this_section"
+        @tools_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_tools_section] == "never_used_it"
+        @tools_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_tools_section] == "used_it_few_times"      
+        @tools_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_tools_section] == "every_month"      
+        @tools_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_tools_section] == "every_week"      
+        @tools_section["ew"] = true  
+      end
+
+      if params[:submittedAnswers][:useage_of_newsletter_section] == "dont_know_this_section"
+        @newsletter_section["dks"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_newsletter_section] == "never_used_it"
+        @newsletter_section["nui"] = true
+      end
+      if params[:submittedAnswers][:useage_of_newsletter_section] == "used_it_few_times"      
+        @newsletter_section["uift"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_newsletter_section] == "every_month"      
+        @newsletter_section["em"] = true  
+      end
+      if params[:submittedAnswers][:useage_of_newsletter_section] == "every_week"      
+        @newsletter_section["ew"] = true  
+      end
 
 
 

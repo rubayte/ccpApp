@@ -76,91 +76,91 @@
 				</tr>
 				<tr>
 					<td>Public Section</td>
-					<td><%= radio_button :survey, :useage_of_public_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_public_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_public_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_public_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_public_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'dont_know_this_section', :checked => @public_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'never_used_it', :checked => @public_section['nui']  %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'used_it_few_times', :checked => @public_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'every_month', :checked => @public_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_public_section, 'every_week', :checked => @public_section['ew'] %></td>
 				</tr>
 				<tr>
 					<td>Members</td>
-					<td><%= radio_button :survey, :useage_of_members_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_members_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_members_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_members_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_members_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'dont_know_this_section', :checked => @members_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'never_used_it', :checked => @members_section['nui']  %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'used_it_few_times', :checked => @members_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'every_month' , :checked => @members_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_members_section, 'every_week', :checked => @members_section['ew']  %></td>
 				</tr>		
 				<tr>
 					<td>Wiki</td>
-					<td><%= radio_button :survey, :useage_of_wiki_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_wiki_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_wiki_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_wiki_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_wiki_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'dont_know_this_section', :checked => @wiki_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'never_used_it', :checked => @wiki_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'used_it_few_times', :checked => @wiki_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'every_month', :checked => @wiki_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_wiki_section, 'every_week', :checked => @wiki_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Files</td>
-					<td><%= radio_button :survey, :useage_of_files_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_files_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_files_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_files_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_files_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'dont_know_this_section', :checked => @files_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'never_used_it' , :checked => @files_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'used_it_few_times', :checked => @files_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'every_month', :checked => @files_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_files_section, 'every_week', :checked => @files_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Data Overview</td>
-					<td><%= radio_button :survey, :useage_of_data_overview_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_data_overview_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_data_overview_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_data_overview_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_data_overview_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'dont_know_this_section', :checked => @do_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'never_used_it', :checked => @do_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'used_it_few_times', :checked => @do_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'every_month', :checked => @do_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_data_overview_section, 'every_week', :checked => @do_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Tickets</td>
-					<td><%= radio_button :survey, :useage_of_tickets_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_tickets_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_tickets_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_tickets_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_tickets_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'dont_know_this_section', :checked => @tickets_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'never_used_it', :checked => @tickets_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'used_it_few_times', :checked => @tickets_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'every_month', :checked => @tickets_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_tickets_section, 'every_week', :checked => @tickets_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Forum</td>
-					<td><%= radio_button :survey, :useage_of_forum_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_forum_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_forum_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_forum_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_forum_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'dont_know_this_section', :checked => @forum_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'never_used_it', :checked => @forum_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'used_it_few_times', :checked => @forum_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'every_month', :checked => @forum_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_forum_section, 'every_week', :checked => @forum_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Meetings</td>
-					<td><%= radio_button :survey, :useage_of_meetings_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_meetings_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_meetings_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_meetings_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_meetings_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'dont_know_this_section', :checked => @meetings_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'never_used_it', :checked => @meetings_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'used_it_few_times', :checked => @meetings_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'every_month', :checked => @meetings_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_meetings_section, 'every_week', :checked => @meetings_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Profile</td>
-					<td><%= radio_button :survey, :useage_of_profile_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_profile_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_profile_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_profile_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_profile_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'dont_know_this_section',:checked => @profile_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'never_used_it',:checked => @profile_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'used_it_few_times',:checked => @profile_section['uift']  %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'every_month',:checked => @profile_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_profile_section, 'every_week',:checked => @profile_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Tools</td>
-					<td><%= radio_button :survey, :useage_of_tools_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_tools_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_tools_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_tools_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_tools_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'dont_know_this_section', :checked => @tools_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'never_used_it' , :checked => @tools_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'used_it_few_times', :checked => @tools_section['uift'] %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'every_month', :checked => @tools_section['em'] %></td>
+					<td><%= radio_button :survey, :useage_of_tools_section, 'every_week', :checked => @tools_section['ew'] %></td>
 				</tr>		
 				<tr>
 					<td>Newletters</td>
-					<td><%= radio_button :survey, :useage_of_newsletter_section, 'dont_know_this_section' %></td>
-					<td><%= radio_button :survey, :useage_of_newsletter_section, 'never_used_it' %></td>
-					<td><%= radio_button :survey, :useage_of_newsletter_section, 'used_it_few_times' %></td>
-					<td><%= radio_button :survey, :useage_of_newsletter_section, 'every_month' %></td>
-					<td><%= radio_button :survey, :useage_of_newsletter_section, 'every_week' %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'dont_know_this_section', :checked => @newsletter_section['dks'] %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'never_used_it', :checked => @newsletter_section['nui'] %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'used_it_few_times', :checked => @newsletter_section['uift']  %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'every_month', :checked => @newsletter_section['em']  %></td>
+					<td><%= radio_button :survey, :useage_of_newsletter_section, 'every_week', :checked => @newsletter_section['ew']  %></td>
 				</tr>		
 			</table>
 			<br/>
