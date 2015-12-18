@@ -113,10 +113,15 @@ class Datafile
     sugoverall = user + ".suggestion_overall"
     
     ## valiedate survey replies
-    answered_questions = params[:survey].keys
-    if answered_questions.length != 29
+    if params.has_key?("survey")
+      answered_questions = params[:survey].keys
+      if answered_questions.length != 29
+        msg = "incomplete"
+        return msg
+      end
+    else
       msg = "incomplete"
-      return msg
+      return msg        
     end
     
     ## write survey data

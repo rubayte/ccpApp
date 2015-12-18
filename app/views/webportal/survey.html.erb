@@ -15,56 +15,49 @@
 			<h3>Globally</h3>
 			
 			<b>Do you find the Combat Cancer portal useful?</b></br>
-			<%= radio_button :survey, :combat_cancer_useful, 'Yes' %> Yes<br />
-			<%= radio_button :survey, :combat_cancer_useful, 'No' %> No<br />
+			<%= radio_button :survey, :combat_cancer_useful, 'Yes', :checked => @ccuseful["Yes"] %> Yes<br />
+			<%= radio_button :survey, :combat_cancer_useful, 'No', :checked => @ccuseful["No"] %> No<br />
 			</br>
 
 			<b>Did you know that some pages are public?</b></br>
-			<%= radio_button :survey, :some_pages_public, 'Yes' %> Yes<br />
-			<%= radio_button :survey, :some_pages_public, 'No' %> No<br />
+			<%= radio_button :survey, :some_pages_public, 'Yes', :checked => @sppublic["Yes"] %> Yes<br />
+			<%= radio_button :survey, :some_pages_public, 'No', :checked => @sppublic["No"] %> No<br />
 			</br>
 			
-			<!--
-			<b>How many newsletters have we published so far? </b></br>
-			<%= radio_button :survey, :published_newsletter_number, '0' %> 0<br />
-			<%= radio_button :survey, :published_newsletter_number, '1' %> 1<br />
-			<%= radio_button :survey, :published_newsletter_number, '2' %> 2<br />
-			<%= radio_button :survey, :published_newsletter_number, '3' %> 3<br />		
-			</br> -->
 			
 			<b>How many newsletters have you read so far? </b></br>
-			<%= radio_button :survey, :read_newsletter_number, '0' %> 0<br />
-			<%= radio_button :survey, :read_newsletter_number, '1' %> 1<br />
-			<%= radio_button :survey, :read_newsletter_number, '2' %> 2<br />
-			<%= radio_button :survey, :read_newsletter_number, '3' %> 3<br />		
+			<%= radio_button :survey, :read_newsletter_number, '0', :checked => @rnnumber["0"] %> 0<br />
+			<%= radio_button :survey, :read_newsletter_number, '1', :checked => @rnnumber["1"] %> 1<br />
+			<%= radio_button :survey, :read_newsletter_number, '2', :checked => @rnnumber["2"] %> 2<br />
+			<%= radio_button :survey, :read_newsletter_number, '3', :checked => @rnnumber["3"] %> 3<br />		
 			</br>
 			
 			<b>Did you know that you can export the list of members and get all email addresses? </b></br>
-			<%= radio_button :survey, :get_member_list, 'Yes' %> Yes<br />
-			<%= radio_button :survey, :get_member_list, 'No' %> No<br />
+			<%= radio_button :survey, :get_member_list, 'Yes', :checked => @gmlist["Yes"] %> Yes<br />
+			<%= radio_button :survey, :get_member_list, 'No', :checked => @gmlist["No"] %> No<br />
 			</br>
 			
 			<b>Have you communicated your attendance of the January meeting via the portal? </b></br>
-			<%= radio_button :survey, :meeting_attendance_january, 'Yes' %> Yes<br />
-			<%= radio_button :survey, :meeting_attendance_january, 'No' %> No<br />
+			<%= radio_button :survey, :meeting_attendance_january, 'Yes', :checked => @majanuary["Yes"] %> Yes<br />
+			<%= radio_button :survey, :meeting_attendance_january, 'No', :checked => @majanuary["No"] %> No<br />
 			</br>
 			
 			<b>Do you know where to find the presentations of the different meetings? </b></br>
-			<%= radio_button :survey, :meeting_resources, 'Yes' %> Yes<br />
-			<%= radio_button :survey, :meeting_resources, 'No' %> No<br />
+			<%= radio_button :survey, :meeting_resources, 'Yes', :checked => @mresources["Yes"] %> Yes<br />
+			<%= radio_button :survey, :meeting_resources, 'No', :checked => @mresources["No"] %> No<br />
 			</br>
 			
 			<b>Have you used the member list to check a name / email / information about someone else?</b></br>
-			<%= radio_button :survey, :check_member_list, 'Never' %> Never<br />
-			<%= radio_button :survey, :check_member_list, 'At least once' %> At least once<br />
-			<%= radio_button :survey, :check_member_list, 'In the last month' %> In the last month<br />
+			<%= radio_button :survey, :check_member_list, 'Never', :checked => @cmlist["Never"] %> Never<br />
+			<%= radio_button :survey, :check_member_list, 'At least once', :checked => @cmlist["Alo"] %> At least once<br />
+			<%= radio_button :survey, :check_member_list, 'In the last month', :checked => @cmlist["Lm"] %> In the last month<br />
 			</br>
 			
 			<b>If you have trouble with the portal, what do you do?</b></br>
-			<%= radio_button :survey, :trouble_in_portal, 'Tickets' %> Create "Tickets" in the portal<br />
-			<%= radio_button :survey, :trouble_in_portal, 'Give up' %> Give up<br />
-			<%= radio_button :survey, :trouble_in_portal, 'Ask a colleague' %> Ask a colleague<br />
-			<%= radio_button :survey, :trouble_in_portal, 'Email Rubayte/Magali' %> Email Rubayte/Magali<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Tickets', :checked => @tiportal["Tickets"] %> Create "Tickets" in the portal<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Give up', :checked => @tiportal["Gu"] %> Give up<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Ask a colleague', :checked => @tiportal["Ac"] %> Ask a colleague<br />
+			<%= radio_button :survey, :trouble_in_portal, 'Email Rubayte/Magali', :checked => @tiportal["Email"] %> Email Rubayte/Magali<br />
 			</br>
 			</br>
 			
@@ -176,59 +169,59 @@
 			</br>
 			
 			<b>Have you looked at the data overview? </b></br>
-			<%= radio_button :survey, :saw_data_overview, 'Never' %> Never<br />
-			<%= radio_button :survey, :saw_data_overview, 'At least once' %> At least once<br />
-			<%= radio_button :survey, :saw_data_overview, 'In the last month' %> In the last month<br />
+			<%= radio_button :survey, :saw_data_overview, 'Never', :checked => @sdoverview["Never"] %> Never<br />
+			<%= radio_button :survey, :saw_data_overview, 'At least once', :checked => @sdoverview["Alo"] %> At least once<br />
+			<%= radio_button :survey, :saw_data_overview, 'In the last month', :checked => @sdoverview["Lm"] %> In the last month<br />
 			</br>
 
 			<b>Are the data you are generating / working on represented in the data overview?  </b></br>
-			<%= radio_button :survey, :your_data_at_do, 'Don\'t know' %> Don't know<br />
-			<%= radio_button :survey, :your_data_at_do, 'No' %> No<br />
-			<%= radio_button :survey, :your_data_at_do, 'Partially' %> Partially<br />
-			<%= radio_button :survey, :your_data_at_do, 'Yes' %> Yes<br />
+			<%= radio_button :survey, :your_data_at_do, 'Don\'t know', :checked => @ydadoverview["Don\'t know"] %> Don't know<br />
+			<%= radio_button :survey, :your_data_at_do, 'No', :checked => @ydadoverview["No"] %> No<br />
+			<%= radio_button :survey, :your_data_at_do, 'Partially', :checked => @ydadoverview["Partially"] %> Partially<br />
+			<%= radio_button :survey, :your_data_at_do, 'Yes', :checked => @ydadoverview["Yes"] %> Yes<br />
 			</br>
 			
 			<b>Do you have any suggestions to improve it?  (Optional) </b></br>
-			<%= text_area_tag :suggestion_data_overview, nil %> 
+			<%= text_area_tag :suggestion_data_overview, @text_sdo %> 
 			</br>
 
 			<h3>Files</h3>
 			</br>
 			
 			<b>Have you downloaded files from the portal?  </b></br>
-			<%= radio_button :survey, :data_download, 'Never' %> Never<br />
-			<%= radio_button :survey, :data_download, 'At least once' %> At least once<br />
-			<%= radio_button :survey, :data_download, 'In the last month' %> In the last month<br />
+			<%= radio_button :survey, :data_download, 'Never', :checked => @ddownload["Never"] %> Never<br />
+			<%= radio_button :survey, :data_download, 'At least once', :checked => @ddownload["Alo"] %> At least once<br />
+			<%= radio_button :survey, :data_download, 'In the last month', :checked => @ddownload["Lm"] %> In the last month<br />
 			</br>
 
 			<b>Have you uploaded files to the portal?   </b></br>
-			<%= radio_button :survey, :data_upload, 'Never' %> Never<br />
-			<%= radio_button :survey, :data_upload, 'At least once' %> At least once<br />
-			<%= radio_button :survey, :data_upload, 'In the last month' %> In the last month<br />
+			<%= radio_button :survey, :data_upload, 'Never', :checked => @dupload["Never"] %> Never<br />
+			<%= radio_button :survey, :data_upload, 'At least once', :checked => @dupload["Alo"] %> At least once<br />
+			<%= radio_button :survey, :data_upload, 'In the last month', :checked => @dupload["Lm"] %> In the last month<br />
 			</br>
 
 			<h3>Wiki</h3>
 			</br>
 			
 			<b>Have you consulted a page on the wiki?   </b></br>
-			<%= radio_button :survey, :wiki_page_use, 'Never' %> Never<br />
-			<%= radio_button :survey, :wiki_page_use, 'At least once' %> At least once<br />
-			<%= radio_button :survey, :wiki_page_use, 'In the last month' %> In the last month<br />
+			<%= radio_button :survey, :wiki_page_use, 'Never', :checked => @wpuse["Never"] %> Never<br />
+			<%= radio_button :survey, :wiki_page_use, 'At least once', :checked => @wpuse["Alo"] %> At least once<br />
+			<%= radio_button :survey, :wiki_page_use, 'In the last month', :checked => @wpuse["Lm"] %> In the last month<br />
 			</br>
 
 			<b>Have you edited or created a page on the wiki?  </b></br>
-			<%= radio_button :survey, :wiki_page_creation, 'Never' %> Never<br />
-			<%= radio_button :survey, :wiki_page_creation, 'At least once' %> At least once<br />
-			<%= radio_button :survey, :wiki_page_creation, 'In the last month' %> In the last month<br />
+			<%= radio_button :survey, :wiki_page_creation, 'Never', :checked => @wpcreate["Never"] %> Never<br />
+			<%= radio_button :survey, :wiki_page_creation, 'At least once', :checked => @wpcreate["Alo"] %> At least once<br />
+			<%= radio_button :survey, :wiki_page_creation, 'In the last month', :checked => @wpcreate["Lm"] %> In the last month<br />
 			</br>
 
 			<b>Do you find the wiki good as it is? </b></br>
-			<%= radio_button :survey, :is_wiki_good, 'Yes' %> Yes<br />
-			<%= radio_button :survey, :is_wiki_good, 'No' %> No<br />
+			<%= radio_button :survey, :is_wiki_good, 'Yes', :checked => @iwgood["Yes"]  %> Yes<br />
+			<%= radio_button :survey, :is_wiki_good, 'No', :checked => @iwgood["No"] %> No<br />
 			</br>
 
 			<b>Do you have any suggestions to improve it?  (Optional) </b></br>
-			<%= text_area_tag :suggestion_wiki, nil %>
+			<%= text_area_tag :suggestion_wiki, @text_sw %>
 			</br>
 
 
@@ -236,30 +229,30 @@
 			</br>
 
 			<b>Did you know we have a forum on the portal? </b></br>
-			<%= radio_button :survey, :know_forum, 'Yes' %> Yes<br />
-			<%= radio_button :survey, :know_forum, 'No' %> No<br />
+			<%= radio_button :survey, :know_forum, 'Yes', :checked => @kforum["Yes"] %> Yes<br />
+			<%= radio_button :survey, :know_forum, 'No', :checked => @kforum["No"] %> No<br />
 			</br>
 			
 			<b>Do you think it is:  </b></br>
-			<%= radio_button :survey, :forum_usefullness, 'useful' %> useful<br />
-			<%= radio_button :survey, :forum_usefullness, 'could be useful' %> could be useful<br />
-			<%= radio_button :survey, :forum_usefullness, 'not useful' %> not useful<br />
+			<%= radio_button :survey, :forum_usefullness, 'useful', :checked => @fuseful["useful"] %> useful<br />
+			<%= radio_button :survey, :forum_usefullness, 'could be useful', :checked => @fuseful["cbuseful"] %> could be useful<br />
+			<%= radio_button :survey, :forum_usefullness, 'not useful', :checked => @fuseful["nuseful"] %> not useful<br />
 			</br>
 
 			<b>What do you think prevent people from using it?  </b></br>
-			<%= radio_button :survey, :forum_failure, 'did not know it existed' %> did not know it existed<br />
-			<%= radio_button :survey, :forum_failure, 'not easy to use' %> not easy to use<br />
-			<%= radio_button :survey, :forum_failure, 'I dont want to start a topic' %> I dont want to start a topic<br />
-			<%= radio_button :survey, :forum_failure, 'I have nothing to discuss' %> I have nothing to discuss<br />
-			<%= radio_button :survey, :forum_failure, 'if I want to discuss something, I use email' %> if I want to discuss something, I use email<br />
-			<%= radio_button :survey, :forum_failure, 'other' %> other<br />						
+			<%= radio_button :survey, :forum_failure, 'did not know it existed', :checked => @ffailure['exist'] %> did not know it existed<br />
+			<%= radio_button :survey, :forum_failure, 'not easy to use', :checked => @ffailure['noteasy'] %> not easy to use<br />
+			<%= radio_button :survey, :forum_failure, 'I dont want to start a topic', :checked => @ffailure['starttopic'] %> I dont want to start a topic<br />
+			<%= radio_button :survey, :forum_failure, 'I have nothing to discuss', :checked => @ffailure['discuss']  %> I have nothing to discuss<br />
+			<%= radio_button :survey, :forum_failure, 'if I want to discuss something, I use email', :checked => @ffailure['usemail'] %> if I want to discuss something, I use email<br />
+			<%= radio_button :survey, :forum_failure, 'other', :checked => @ffailure['other'] %> other<br />						
 			</br>
 
 			<h3>Conclusion</h3>
 			<br>
 
 			Thanks for taking the time to fill the survey. If you have any more comments or suggestions, please let us know. (Optional)</b></br>
-			<%= text_area_tag :suggestion, nil %>
+			<%= text_area_tag :suggestion, @text_s %>
 			</br>
 			
 

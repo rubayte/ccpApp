@@ -861,6 +861,228 @@ class WebportalController < ApplicationController
   
   def survey
     
+    @ccuseful = Hash['Yes' => false,'No' => false]
+    @sppublic = Hash['Yes' => false,'No' => false]
+    @rnnumber = Hash['0' => false,'1' => false,'2' => false,'3' => false]
+    @gmlist = Hash['Yes' => false,'No' => false]
+    @majanuary = Hash['Yes' => false,'No' => false]
+    @mresources = Hash['Yes' => false,'No' => false]
+    @cmlist = Hash['Never' => false, 'Alo' => false, 'Lm' => false]
+    @tiportal = Hash['Tickets' => false, 'Gu' => false,  'Ac' => false, 'Email' => false]
+    @sdoverview = Hash['Never' => false, 'Alo' => false, 'Lm' => false]
+    @ddownload = Hash['Never' => false, 'Alo' => false, 'Lm' => false]   
+    @dupload = Hash['Never' => false, 'Alo' => false, 'Lm' => false]  
+    @text_sdo = nil 
+    @wpuse = Hash['Never' => false, 'Alo' => false, 'Lm' => false]
+    @wpcreate = Hash['Never' => false, 'Alo' => false, 'Lm' => false]
+    @iwgood = Hash['Yes' => false,'No' => false]
+    @text_sw = nil  
+    @ydadoverview = Hash['Don\'t know' => false, 'No' => false,  'Partially' => false, 'Yes' => false]
+    @kforum = Hash['Yes' => false,'No' => false]
+    @fuseful = Hash['useful' => false, 'cbuseful' => false, 'nuseful' => false]
+    @ffailure = Hash['exist' => false, 'noteasy' => false, 'starttopic' => false, 'discuss' => false, 'usemail' => false, 'other' => false]
+    @text_s = nil
+    
+    if params[:sub_suggestion] != nil
+      @text_s = params[:sub_suggestion]
+    end
+
+    if params[:sub_suggestion_do] != nil
+      @text_sdo = params[:sub_suggestion_do]
+    end
+
+    if params[:sub_suggestion_wiki] != nil
+      @text_sw = params[:sub_suggestion_wiki]
+    end
+
+    
+    if ( params[:submittedAnswers] != nil)
+
+      if params[:submittedAnswers][:combat_cancer_useful] == "Yes"
+        @ccuseful["Yes"] = true  
+      end
+      if params[:submittedAnswers][:combat_cancer_useful] == "No"      
+        @ccuseful["No"] = true
+      end
+
+      if params[:submittedAnswers][:some_pages_public] == "Yes"
+        @sppublic["Yes"] = true  
+      end
+      if params[:submittedAnswers][:some_pages_public] == "No"      
+        @sppublic["No"] = true
+      end
+
+      if params[:submittedAnswers][:read_newsletter_number] == "0"
+        @rnnumber["0"] = true  
+      end
+      if params[:submittedAnswers][:read_newsletter_number] == "1"
+        @rnnumber["1"] = true
+      end
+      if params[:submittedAnswers][:read_newsletter_number] == "2"
+        @rnnumber["2"] = true
+      end
+      if params[:submittedAnswers][:read_newsletter_number] == "3"
+        @rnnumber["3"] = true  
+      end
+
+      if params[:submittedAnswers][:get_member_list] == "Yes"
+        @gmlist["Yes"] = true  
+      end
+      if params[:submittedAnswers][:get_member_list] == "No"
+        @gmlist["No"] = true
+      end
+
+      if params[:submittedAnswers][:meeting_attendance_january] == "Yes"
+        @majanuary["Yes"] = true  
+      end
+      if params[:submittedAnswers][:meeting_attendance_january] == "No"
+        @majanuary["No"] = true
+      end
+
+      if params[:submittedAnswers][:meeting_resources] == "Yes"
+        @mresources["Yes"] = true  
+      end
+      if params[:submittedAnswers][:meeting_resources] == "No"
+        @mresources["No"] = true
+      end
+
+      if params[:submittedAnswers][:check_member_list] == "Never"
+        @cmlist["Never"] = true  
+      end
+      if params[:submittedAnswers][:check_member_list] == "At least once"
+        @cmlist["Alo"] = true
+      end
+      if params[:submittedAnswers][:check_member_list] == "In the last month"
+        @cmlist["Lm"] = true  
+      end
+
+      if params[:submittedAnswers][:trouble_in_portal] == "Tickets"
+        @tiportal["Tickets"] = true  
+      end
+      if params[:submittedAnswers][:trouble_in_portal] == "Give up"
+        @tiportal["Gu"] = true
+      end
+      if params[:submittedAnswers][:trouble_in_portal] == "Ask a colleague"
+        @tiportal["Ac"] = true
+      end
+      if params[:submittedAnswers][:trouble_in_portal] == "Email Rubayte/Magali"
+        @tiportal["Email"] = true  
+      end
+
+      if params[:submittedAnswers][:saw_data_overview] == "Never"
+        @sdoverview["Never"] = true  
+      end
+      if params[:submittedAnswers][:saw_data_overview] == "At least once"
+        @sdoverview["Alo"] = true
+      end
+      if params[:submittedAnswers][:saw_data_overview] == "In the last month"
+        @sdoverview["Lm"] = true  
+      end
+      
+      if params[:submittedAnswers][:data_download] == "Never"
+        @ddownload["Never"] = true  
+      end
+      if params[:submittedAnswers][:data_download] == "At least once"
+        @ddownload["Alo"] = true
+      end
+      if params[:submittedAnswers][:data_download] == "In the last month"
+        @ddownload["Lm"] = true  
+      end
+
+      if params[:submittedAnswers][:data_upload] == "Never"
+        @dupload["Never"] = true  
+      end
+      if params[:submittedAnswers][:data_upload] == "At least once"
+        @dupload["Alo"] = true
+      end
+      if params[:submittedAnswers][:data_upload] == "In the last month"
+        @dupload["Lm"] = true  
+      end
+
+      if params[:submittedAnswers][:wiki_page_use] == "Never"
+        @wpuse["Never"] = true  
+      end
+      if params[:submittedAnswers][:wiki_page_use] == "At least once"
+        @wpuse["Alo"] = true
+      end
+      if params[:submittedAnswers][:wiki_page_use] == "In the last month"
+        @wpuse["Lm"] = true  
+      end
+
+      if params[:submittedAnswers][:wiki_page_creation] == "Never"
+        @wpcreate["Never"] = true  
+      end
+      if params[:submittedAnswers][:wiki_page_creation] == "At least once"
+        @wpcreate["Alo"] = true
+      end
+      if params[:submittedAnswers][:wiki_page_creation] == "In the last month"
+        @wpcreate["Lm"] = true  
+      end
+
+      if params[:submittedAnswers][:is_wiki_good] == "Yes"
+        @iwgood["Yes"] = true  
+      end
+      if params[:submittedAnswers][:is_wiki_good] == "No"
+        @iwgood["No"] = true
+      end
+      
+      # Hash['Don\'t know' => false, 'No' => false,  'Partially' => false, 'Yes' => false]
+      if params[:submittedAnswers][:your_data_at_do] == "Don\'t know"
+        @ydadoverview["Don\'t know"] = true  
+      end
+      if params[:submittedAnswers][:your_data_at_do] == "No"
+        @ydadoverview["No"] = true
+      end
+      if params[:submittedAnswers][:your_data_at_do] == "Partially"
+        @ydadoverview["Partially"] = true
+      end
+      if params[:submittedAnswers][:your_data_at_do] == "Yes"
+        @ydadoverview["Yes"] = true  
+      end
+
+      if params[:submittedAnswers][:know_forum] == "Yes"
+        @kforum["Yes"] = true  
+      end
+      if params[:submittedAnswers][:know_forum] == "No"
+        @kforum["No"] = true
+      end
+      
+      # Hash['useful' => false, 'cbuseful' => false, 'nuseful' => false]
+      if params[:submittedAnswers][:forum_usefullness] == "useful"
+        @fuseful["useful"] = true  
+      end
+      if params[:submittedAnswers][:forum_usefullness] == "could be useful"
+        @fuseful["cbuseful"] = true
+      end
+      if params[:submittedAnswers][:forum_usefullness] == "not useful"      
+        @fuseful["nuseful"] = true  
+      end
+      
+      # Hash['exist' => false, 'noteasy' => false, 'starttopic' => false, 'discuss' => false, 'usemail' => false, 'other' => false]
+      if params[:submittedAnswers][:forum_failure] == "did not know it existed"
+        @ffailure["exist"] = true  
+      end
+      if params[:submittedAnswers][:forum_failure] == "not easy to use"
+        @ffailure["noteasy"] = true  
+      end
+      if params[:submittedAnswers][:forum_failure] == "I dont want to start a topic"
+        @ffailure["starttopic"] = true  
+      end
+      if params[:submittedAnswers][:forum_failure] == "I have nothing to discuss"
+        @ffailure["discuss"] = true  
+      end
+      if params[:submittedAnswers][:forum_failure] == "if I want to discuss something, I use email"
+        @ffailure["usemail"] = true  
+      end
+      if params[:submittedAnswers][:forum_failure] == "other"
+        @ffailure["other"] = true  
+      end
+
+
+
+
+    end  
+    
   end
   
   def submitSurveyResults
@@ -873,7 +1095,7 @@ class WebportalController < ApplicationController
       flash[:color]= "valid"
       return
     elsif @msg == "incomplete"
-      redirect_to :survey 
+      redirect_to :controller => "webportal", :action => "survey" , :submittedAnswers => params[:survey], :sub_suggestion => params[:suggestion], :sub_suggestion_wiki => params[:suggestion_wiki], :sub_suggestion_do => params[:suggestion_data_overview]
       flash[:notice] = "Please fill in all the questions. Only the suggestion text boxes are optional!"
       flash[:color]= "invalid"
       return
