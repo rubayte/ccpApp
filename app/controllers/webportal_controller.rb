@@ -6,7 +6,7 @@ class WebportalController < ApplicationController
   :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
   :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, 
-  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings, :allnewsletters]
+  :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings, :allnewsletters, :surveyResults]
   
   before_filter :done_with_survey?, :only => [:survey,:submitSurveyResults]
   
@@ -1297,5 +1297,8 @@ class WebportalController < ApplicationController
     end  
   end
   
+  def surveyResults
+    
+  end
 
 end

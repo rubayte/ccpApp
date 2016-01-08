@@ -31,6 +31,7 @@ Ccp::Application.routes.draw do
   match "allnewsletters", :to => 'webportal#allnewsletters'
   match "test", :to => 'webportal#test'
   match "survey", :to => 'webportal#survey'
+  match "surveyResults", :to => 'webportal#surveyResults'
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
