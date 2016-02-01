@@ -606,13 +606,24 @@ class User
     ## validate section name and description
     #params[:sectionName] = validateStr(params[:sectionName])
     params[:sectionDesc] = validateStr(params[:sectionDesc]) 
+    
     ccU = User.new.self
-    qryinsert = "insert into user_profile_sections(`username`,`email`,`section`,`section_details`,`created_on`,`last_updated`) values('" + 
-    params[:username] + "','" + params[:useremail] + "','" + " - " + "','" + params[:sectionDesc] + "',NOW(),NOW());"
-    ccU.query(qryinsert)
-    msg = "added"
+    (res,rows) = getUserSectionData(params[:username])
+    if rows > 0
+      ## update
+      qryUpdate = "update user_profile_sections set section_details='" + params[:sectionDesc] + "', last_updated='" + "NOW()" + "' where username='" + params[:username] + "' and email='" + params[:useremail] + "' ;"
+      ccU.query(qryUpdate)
+      msg = "added"
+    else  
+      ## add new 
+      qryinsert = "insert into user_profile_sections(`username`,`email`,`section`,`section_details`,`created_on`,`last_updated`) values('" + 
+      params[:username] + "','" + params[:useremail] + "','" + " - " + "','" + params[:sectionDesc] + "',NOW(),NOW());"
+      ccU.query(qryinsert)
+      msg = "added"
+    end
+    
     ccU.close
-
+ 
     return msg
     
   end

@@ -36,11 +36,9 @@
 				<h3>
 					Profile sections
 				</h3>
-				<!--
-				<% if @profile['username'] == session[:user] or session[:user] == "rubayte" -%>
+				<% if @profile['username'] == session[:user] -%>
 					<%=  link_to '<i class="icon-pencil"> <strong>Create/Edit profile sections</strong></i>'.html_safe, {:controller => "users", :action => "createEditProfileSections",:userid => @profile['username'],:usermail => @profile['email'] } %>
 				<% end -%>
-				-->
 			</div>
 			<hr>
 			<div align="justify">				
