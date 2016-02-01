@@ -48,6 +48,36 @@ class UsersController < ApplicationController
     
   end
   
+  def createEditProfileSections
+    
+    @user = params[:userid]
+    @usermail = params[:usermail]
+    (profileData,rows) = User.getUserSectionData(params[:usermail])
+    @profileSectionContent = ""
+    if rows > 0
+      @profileSectionContent = profileData
+    end  
+    
+  end
+  
+  def createProfileDb
+    
+    valmsg = ""
+    valmsg = User.updateUserSection(session[:user],params)
+    if valmsg == "added"
+      redirect_to :profile
+      flash[:notice] = "Your profile has been updated!"
+      flash[:color]= "valid"
+      return                  
+    else
+      redirect_to :profile
+      flash[:notice] = "Something went wrong !!"
+      flash[:color]= "invalid"
+      return                  
+    end
+    
+  end
+  
   def updateUserData
     valmsg = ""
     valmsg = User.updateUser(session[:user],params)

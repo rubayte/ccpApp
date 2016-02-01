@@ -1,0 +1,19 @@
+<div class="row-fluid">
+	<div class="container">
+
+    	<div class="span12">
+			
+			<%= form_tag({:controller => 'users',:action => 'createProfileDb'}, :multipart => true) do %>
+				<%= hidden_field_tag :username , @user %>
+				<%= hidden_field_tag :useremail , @usermail %>
+				Profile: &nbsp; </br>
+				<%= text_area_tag :sectionDesc , @profileSectionContent  , :class => "tinymce" , :rows => 20, :cols => 120 %></br>
+				<%= tinymce  %>
+				<%= submit_tag "Save", :class => 'btn btn-primary btn-medium' %> &nbsp; <a class="btn btn-danger" href="profile">Cancel</a>
+			<% end -%>	
+					
+		</div>	
+			
+	</div>
+</div>
+

@@ -32,20 +32,21 @@
 </div>
 <div class="row-fluid">		
 		<div class="span12">
-			<div align="justify">	
+			<div align="left">	
 				<h3>
-					<% if @profile['username'] == session[:user] or session[:user] == "rubayte" -%>
-						Profile sections <%=  link_to_modal '<i class="icon-edit"></i>'.html_safe, "#updateProfileSections" %>
-					<% end -%>
+					Profile sections
 				</h3>
+				<% if @profile['username'] == session[:user] or session[:user] == "rubayte" -%>
+					<%=  link_to '<i class="icon-pencil"> <strong>Create/Edit profile sections</strong></i>'.html_safe, {:controller => "users", :action => "createEditProfileSections",:userid => @profile['username'],:usermail => @profile['email'] } %>
+				<% end -%>
+			</div>
+			<hr>
+			<div align="justify">				
 				<p>
-					<% if @resS == "empty" %>
+					<% if @resS == "empty" -%>
 						No section present. Please add section(s) to your profile.
 					<% else -%>
-						<% @resS.each do |r1,r2| -%>
-							<b><%= r1 %></b></br>
-							<%= r2 %></br>
-						<%end -%>
+						<%= @resS.html_safe %>
 					<% end -%>	
 				</p>
 			</div>

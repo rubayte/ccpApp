@@ -555,19 +555,28 @@ class User
   ## get user profile section data
   def self.getUserSectionData(user)
 
+    refUsers = ''
+    profile = ""
+    count = 0
+    
     if user =~ /@/
       ccU = User.new.self
       qryUsers = "select section,section_details from user_profile_sections where email = '" + user + "' order by id"
       refUsers = ccU.query(qryUsers)
       ccU.close
-      return refUsers,refUsers.num_rows
     else
       ccU = User.new.self
       qryUsers = "select section,section_details from user_profile_sections where username = '" + user + "' order by id"
       refUsers = ccU.query(qryUsers)
       ccU.close
-      return refUsers,refUsers.num_rows 
     end
+    
+    refUsers.each do |r1,r2|
+      profile = profile + r2
+      count = count + 1
+    end  
+
+    return profile,count
     
   end
 
@@ -595,11 +604,11 @@ class User
     
     msg = ""
     ## validate section name and description
-    params[:sectionName] = validateStr(params[:sectionName])
+    #params[:sectionName] = validateStr(params[:sectionName])
     params[:sectionDesc] = validateStr(params[:sectionDesc]) 
     ccU = User.new.self
     qryinsert = "insert into user_profile_sections(`username`,`email`,`section`,`section_details`,`created_on`,`last_updated`) values('" + 
-    params[:username] + "','" + params[:email] + "','" + params[:sectionName] + "','" + params[:sectionDesc] + "',NOW(),NOW());"
+    params[:username] + "','" + params[:useremail] + "','" + " - " + "','" + params[:sectionDesc] + "',NOW(),NOW());"
     ccU.query(qryinsert)
     msg = "added"
     ccU.close
