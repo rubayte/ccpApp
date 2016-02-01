@@ -34,7 +34,7 @@
 		<div class="span12">
 			<div align="justify">	
 				<h3>
-					<% if @profile['username'] == session[:user] -%>
+					<% if @profile['username'] == session[:user] or session[:user] == "rubayte" -%>
 						Profile sections <%=  link_to_modal '<i class="icon-edit"></i>'.html_safe, "#updateProfileSections" %>
 					<% end -%>
 				</h3>
