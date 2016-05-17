@@ -18,6 +18,7 @@ gem 'libv8', '3.16.14.1' ## other version for prod
 gem 'tinymce-rails'
 gem 'ruby-filemagic'
 gem 'chartkick'
+gem 'google-analytics-rails', '1.1.0'
 
 # Gems used only for assets and not required
 # in production environments by default.

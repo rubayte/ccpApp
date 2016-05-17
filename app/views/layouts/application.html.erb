@@ -4,6 +4,7 @@
   <title>webportal-ccp</title>
   <%= stylesheet_link_tag    "application", "//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css",  "//cdn.datatables.net/1.10.7/css/jquery.dataTables.css",:media => "all" %>
   <%= javascript_include_tag "application"  %>
+  <%= analytics_init if GoogleAnalytics.valid_tracker? %>
   <%= csrf_meta_tags %>
 </head>
 <body>

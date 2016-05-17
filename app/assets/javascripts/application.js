@@ -11,10 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 // require dataTables/src/demo_table_jui
-//= require twitter/bootstrap
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require twitter/bootstrap
 //= require jquery.modal
 //= require dataTables/jquery.dataTables
 //= require tinymce

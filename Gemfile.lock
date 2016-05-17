@@ -45,6 +45,7 @@ GEM
     commonjs (0.2.7)
     erubis (2.7.0)
     execjs (2.4.0)
+    google-analytics-rails (1.1.0)
     hike (1.2.3)
     i18n (0.7.0)
     journey (1.0.4)
@@ -99,7 +100,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.4.2)
+    rake (11.1.2)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -144,6 +145,7 @@ DEPENDENCIES
   bcrypt-ruby
   chartkick
   coffee-rails (~> 3.2.1)
+  google-analytics-rails (= 1.1.0)
   jquery-datatables-rails
   jquery-modal-rails
   jquery-rails
