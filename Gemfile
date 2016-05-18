@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-gem 'will_paginate', '~> 3.0'
+#gem 'will_paginate', '~> 3.0'
 #gem 'capistrano'
-gem 'jquery-datatables-rails'
+#gem 'jquery-datatables-rails'
 gem 'therubyracer', '0.11.0beta1' ## other version for prod
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
