@@ -1,0 +1,26 @@
+<div class="row-fluid">
+	<div class="container">
+		<div class="span12">
+
+		<h3>
+			<% if @editId != nil and @editId != "" -%>
+				Editing Item
+			<% else -%>
+				Add New Item
+			<% end -%>
+		</h3>				
+			<%= form_tag({:controller => 'webportal',:action => 'createEditPublication'}, :multipart => true) do %>
+				<%= hidden_field_tag 'eid', @editId %>
+				DOI: </br><%= text_field_tag 'doi', @pubinfo[0],  :class => 'mptitle' %></br>
+				Authors: </br><%= text_area_tag 'authors', @pubinfo[1], :class => 'mptitle'  %></br>
+				Ttile: </br><%= text_field_tag 'title', @pubinfo[2],  :class => 'mptitle' %></br>
+				Magazine: </br><%= text_field_tag 'magazine', @pubinfo[3],  :class => 'mptitle' %></br>
+				Volume,Pages &amp; Year:</br><%= text_field_tag 'volume', @pubinfo[4],  :class => 'mptitle' %></br>
+				Type:</br><%= select_tag 'type', options_for_select(@typesOfPub,@pubinfo[5]), :class => 'mptitle' %></br>
+				<%= submit_tag 	"Save",  :class => 'btn btn-primary btn-medium' %> &nbsp; <a class="btn btn-danger" href="publications">Cancel</a>
+			<% end %>
+			
+		</div>
+	</div>
+</div>			
+

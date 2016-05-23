@@ -3,7 +3,7 @@ class WebportalController < ApplicationController
   # before_filter :authenticate_user, :only => [:index,:data,:project, :members]
   before_filter :authenticate_user, :only => [:index,:data,:project,:members,
   :getProfile,:getMembersList,:folderLookInto,:editWikiPage,:editWikiFiles,:admin,:overview,:overviewFilter,
-  :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,
+  :filterOverview,:authenticateAdmin,:tickets,:viewTicket,:updateticket,:ticketsFilter,:createIssues,:uploadFiles,:addeditpub,:publications,:createEditPublication,
   :download,:downloadFolder,:downloadWikiAtatchment,:updateFileDetails,:commitUpdateFileDetails,:profile,:wiki,:createWikiPage,
   :newPage,:forum,:createPost,:viewPostById,:createPostComment,:meetings,:createMeetingRsvp,:createForumPost,:createAgenda, :tools, 
   :createTool, :editTool,:viewTextFile, :dataViewFile, :viewPdfFile, :viewSampleDetails, :publics, :editPublicSection, :newsletter, :editNewsletterSection, :allmeetings, :allnewsletters, :surveyResults]
@@ -694,6 +694,37 @@ class WebportalController < ApplicationController
 
   def createForumPost
     
+  end
+  
+   
+  def publications
+    (@res,@rows) = User.getPublications()
+  end
+  
+  def addeditpub
+    @editId = nil
+    @pubinfo = [nil,nil,nil,nil,nil,nil]
+    @typesOfPub = ['Refereed Papers/Articles','Non-refereed Papers/Articles','Book','Chapter','Thesis','Conference Papers/Articles','Presentation/Talk','Patents','Posters',"Others"]
+    if params[:pubid] != nil and params[:pubid] != ""
+      @editId = params[:pubid]
+      @pubinfo = User.getPublicationDetails(params[:pubid])
+    end    
+  end
+  
+  def createEditPublication
+    msg = User.addEditPub(params,session[:user])
+    if msg == "created" or msg == "updated"
+        redirect_to :publications
+        flash[:notice] = "Your item has been added/updated to the list."
+        flash[:color]= "valid"
+        return
+    else
+        redirect_to :publications 
+        flash[:notice] = "Something went wrong."
+        flash[:color]= "invalid"
+        return
+    end
+
   end
   
   def tools

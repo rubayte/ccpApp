@@ -69,4 +69,13 @@ jQuery ->
 jQuery ->
   $('#wikitable').treetable({ 
     expandable: true 
-  });      
+  });
+jQuery ->
+  $('#tablePublications').dataTable( {
+    "sScrollX": "100%",
+    "sScrollY": "100%",
+    "paging":false,
+    "bScrollCollapse": true,
+    "columns": [{ "width": "10%"},{"width": "25%"},{"width": "25%"},{"width": "8%"},{"width": "10%"},{"width": "12%"},{"width": "2%"}]
+  });  
+      

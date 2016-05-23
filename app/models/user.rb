@@ -6,6 +6,61 @@ class User
     return con
   end
   
+  
+  ## get publications list
+  def self.getPublications()
+    
+    ccU = User.new.self 
+    qryTools = "SELECT * FROM `publications`" 
+    refTools = ccU.query(qryTools)
+    ccU.close
+    
+    return refTools,refTools.num_rows
+
+    
+  end
+  
+  ## add edit publicaion
+  def self.addEditPub(params,user)
+    
+    msg = nil
+    ccU = User.new.self
+    
+    if (params[:eid] != nil and params[:eid] != "")
+      ## edit item
+      qryUpdate = "update `publications` set doi='"+ params[:doi]+"', authors='"+ params[:authors]+"', title='"+ params[:title]+"', magazine='"+ params[:magazine]+"', volume='"+ params[:volume]+"', type='"+ params[:type]+"', last_edit_by='" + user + "', last_edit_at=NOW() where id=" + params[:eid]+ "" 
+      ccU.query(qryUpdate)
+      msg = "updated"   
+    else
+      ## insert item
+      qryInsert = "insert into `publications`(doi,authors,title,magazine,volume,type,created_by,created_at,last_edit_by,last_edit_at) values('"+ params[:doi] + "','"+ params[:authors] + "','" + params[:title] + "','" + params[:magazine]+ "','"+ params[:volume]+ "','" + params[:type] + "','"+ user + "',NOW(),'-',NOW())"
+      ccU.query(qryInsert)
+      msg = "created"
+    end
+    ccU.close
+     
+    return msg
+    
+  end
+  
+  ## get publication details
+  def self.getPublicationDetails(pubid)
+    
+    pubData = []
+    ccU = User.new.self
+    qrySelect = "select doi,authors,title,magazine,volume,type from publications where id = " + pubid+ ""
+    refPub= ccU.query(qrySelect)
+    refPub.each do |r|
+      r.each do |rtemp|
+       pubData.push(rtemp)
+      end
+    end
+    ccU.close
+    
+    return pubData
+    
+  end
+  
   ## get wiki pages
   def self.getWikiPages()
      

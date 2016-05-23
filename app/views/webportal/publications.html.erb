@@ -1,0 +1,51 @@
+<div class="row-fluid">
+
+		<div class="span10">
+				<h3>Project Publications/Presentations/Posters</h3>
+		</div>
+		<div class="span2">
+			<div align="right">
+				<%=  link_to 'Add New Item', {:controller => "webportal", :action => 'addeditpub'}, :class=>"btn btn-primary btn-medium" %>
+			</div>
+		</div>
+</div>			
+<div class="row-fluid">
+	<div class="span12">
+		<div align="center">			
+			
+			<table id="tablePublications" class="display compact" cellspacing="0">
+				<thead>
+					<tr>
+						<th>DOI</th>
+						<th>Author(s)</th>
+						<th>Title</th>
+						<th>Magazine</th>
+						<th>Volume,Pages &amp; Year</th>
+						<th>Type of Publication</th>
+						<th>Action(s)</th>
+				</thead>				
+				<tbody>
+					<% if @rows == 0 -%>
+					<tr>
+						<td> empty! </td>
+					</tr>
+					<% else -%>
+						<% @res.each do |r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11| -%>
+						<tr>
+							<td><%= r1 %></td>
+							<td><%= r2 %></td>
+							<td><%= r3 %></td>
+							<td><%= r4 %></td>
+							<td><%= r5 %></td>
+							<td><%= r6 %></td>
+							<td><span title="edit this publication"><%= link_to '<i class="icon-pencil"></i>'.html_safe,  {:controller => "webportal", :action => "addeditpub", :pubid => r11} %></span</td>
+						</tr>
+						<% end -%>
+					<% end -%>	
+				</tbody>		
+			</table>
+		
+
+		</div>
+	</div>
+</div>
