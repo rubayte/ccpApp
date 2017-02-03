@@ -8,7 +8,7 @@
 	
 		<div class="span3">
 			
-			<table id="tablePages" class="table table-condensed table-hover">
+			<table class="table table-condensed table-hover">
 	    	    	<thead>
 	    	    		<tr>
 	    	    			<th>Archive</th>
@@ -19,9 +19,7 @@
 	    	    			<tr><td>No Newsletter found!</td></tr>
 	    	    		<% else -%>	
 		    	    		<% @newsletters.each do |file| -%>
-							<% fs = file.split("/") -%>
-							<% fss = fs[fs.length - 1].split(".") -%>
-								<tr><td><%= link_to fss[0], {:controller => "webportal" , :action => "allnewsletters", :newsletterid => fss[0] } %></td></tr>	
+								<tr><td><%= link_to file, {:controller => "webportal" , :action => "allnewsletters", :newsletterid => file } %></td></tr>	
 							<% end -%>
 						<% end -%>		    	    		
 	    	    	</tbody>
@@ -35,7 +33,7 @@
 			<% if @filetoshow == nil -%>
 				<p>No newsletter selected! </p>
 			<% else -%>
-				<% File.open(Rails.root.join('newsletter_prod',@filetoshow), 'rb') do |infile| -%>
+				<% File.open(Rails.root.join('newsletter_prod',(@filetoshow + ".wiki")), 'rb') do |infile| -%>
 					<% while line = infile.gets() -%>
 						<% if line =~ /<(.*)>/%>
 							<%= line.html_safe %>

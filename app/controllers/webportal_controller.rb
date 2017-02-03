@@ -847,7 +847,40 @@ class WebportalController < ApplicationController
   def allnewsletters
 
     @filetoshow = nil
-    @newsletters = Dir.glob(Rails.root.join("newsletter_prod","*.wiki"))
+    @newsletters = []
+    newsletterHash = Hash.new()
+    nlsArray = Dir.glob(Rails.root.join("newsletter_prod","*.wiki"))
+    nlsArray.each do |item|
+      itemp = item.split("/")
+      filename = itemp[itemp.length - 1].split(".")
+      temp = filename[0].split("_")
+      if (newsletterHash.key?(temp[1].to_i))
+        newsletterHash[temp[1].to_i] = newsletterHash[temp[1].to_i] + "," + temp[0]
+      else
+        newsletterHash[temp[1].to_i] = temp[0]
+      end    
+    end
+    
+    @years = newsletterHash.keys.sort.reverse
+    @years.each do |y|
+      monthVals = newsletterHash[y]
+      months = monthVals.split(",")
+      mtemp = []
+      months.each do |m|
+        mtemp.push(m.to_i)
+      end
+      mtemps = mtemp.sort.reverse
+      mtemps.each do |ms|
+        nl = ""
+        if ms < 10
+          ms = "0" + ms.to_s
+          nl = ms.to_s + "_" + y.to_s
+        end  
+        nl = ms.to_s + "_" + y.to_s
+        @newsletters.push(nl)
+      end
+    end
+    
     if params[:newsletterid] == nil
       if @newsletters.length > 0
         @filetoshow = @newsletters[0]
@@ -855,7 +888,7 @@ class WebportalController < ApplicationController
         @filetoshow = nil        
       end
     else
-      @filetoshow = params[:newsletterid] + ".wiki"
+      @filetoshow = params[:newsletterid]
     end  
 
   end
