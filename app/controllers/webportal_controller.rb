@@ -823,6 +823,29 @@ class WebportalController < ApplicationController
     end
     
   end
+  
+  def surveyNewsletterYesNo
+    
+    msg = nil
+    msg = Datafile.submitNewslleterSurvey(session[:user],params)
+    if msg == "submitted"
+        redirect_to :allnewsletters
+        flash[:notice] = "Your submission was successful!"
+        flash[:color]= "valid"
+        return
+    elsif msg == "already_submitted"
+        redirect_to :allnewsletters
+        flash[:notice] = "Your have already responded to this survey. Nothing to do more!"
+        flash[:color]= "valid"
+        return
+    else
+        redirect_to :allnewsletters 
+        flash[:notice] = "Something went wrong."
+        flash[:color]= "invalid"
+        return
+    end
+      
+  end
 
   def editNewsletterSection
     msg = nil

@@ -4,6 +4,44 @@ class Datafile
     
   end
   
+  def self.validateStr(str)
+
+    retStr = ""    
+    retStr = str
+    ## \r\n
+    retStr.gsub!(/\r/,"")
+    retStr.gsub!(/\n/,"")
+      
+    return retStr
+       
+  end
+  
+  def self.submitNewslleterSurvey(user,params)
+    
+    msg = nil
+    surveyfile = "newsletterSurvey.txt"
+    usermail = User.getUserMail(user)
+    ## look up survey data for user
+    File.open(Rails.root.join('survey', surveyfile), 'r') do |file|
+      file.each_line do |line|
+        temp = line.split("\t")
+        if temp[0] == usermail
+          msg = "already_submitted"
+          return msg
+        end
+      end 
+    end
+    ## write survey data
+    File.open(Rails.root.join('survey', surveyfile), 'a+') do |file|
+      string_survey= usermail + "\t" + user + "\t" + params[:vote] + "\t" + validateStr(params[:comments]) + "\n"
+      file.write(string_survey)
+      msg = "submitted"  
+    end
+    
+    return msg
+    
+  end
+  
   def self.changeFileLocation(ctype,subtype,details)
     msg = nil
     
