@@ -32,6 +32,28 @@
 			<div>
 			<% if @filetoshow == nil -%>
 				<p>No newsletter selected! </p>
+			<% elsif @filetoshow == "02_2017" -%>
+				<% File.open(Rails.root.join('newsletter_prod',(@filetoshow + ".wiki")), 'rb') do |infile| -%>
+					<% while line = infile.gets() -%>
+						<% if line =~ /<(.*)>/%>
+							<%= line.html_safe %>
+						<% else -%>	
+							<%= line %>
+						<% end -%>	
+					<% end -%>
+				<% end -%>
+				<div align="left">
+	        		<%= form_tag({:controller => 'webportal',:action => 'surveyNewsletterYesNo'}, :multipart => true) do %>
+    	    			<strong>Do you think we should continue this newsletter in the future?</strong></br>
+        				<%= radio_button_tag 'vote', 'yes', true %>Yes</br>
+        				<%= radio_button_tag 'vote', 'no' %>No</br></br>
+						<%= text_area_tag :comments , nil, :placeholder => "Let us know what you think? (Optional)", :size => "90%x3%" %> </br>
+						<%= submit_tag "Submit", :class => 'btn btn-success btn-medium' %>        		
+        			<% end -%>
+        		</div>
+       		 	If you have news items for the next newsletter, please contact us.</br>
+				Best wishes,</br>
+				Rubayte and Magali 
 			<% else -%>
 				<% File.open(Rails.root.join('newsletter_prod',(@filetoshow + ".wiki")), 'rb') do |infile| -%>
 					<% while line = infile.gets() -%>

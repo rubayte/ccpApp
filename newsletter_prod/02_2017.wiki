@@ -1,0 +1,13 @@
+<h1 id="newsletter_july_2014" class="sectionedit1">February 2017</h1>
+<p>Welcome to the sixth Combat Cancer newsletter! With this newsletter, we want to inform everyone involved&nbsp;about recent developments in the project. The main updates are briefly described below. Please make sure that the newcomers in the project are added to the platform. Just send their emails to Rubayte.</p>
+<h4>&nbsp;</h4>
+<h4>Eighth ERC&nbsp;Meeting Presentations and Talks</h4>
+<p>Our last ERC meeting in Cambridge was full of great presentations and discussions. Thanks to all for your participation. Please don't forget to upload your presentations/minutes/talks to the last meeting <a href="http://www.combatcancer.eu/meetings?mtnid=8" target="_blank">page</a>. You can also email them to Rubayte or Magali.</p>
+<h4>&nbsp;</h4>
+<h4>Ninth ERC&nbsp;Meeting @NKI-AVL, Amsterdam</h4>
+<p>The next ERC meeting will be at the Netherlands Cancer Institute on the 29th and 30th of June 2017. You can find the meeting details <a href="http://www.combatcancer.eu/meetings?mtnid=9" target="_blank">here</a>. Please indicated your presence or absence at the meeting&nbsp; on the <a href="http://www.combatcancer.eu/meetings?mtnid=9" target="_blank">meeting&nbsp;page</a>. Feel free to&nbsp;upload your presentation slides even before the meeting (and in any case afterwards). The complete agenda of the meeting will be updated when available.</p>
+<h4>&nbsp;</h4>
+<h4>Online application to explore the combination screens</h4>
+<p>At the last meeting, Daniel and Magali presented the shinyR application developed with Rubayte, which allows you to browse the data from the chemical combination screens, select some hits and run biomarker analyses. This application is available locally at <a href="http://35.160.210.167/gdsc/">NKI</a> and at <a href="http://gdsc-input-dev.internal.sanger.ac.uk:3838/dvm/gdsccombiexplore/" target="_blank">Sanger</a>. Feel free to explore and give us your feedback on what is working well or not and how to improve it.</p>
+<h4>&nbsp;</h4>
+<h4>Question to all&nbsp;</h4>
