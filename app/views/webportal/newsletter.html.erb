@@ -27,17 +27,20 @@
 				<% end -%>
 			<% end -%>
 		<% end -%>	
-        </p>
-        <hr>
+        
         <div align="left">
         	<%= form_tag({:controller => 'webportal',:action => 'surveyNewsletterYesNo'}, :multipart => true) do %>
-        		<strong>Do you think we should continue this newsletter in future?</strong></br>
+        		<strong>Do you think we should continue this newsletter in the future?</strong></br>
         		<%= radio_button_tag 'vote', 'yes', true %>Yes</br>
         		<%= radio_button_tag 'vote', 'no' %>No</br></br>
 				<%= text_area_tag :comments , nil, :placeholder => "Let us know what you think? (Optional)", :size => "90%x3%" %> </br>
 				<%= submit_tag "Submit", :class => 'btn btn-success btn-medium' %>        		
         	<% end -%>
         </div>
+        If you have news items for the next newsletter, please contact us: Rubayte Rahman and Magali Michaut.</br>
+		Best wishes,</br>
+		Rubayte and Magali 
+        </p>
         <hr>
         <div align="left">
         	<%= form_tag({:controller => 'webportal',:action => 'publishnewsletter'}, :class => "form-inline" ,:multipart => true) do %>
